@@ -133,14 +133,15 @@
   </header>
 
   <div class="container">
-    <aside>
-      <a href="#">🏠 Página principal</a>
-      <a href="#">⚙️ Administrar servicios</a>
-      <a href="#">💲 Administrar cajas</a>
-      <a href="#">👥 Administrar empleados</a>
-      <a href="#">🔧 Administrar clientes</a>
-      <a href="#">📊 Ver estadísticas</a>
-    </aside>
+<aside>
+  <a href="#">🏠 Página principal</a>
+  <a href="#">⚙️ Administrar servicios</a>
+  <a href="#">💲 Administrar cajas</a>
+  <a href="index_Empleado.php">👥 Administrar empleados</a>
+  <a href="#">🔧 Administrar clientes</a>
+  <a href="#">📊 Ver estadísticas</a>
+</aside>
+
 
     <main>
       <div class="card">
