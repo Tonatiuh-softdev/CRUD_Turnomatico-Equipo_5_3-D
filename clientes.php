@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistema de Turnos</title>
+<title>Sistema de Turnos - Clientes</title>
 <style>
     body {
         margin: 0;
@@ -76,7 +76,7 @@
         background: #88a1c3ff;
     }
 
-    /* Sección de empleados */
+    /* Sección de clientes */
     main {
         flex: 1;
         padding: 20px;
@@ -129,6 +129,19 @@
     .btn-eliminar:hover {
         background: darkred;
     }
+
+    .btn-status {
+        background: #2b3d57;
+        color: white;
+        border: none;
+        padding: 5px 8px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .btn-status:hover {
+        background: #3f5675;
+    }
 </style>
 </head>
 <body>
@@ -147,78 +160,83 @@
 </header>
 
 <div class="container">
-<aside>
-  <a href="index.php">🏠 Página principal</a>
-  <a href="index_Servicios.php">⚙️ Servicios</a>
-  <a href="index_Caja.php">💲Cajas</a>
-  <a href="index_Empleado.php">👥 Empleados</a>
-  <a href="index_Cliente.php">🔧 Clientes</a>
-  <a href="#">📊 Ver estadísticas</a>
-</aside>
+   <?php
+require 'navbar.php';
+?>
 
     <main>
-        <h2>👥 Administrar Empleados</h2>
+        <h2>🔧 Administrar Clientes</h2>
 
         <!-- Formulario agregar -->
-        <form id="formEmpleado">
-            <input type="text" id="nombre" placeholder="Nombre" required>
-            <input type="text" id="puesto" placeholder="Puesto" required>
-            <button type="submit">➕ Agregar</button>
+        <form id="formCliente">
+            <input type="text" id="nombreCliente" placeholder="Nombre del cliente" required>
+            <button type="submit">➕ Agregar Cliente</button>
         </form>
 
-        <!-- Tabla empleados -->
+        <!-- Tabla clientes -->
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Puesto</th>
+                    <th>Cliente</th>
+                    <th>Status</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody id="tablaEmpleados">
-                <!-- Los empleados aparecerán aquí -->
+            <tbody id="tablaClientes">
+                <!-- Los clientes aparecerán aquí -->
             </tbody>
         </table>
     </main>
 </div>
 
 <script>
-    let empleados = [];
+    let clientes = [];
     let id = 1;
 
-    const form = document.getElementById("formEmpleado");
-    const tabla = document.getElementById("tablaEmpleados");
+    const form = document.getElementById("formCliente");
+    const tabla = document.getElementById("tablaClientes");
 
     form.addEventListener("submit", function(e) {
         e.preventDefault();
 
-        const nombre = document.getElementById("nombre").value;
-        const puesto = document.getElementById("puesto").value;
+        const nombre = document.getElementById("nombreCliente").value;
 
-        empleados.push({ id: id++, nombre, puesto});
-        mostrarEmpleados();
+        clientes.push({ id: id++, nombre, status: "Activo" });
+        mostrarClientes();
 
         form.reset();
     });
 
-    function mostrarEmpleados() {
+    function mostrarClientes() {
         tabla.innerHTML = "";
-        empleados.forEach(emp => {
+        clientes.forEach(cli => {
             const fila = document.createElement("tr");
             fila.innerHTML = `
-                <td>${emp.id}</td>
-                <td>${emp.nombre}</td>
-                <td>${emp.puesto}</td>
-                <td><button class="btn-eliminar" onclick="eliminarEmpleado(${emp.id})">Eliminar</button></td>
+                <td>${cli.id}</td>
+                <td>${cli.nombre}</td>
+                <td>
+                    <button class="btn-status" onclick="cambiarStatus(${cli.id})">${cli.status}</button>
+                </td>
+                <td><button class="btn-eliminar" onclick="eliminarCliente(${cli.id})">Eliminar</button></td>
             `;
             tabla.appendChild(fila);
         });
     }
 
-    function eliminarEmpleado(id) {
-        empleados = empleados.filter(emp => emp.id !== id);
-        mostrarEmpleados();
+    function eliminarCliente(id) {
+        clientes = clientes.filter(cli => cli.id !== id);
+        mostrarClientes();
+    }
+
+    function cambiarStatus(id) {
+        clientes = clientes.map(cli => {
+            if (cli.id === id) {
+                cli.status = (cli.status === "Activo") ? "Inactivo" : "Activo";
+            }
+            return cli;
+        });
+        mostrarClientes();
     }
 </script>
 </body>

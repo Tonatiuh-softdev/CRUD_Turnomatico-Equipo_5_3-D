@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistema de Turnos - Servicios</title>
+<title>Sistema de Turnos</title>
 <style>
     body {
         margin: 0;
@@ -76,7 +76,7 @@
         background: #88a1c3ff;
     }
 
-    /* Sección de servicios */
+    /* Sección de cajas */
     main {
         flex: 1;
         padding: 20px;
@@ -129,19 +129,6 @@
     .btn-eliminar:hover {
         background: darkred;
     }
-
-    .btn-configurar {
-        background: #2b3d57;
-        color: white;
-        border: none;
-        padding: 5px 8px;
-        cursor: pointer;
-        border-radius: 4px;
-    }
-
-    .btn-configurar:hover {
-        background: #3f5675;
-    }
 </style>
 </head>
 <body>
@@ -160,89 +147,73 @@
 </header>
 
 <div class="container">
-    <aside>
-  <a href="index.php">🏠 Página principal</a>
-  <a href="index_Servicios.php">⚙️ Servicios</a>
-  <a href="index_Caja.php">💲Cajas</a>
-  <a href="index_Empleado.php">👥 Empleados</a>
-  <a href="index_Cliente.php">🔧 Clientes</a>
-  <a href="#">📊 Ver estadísticas</a>
-</aside>
+    <?php
+require 'navbar.php';
+?>
 
     <main>
-        <h2>⚙️ Administrar Servicios</h2>
+        <h2>💲 Administrar Cajas</h2>
 
         <!-- Formulario agregar -->
-        <form id="formServicio">
-            <input type="text" id="nombreServicio" placeholder="Nombre del servicio" required>
-            <button type="submit">➕ Agregar Servicio</button>
+        <form id="formCaja">
+            <input type="text" id="numeroCaja" placeholder="Nombre" required>
+            <input type="text" id="ubicacion" placeholder="Servicio" required>
+            <button type="submit">➕ Agregar</button>
         </form>
 
-        <!-- Tabla servicios -->
+        <!-- Tabla cajas -->
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Servicio</th>
+                    <th>Servicios</th>
                     <th>Configurar</th>
                     <th>Eliminar</th>
                 </tr>
             </thead>
-            <tbody id="tablaServicios">
-                <!-- Los servicios aparecerán aquí -->
+            <tbody id="tablaCajas">
+                <!-- Las cajas aparecerán aquí -->
             </tbody>
         </table>
     </main>
 </div>
 
 <script>
-    let servicios = [];
+    let cajas = [];
     let id = 1;
 
-    const form = document.getElementById("formServicio");
-    const tabla = document.getElementById("tablaServicios");
+    const form = document.getElementById("formCaja");
+    const tabla = document.getElementById("tablaCajas");
 
     form.addEventListener("submit", function(e) {
         e.preventDefault();
 
-        const nombre = document.getElementById("nombreServicio").value;
+        const numeroCaja = document.getElementById("numeroCaja").value;
+        const ubicacion = document.getElementById("ubicacion").value;
 
-        servicios.push({ id: id++, nombre });
-        mostrarServicios();
+        cajas.push({ id: id++, numeroCaja, ubicacion });
+        mostrarCajas();
 
         form.reset();
     });
 
-    function mostrarServicios() {
+    function mostrarCajas() {
         tabla.innerHTML = "";
-        servicios.forEach(serv => {
+        cajas.forEach(caja => {
             const fila = document.createElement("tr");
             fila.innerHTML = `
-                <td>${serv.id}</td>
-                <td>${serv.nombre}</td>
-                <td><button class="btn-configurar" onclick="configurarServicio(${serv.id})">Configurar</button></td>
-                <td><button class="btn-eliminar" onclick="eliminarServicio(${serv.id})">Eliminar</button></td>
+                <td>${caja.id}</td>
+                <td>${caja.numeroCaja}</td>
+                <td>${caja.ubicacion}</td>
+                <td><button class="btn-eliminar" onclick="eliminarCaja(${caja.id})">Eliminar</button></td>
             `;
             tabla.appendChild(fila);
         });
     }
 
-    function eliminarServicio(id) {
-        servicios = servicios.filter(serv => serv.id !== id);
-        mostrarServicios();
-    }
-
-    function configurarServicio(id) {
-        const nuevoNombre = prompt("Editar nombre del servicio:");
-        if (nuevoNombre && nuevoNombre.trim() !== "") {
-            servicios = servicios.map(serv => {
-                if (serv.id === id) {
-                    serv.nombre = nuevoNombre;
-                }
-                return serv;
-            });
-            mostrarServicios();
-        }
+    function eliminarCaja(id) {
+        cajas = cajas.filter(caja => caja.id !== id);
+        mostrarCajas();
     }
 </script>
 </body>
