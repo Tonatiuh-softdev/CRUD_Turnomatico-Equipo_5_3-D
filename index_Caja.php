@@ -16,7 +16,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: #f3f2f0;
+        background: #eceae7ff;
         padding: 10px 20px;
         border-bottom: 1px solid #ddd;
     }
@@ -54,7 +54,7 @@
     /* Sidebar */
     aside {
         width: 220px;
-        background: #2b3d57;
+        background: #9cb6d6ff;
         color: #fff;
         padding: 15px 10px;
         display: flex;
@@ -65,15 +65,15 @@
     aside a {
         display: flex;
         align-items: center;
-        padding: 10px;
+        padding: 40px;
         border-radius: 5px;
-        color: #fff;
+        color: #000000ff;
         text-decoration: none;
         font-size: 14px;
     }
 
     aside a:hover {
-        background: #3f5675;
+        background: #88a1c3ff;
     }
 
     /* Sección de cajas */
@@ -113,7 +113,7 @@
     }
 
     table th {
-        background: #2b3d57;
+        background: #747e8bff;
         color: white;
     }
 
@@ -148,13 +148,13 @@
 
 <div class="container">
     <aside>
-        <a href="index.php">🏠 Página principal</a>
-        <a href="#">⚙️ Administrar servicios</a>
-        <a href="index_Cajas.php">💲 Administrar cajas</a>
-        <a href="index_Empleado.php">👥 Administrar empleados</a>
-        <a href="#">🔧 Administrar clientes</a>
-        <a href="#">📊 Ver estadísticas</a>
-    </aside>
+  <a href="index.php">🏠 Página principal</a>
+  <a href="index_Servicios.php">⚙️ Servicios</a>
+  <a href="index_Caja.php">💲Cajas</a>
+  <a href="index_Empleado.php">👥 Empleados</a>
+  <a href="index_Cliente.php">🔧 Clientes</a>
+  <a href="#">📊 Ver estadísticas</a>
+</aside>
 
     <main>
         <h2>💲 Administrar Cajas</h2>
