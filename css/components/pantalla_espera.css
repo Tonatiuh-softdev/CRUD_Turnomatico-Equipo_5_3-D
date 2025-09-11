@@ -16,7 +16,7 @@ header {
   justify-content: space-between; /* logo a la izquierda, menú a la derecha */
   align-items: center;
   padding: 20px 50px;
-  background-color: #d3d3d3; /* azul bonito */
+  background-color: #eceae7ff;; /* azul bonito */
   color: #666666;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }

@@ -76,7 +76,7 @@
         background: #88a1c3ff;
     }
 
-    /* Sección de cajas */
+    /* Sección de empleados */
     main {
         flex: 1;
         padding: 20px;
@@ -146,75 +146,5 @@
     </div>
 </header>
 
-<div class="container">
-    <?php
-require 'navbar.php';
-?>
-
-    <main>
-        <h2>💲 Administrar Cajas</h2>
-
-        <!-- Formulario agregar -->
-        <form id="formCaja">
-            <input type="text" id="numeroCaja" placeholder="Nombre" required>
-            <input type="text" id="ubicacion" placeholder="Servicio" required>
-            <button type="submit">➕ Agregar</button>
-        </form>
-
-        <!-- Tabla cajas -->
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Servicios</th>
-                    <th>Configurar</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
-            <tbody id="tablaCajas">
-                <!-- Las cajas aparecerán aquí -->
-            </tbody>
-        </table>
-    </main>
-</div>
-
-<script>
-    let cajas = [];
-    let id = 1;
-
-    const form = document.getElementById("formCaja");
-    const tabla = document.getElementById("tablaCajas");
-
-    form.addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        const numeroCaja = document.getElementById("numeroCaja").value;
-        const ubicacion = document.getElementById("ubicacion").value;
-
-        cajas.push({ id: id++, numeroCaja, ubicacion });
-        mostrarCajas();
-
-        form.reset();
-    });
-
-    function mostrarCajas() {
-        tabla.innerHTML = "";
-        cajas.forEach(caja => {
-            const fila = document.createElement("tr");
-            fila.innerHTML = `
-                <td>${caja.id}</td>
-                <td>${caja.numeroCaja}</td>
-                <td>${caja.ubicacion}</td>
-                <td><button class="btn-eliminar" onclick="eliminarCaja(${caja.id})">Eliminar</button></td>
-            `;
-            tabla.appendChild(fila);
-        });
-    }
-
-    function eliminarCaja(id) {
-        cajas = cajas.filter(caja => caja.id !== id);
-        mostrarCajas();
-    }
-</script>
 </body>
 </html>

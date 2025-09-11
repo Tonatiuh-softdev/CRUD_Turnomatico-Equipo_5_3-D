@@ -147,8 +147,8 @@
 <body>
 <header>
     <div class="logo">
-        <img src="https://img.icons8.com/ios-filled/50/000000/company.png" width="30"/>
-        <span>Nombre de<br>nuestra empresa</span>
+        <img src="img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
+        <span>ClickMatic</span>
     </div>
     <div class="user">
         <span>👤 Administrador</span>

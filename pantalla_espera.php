@@ -14,7 +14,10 @@
 <body>
 
 <header>
-    <div class="logo">MiLogo</div>
+    <div class="logo">
+      <img src="img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
+      <span>ClickMatic</span>
+    </div>
     <nav class="menu">
       <a href="#">Inicio</a>
       <a href="#">Servicios</a>
