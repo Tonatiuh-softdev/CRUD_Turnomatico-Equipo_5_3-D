@@ -72,9 +72,6 @@
         font-size: 14px;
     }
 
-    aside a:hover {
-        background: #88a1c3ff;
-    }
 
     /* Sección de servicios */
     main {

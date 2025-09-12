@@ -72,9 +72,6 @@
       font-size: 14px;
     }
 
-    aside a:hover {
-      background: #88a1c3ff;
-    }
 
     /* Main */
     main {
@@ -115,6 +112,29 @@
       width: 40px;
       margin-bottom: 10px;
     }
+    /*solo para quitar la linea de seleccion del texto*/
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #f1f1f1;
+  border: none;
+  text-decoration: none;  /* 👈 elimina el subrayado */
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  color: #000;            /* 👈 asegura que el texto no quede azul */
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+
   </style>
 </head>
 <body>
@@ -142,20 +162,22 @@ require 'navbar.php';
 
 
 
-    <main>
-      <div class="card">
-        <img src="https://img.icons8.com/ios-filled/50/000000/conference.png"/>
-        Pantalla de espera
-      </div>
-      <div class="card">
-        <img src="https://img.icons8.com/ios-filled/50/000000/return.png"/>
-        Pantalla de turno
-      </div>
-      <div class="card">
-        <img src="https://img.icons8.com/ios-filled/50/000000/conference-call.png"/>
-        Pantalla de empleado
-      </div>
-    </main>
+<main>
+  <a href="pantalla_espera.php" class="card">
+    <img src="https://img.icons8.com/ios-filled/50/000000/conference.png"/>
+    Pantalla de espera
+  </a>
+  <a href="pantalla_turno.php" class="card">
+    <img src="https://img.icons8.com/ios-filled/50/000000/return.png"/>
+    Pantalla de turno
+  </a>
+  <a href="pantalla_empleado.php" class="card">
+    <img src="https://img.icons8.com/ios-filled/50/000000/conference-call.png"/>
+    Pantalla de empleado
+  </a>
+</main>
+
+
   </div>
 </body>
 </html>
