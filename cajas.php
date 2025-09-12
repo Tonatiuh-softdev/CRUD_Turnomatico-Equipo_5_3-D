@@ -126,6 +126,19 @@
     .btn-eliminar:hover {
         background: darkred;
     }
+    .btn-configurar {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-configurar:hover {
+    background: #0056b3;
+}
+
 </style>
 </head>
 <body>
@@ -184,12 +197,14 @@ require 'navbar.php';
 </div>
 
 <script>
+    // Datos y contadores
     let cajas = [];
     let id = 1;
 
     const form = document.getElementById("formCaja");
     const tabla = document.getElementById("tablaCajas");
 
+    // Evento para agregar caja
     form.addEventListener("submit", function(e) {
         e.preventDefault();
 
@@ -198,10 +213,10 @@ require 'navbar.php';
 
         cajas.push({ id: id++, numeroCaja, ubicacion });
         mostrarCajas();
-
         form.reset();
     });
 
+    // Mostrar tabla
     function mostrarCajas() {
         tabla.innerHTML = "";
         cajas.forEach(caja => {
@@ -209,17 +224,38 @@ require 'navbar.php';
             fila.innerHTML = `
                 <td>${caja.id}</td>
                 <td>${caja.numeroCaja}</td>
-                <td>${caja.ubicacion}</td>
-                <td><button class="btn-eliminar" onclick="eliminarCaja(${caja.id})">Eliminar</button></td>
+                <td>
+                    <button class="btn-configurar" onclick="configurarCaja(${caja.id})">Configurar</button>
+                </td>
+                <td>
+                    <button class="btn-eliminar" onclick="eliminarCaja(${caja.id})">Eliminar</button>
+                </td>
             `;
             tabla.appendChild(fila);
         });
     }
 
+    // Configurar/editar caja
+    function configurarCaja(id) {
+        const caja = cajas.find(c => c.id === id);
+        if (!caja) return;
+
+        const nuevoNumero = prompt("Editar Nombre de la Caja:", caja.numeroCaja);
+        const nuevoUbicacion = prompt("Editar Servicio:", caja.ubicacion);
+
+        if (nuevoNumero !== null && nuevoUbicacion !== null) {
+            caja.numeroCaja = nuevoNumero;
+            caja.ubicacion = nuevoUbicacion;
+            mostrarCajas();
+        }
+    }
+
+    // Eliminar caja
     function eliminarCaja(id) {
-        cajas = cajas.filter(caja => caja.id !== id);
+        cajas = cajas.filter(c => c.id !== id);
         mostrarCajas();
     }
 </script>
+
 </body>
 </html>
