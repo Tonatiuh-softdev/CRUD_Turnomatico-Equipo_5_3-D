@@ -24,9 +24,12 @@
         background: #9cb6d6ff;
         color: #fff;
         padding: 15px 10px;
-        display: flex;
         flex-direction: column;
         gap: 10px;
+        display: flex;
+        align-items: center;  
+        justify-content: center;    
+        height: 100vh;      
     }
 
     aside a {
@@ -37,6 +40,7 @@
         color: #000000ff;
         text-decoration: none;
         font-size: 14px;
+        margin: 10px 0;
     }
 
     aside a:hover {
