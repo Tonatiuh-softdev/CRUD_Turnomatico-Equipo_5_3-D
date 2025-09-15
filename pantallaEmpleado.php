@@ -116,9 +116,8 @@
     }        
 
     .btn:hover {
-        background: #7a9ac1;
-        transform: scale(1.05); /* efecto de “agrandar” */
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* agrega sombra */
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.2);
     }
 
     /* Botón registrar */
@@ -140,9 +139,8 @@
     }
 
     .register:hover {
-        background: #86a7c5ff;/* cambia a un tono más oscuro o más fuerte */
-        transform: scale(1.05); /* efecto de “agrandar” */
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* agrega sombra */
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.2);
     }
 </style>
 </head>
