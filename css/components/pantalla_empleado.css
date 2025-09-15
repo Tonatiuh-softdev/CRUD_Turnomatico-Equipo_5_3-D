@@ -1,0 +1,138 @@
+    
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+    }
+
+    /* Barra superior */
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #eceae7ff;
+        padding: 10px 20px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    header .logo {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    header .logo span {
+        margin-left: 10px;
+        font-size: 14px;
+    }
+
+    header .user {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-weight: bold;
+    }
+
+    header .time {
+        font-size: 12px;
+        color: #666;
+        text-align: right;
+    }
+
+    /* Layout principal */
+    main {
+        padding: 20px;
+        background: #fff;
+        min-height: calc(100vh - 60px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 20px;
+    }
+
+    /* Tarjetas de información */
+    .info-container {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 15px;
+    }
+
+    .card {
+        background: #a8bfd5;
+        color: #fff;
+        border-radius: 25px;
+        padding: 50px;
+        text-align: center;
+        min-width: 350px;
+        margin-top: 10px;
+    }
+
+    .card h3 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: normal;
+    }
+
+    .card p {
+        margin: 15px;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    /* Botones de acción */
+    .actions {
+        display: flex;
+        border-radius: 10px;
+        gap: 90px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .btn {
+        background: #c5d4e7;
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        padding: 35px;
+        font-size: 25px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+        min-width: 350px;
+        transition: 0.3s;
+        display: inline-flex;
+        align-items: center;   /* Centra verticalmente */
+        gap: 8px;      
+    }        
+
+    .btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+
+    /* Botón registrar */
+    .register {
+        margin-top: 50px;
+        background: #a8bfd5;
+        color: #fff;
+        border-radius: 25px;
+        padding: 50px;
+        font-size: 25px;
+        font-weight: bold;
+        cursor: pointer;
+        min-width: 550px;
+        transition: 0.3s;
+        display: flex;              /* cambia inline-flex a flex */
+        align-items: center;        /* centra verticalmente */
+       justify-content: center;    /* centra horizontalmente */
+       gap: 12px;
+    }
+
+    .register:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
