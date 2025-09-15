@@ -2,9 +2,9 @@
 // Parámetros de conexión
 $host = "localhost";     // o la IP de tu servidor
 $port = "5432";          // puerto por defecto de PostgreSQL
-$dbname = "mi_base";     // nombre de la base de datos
-$user = "mi_usuario";    // usuario de la BD
-$password = "mi_password"; // contraseña del usuario
+$dbname = "ClickMatic";     // nombre de la base de datos
+$user = "postgres";    // usuario de la BD
+$password = "123"; // contraseña del usuario
 
 try {
     // Cadena DSN (Data Source Name)
