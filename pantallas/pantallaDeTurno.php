@@ -21,18 +21,16 @@ $turnoActual = $turnos[0];
 <meta charset="UTF-8">
 <title>Sistema de Turnos</title>
 <link rel="stylesheet" href="../css/components/pantallaDeTurno.css">
+<link rel="stylesheet" href="../css/components/header.css">
 </head>
 <body>
-    <header>
-        <div class="empresa">
-            <img src="img/img.Logo_blanco.png" alt="logo">
-            ClickMatic
-        </div>
-        <div class="info">
-            <?php echo $hora; ?><br>
-            <?php echo ucfirst($fecha); ?>
-        </div>
-    </header>
+   
+  
+    <? 
+    // header dinamico
+    require '../header.php';
+    ?>
+   
 
     <div class="contenedor">
         <!-- Lista de turnos -->
