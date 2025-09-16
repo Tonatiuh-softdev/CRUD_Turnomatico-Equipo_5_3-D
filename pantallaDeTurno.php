@@ -1,8 +1,8 @@
 <?php
 date_default_timezone_set("America/Mexico_City");
 $hora = date("h:i a");
-setlocale(LC_TIME, "es_ES.UTF-8");
-$fecha = strftime("%d de %B %Y");
+setlocale(LC_TIME, "es_MX.UTF-8"); 
+$fecha = (new DateTime())->format("d \ \e F \ \e Y");
 
 // Datos de ejemplo
 $turnos = [
