@@ -160,7 +160,7 @@
 
 <div class="container">
    <?php
-require_once 'navbar.php';
+require '../../navbar.php';
 ?>
 
     <main>

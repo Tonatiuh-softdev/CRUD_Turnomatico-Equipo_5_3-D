@@ -159,7 +159,7 @@
 
 <div class="container">
    <?php
-require 'navbar.php';
+require '../../navbar.php';
 ?>
 
     <main>
