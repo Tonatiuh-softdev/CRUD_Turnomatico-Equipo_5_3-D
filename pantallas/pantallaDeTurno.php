@@ -20,7 +20,7 @@ $turnoActual = $turnos[0];
 <head>
 <meta charset="UTF-8">
 <title>Sistema de Turnos</title>
-<link rel="stylesheet" href="css/components/pantallaDeTurno.css">
+<link rel="stylesheet" href="../css/components/pantallaDeTurno.css">
 </head>
 <body>
     <header>

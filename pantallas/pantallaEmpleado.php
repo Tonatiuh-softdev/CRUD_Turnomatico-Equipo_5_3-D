@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sistema de Turnos - Empleado</title>
-<link rel="stylesheet" href="css/components/pantalla_empleado.css">
+<link rel="stylesheet" href="../css/components/pantalla_empleado.css">
 </head>
 <body>
 <header>
