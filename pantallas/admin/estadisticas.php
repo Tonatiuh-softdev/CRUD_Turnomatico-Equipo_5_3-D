@@ -133,7 +133,8 @@
 
   <div class="container">
 <?php
-require 'navbar.php';
+require '../../elementos/redirecciones.php';
+loadNavbar();
 ?>
 
 

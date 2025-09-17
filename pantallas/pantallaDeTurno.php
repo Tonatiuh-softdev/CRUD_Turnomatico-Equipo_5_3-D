@@ -1,8 +1,8 @@
 <?php
 date_default_timezone_set("America/Mexico_City");
 $hora = date("h:i a");
-setlocale(LC_TIME, "es_ES.UTF-8");
-$fecha = strftime("%d de %B %Y");
+setlocale(LC_TIME, "es_MX.UTF-8"); 
+$fecha = (new DateTime())->format("d \ \e F \ \e Y");
 
 // Datos de ejemplo
 $turnos = [
@@ -20,19 +20,17 @@ $turnoActual = $turnos[0];
 <head>
 <meta charset="UTF-8">
 <title>Sistema de Turnos</title>
-<link rel="stylesheet" href="css/components/pantallaDeTurno.css">
+<link rel="stylesheet" href="../css/components/pantallaDeTurno.css">
+<link rel="stylesheet" href="../css/components/header.css">
 </head>
 <body>
-    <header>
-        <div class="empresa">
-            <img src="img/img.Logo_blanco.png" alt="logo">
-            ClickMatic
-        </div>
-        <div class="info">
-            <?php echo $hora; ?><br>
-            <?php echo ucfirst($fecha); ?>
-        </div>
-    </header>
+   
+  
+    <? 
+    // header dinamico
+    require '../header.php';
+    ?>
+   
 
     <div class="contenedor">
         <!-- Lista de turnos -->

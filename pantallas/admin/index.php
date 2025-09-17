@@ -21,6 +21,7 @@
       border-bottom: 1px solid #ddd;
     }
 
+
     header .logo {
       display: flex;
       align-items: center;
@@ -140,7 +141,7 @@
 <body>
   <header>
     <div class="logo">
-      <img src="img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
+      <img src="../../img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
       <span>ClickMatic</span>
     </div>
     <div class="user">
@@ -157,21 +158,23 @@
 
   <div class="container">
 <?php
-require 'navbar.php';
+require '../../elementos/redirecciones.php';
+loadNavbar();
+
 ?>
 
 
 
 <main>
-  <a href="pantalla_espera.php" class="card">
+  <a href="../pantalla_espera.php" class="card">
     <img src="https://img.icons8.com/ios-filled/50/000000/conference.png"/>
     Pantalla de espera
   </a>
-  <a href="pantallaDeTurno.php" class="card">
+  <a href="../pantallaDeTurno.php" class="card">
     <img src="https://img.icons8.com/ios-filled/50/000000/return.png"/>
     Pantalla de turno
   </a>
-  <a href="pantallaEmpleado.php" class="card">
+  <a href="../pantallaEmpleado.php" class="card">
     <img src="https://img.icons8.com/ios-filled/50/000000/conference-call.png"/>
     Pantalla de empleado
   </a>
