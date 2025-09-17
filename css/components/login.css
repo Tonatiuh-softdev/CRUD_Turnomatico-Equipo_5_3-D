@@ -1,0 +1,221 @@
+body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+    }
+
+    /* Barra superior */
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #dbdbdb;
+        padding: 20px 20px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    header .logo {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    header .logo span {
+        margin-left: 10px;
+        font-size: 16px;
+    }
+
+    header .user {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-weight: bold;
+    }
+
+    header .time {
+        font-size: 12px;
+        color: #666;
+        text-align: right;
+    }
+
+.rectangulo1 {
+  width: 100%;       /* Ancho largo */
+  height: 760px;      /* Alto */
+  background-color: #c5d4e7;  /* Color azul */
+  color: white;       /* Texto en blanco */
+  display: flex;      /* Centrar el texto */
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px; /* Bordes redondeados opcionales */
+  font-size: 20px;
+  font-weight: bold;
+  position: relative; /* o absolute, fixed */
+  top: 2px;   /* Lo baja 50px */
+  left: 0%;
+  font-size: 80px;
+  z-index: 0; /* Este queda atrás */
+}
+
+.rectangulo2 {
+  width: 49%;       /* Ancho largo */
+  height: 80%;      /* Alto */
+  background-color: #f5f5f5;  /* Color azul */
+  color: white;       /* Texto en blanco */
+  display: flex;      /* Centrar el texto */
+  align-items: center;
+  justify-content: center;
+  /*border-radius: 10px;*/ /* Bordes redondeados opcionales */
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute; /* o absolute, fixed */
+  top: 120px;   /* Lo baja 50px */
+  left: 48%;
+  font-size: 80px;
+  z-index: 1; /* Este queda atrás */
+}
+
+.imagen {
+  width: 45%;     /* Ancho */
+  height: 80%;     /* Mantiene proporción */
+  position: absolute; /* Para moverla libremente */
+  top: 120px;        /* Ajusta posición vertical */
+  left: 3%;      /* Ajusta posición horizontal */
+  z-index: 1;
+}
+.imagen1 {
+  width: 10%;     /* Ancho */
+  height: 10%;     /* Mantiene proporción */
+  position: absolute; /* Para moverla libremente */
+  top: 120px;        /* Ajusta posición vertical */
+  left: 3%;      /* Ajusta posición horizontal */
+  z-index: 1;
+}
+
+.texto1 {
+  position: absolute; /* Se puede mover libremente */
+  top: 300px;   /* Baja el texto */
+  left: 15%;  /* Mueve el texto a la derecha */
+  font-size: 45px;  /* Tamaño de letra */
+  color: #FFFFFF;      /* Color */
+  font-weight: bold; /* Negrita */
+  z-index: 1;
+}
+
+.texto2 {
+  position: absolute; /* Se puede mover libremente */
+  top: 350px;   /* Baja el texto */
+  left: 19%;  /* Mueve el texto a la derecha */
+  font-size: 20px;  /* Tamaño de letra */
+  color: #FFFFFF;      /* Color */
+  font-weight: bold; /* Negrita */
+  z-index: 1;
+}
+
+.texto3 {
+  position: absolute; /* Se puede mover libremente */
+  top: 200px;   /* Baja el texto */
+  left: 53%;  /* Mueve el texto a la derecha */
+  font-size: 50px;  /* Tamaño de letra */
+  color: #838283;      /* Color */
+  font-weight: bold; /* Negrita */
+  z-index: 1;
+}
+
+.boton {
+      background-color: #eeeeee; /* Color de fondo */
+      color: white;              /* Texto blanco */
+      padding: -10px 7px;        /* Espaciado interno */
+      font-size: 0px;           /* Tamaño de letra */
+      border: none;              /* Sin borde */
+      border-radius: 40px;        /* Bordes redondeados */
+      cursor: pointer;           /* Cambia el cursor al pasar */
+      transition: background 0.3s; /* Animación suave */
+      position: absolute;
+      z-index: 1;
+      top: 500px;
+      left: 13%;
+      width: 400px;
+      height: 170px;
+    }
+
+.icono {
+     width: 220px;   /* 🔹 controla aquí el tamaño de la imagen */
+    height: 200px;  /* 🔹 más chico o más grande según quieras */
+}
+
+    .boton:hover {
+      background-color: #7d9cb9; /* Color al pasar el mouse */
+    }
+
+/*formulario*/
+
+.email-field {
+  position: absolute;
+  top: 400px; /* más arriba */
+  left: 65%;
+  transform: translate(-50%, 0);
+  z-index: 1;
+}
+
+.password-field {
+  position: absolute;
+  top: 480px; /* debajo del email */
+  left: 65%;
+  transform: translate(-50%, 0);
+  z-index: 1;
+}
+
+    input {
+      width: 140%;
+      padding: 15px;
+      border: none;
+      border-radius: 25px;
+      font-size: 28px;
+      outline: none;
+    }
+
+    /* Estilo específico para cada campo */
+    .email-input {
+      background: #d9d9d9;
+      color: white;
+    }
+
+    .password-input {
+      background: #c6d7ef;
+      color: white;
+      padding-right: 40px; /* espacio para el ícono */
+    }
+
+    /* Icono del ojo */
+    .toggle-password {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 18px;
+      color: white;
+    }
+
+    /* Botón */
+    .login-button {
+  position: absolute;
+  width: 400px;
+  height: 100px;
+  top: 600px;  /* ajusta según necesites: más bajo o más alto */
+  left: 72%;   /* más a la derecha */
+  transform: translate(-50%, 0); /* opcional: centra respecto a left */
+  background: #c6d7ef;
+  color: #FFFFFF;
+  border: none;
+  color: #838283;
+  border-radius: 35px;
+  padding: 15px;
+  font-size: 25px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+    .login-button:hover {
+      background: #cddbef;
+    }
