@@ -1,4 +1,8 @@
 
+<?
+function renderNavbar(){
+  ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -105,3 +109,6 @@ aside:hover a span {
 </body>
 </html>
 
+<?
+}
+?>

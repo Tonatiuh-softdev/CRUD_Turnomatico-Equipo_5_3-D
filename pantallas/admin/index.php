@@ -21,6 +21,7 @@
       border-bottom: 1px solid #ddd;
     }
 
+
     header .logo {
       display: flex;
       align-items: center;
@@ -140,7 +141,7 @@
 <body>
   <header>
     <div class="logo">
-      <img src="img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
+      <img src="../../img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
       <span>ClickMatic</span>
     </div>
     <div class="user">
@@ -157,7 +158,9 @@
 
   <div class="container">
 <?php
-require '../../navbar.php';
+require '../../elementos/redirecciones.php';
+loadNavbar();
+
 ?>
 
 
