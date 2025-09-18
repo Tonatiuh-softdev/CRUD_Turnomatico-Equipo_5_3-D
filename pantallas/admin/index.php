@@ -151,7 +151,7 @@
  Administrador</span>
       <div class="time">
         01:26 am<br>
-        25 de Agosto 2025
+        25 de Agosto 2025 xd
       </div>
     </div>
   </header>
@@ -184,3 +184,4 @@ loadNavbar();
   </div>
 </body>
 </html>
+
