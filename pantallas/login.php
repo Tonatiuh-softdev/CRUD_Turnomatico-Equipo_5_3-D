@@ -15,7 +15,7 @@
 
     <header>
     <div class="logo">
-         <img src="../img/img.Logo_blanco-Photoroom.png" width="70"/>
+        <img src="../img/img.Logo_blanco-Photoroom.png" width="70"/>
       <span>ClickMatic</span>
     </div>
     <div class="user">
