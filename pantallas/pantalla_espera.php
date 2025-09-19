@@ -30,8 +30,9 @@
     <div class="circulo azul"></div>
     <div class="circulo verde"></div>
 
-    <button class="boton izquierda">CLIENTE</button>
-    <button class="boton derecha">VISITANTE</button>
+   <button class="boton izquierda" onclick="window.location.href='/pantallas/login.php'">CLIENTE</button>
+<button class="boton derecha" onclick="window.location.href='#'">VISITANTE</button>
+
   </div>
 
 </body>

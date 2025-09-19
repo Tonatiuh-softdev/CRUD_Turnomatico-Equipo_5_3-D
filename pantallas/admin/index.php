@@ -21,7 +21,6 @@
       border-bottom: 1px solid #ddd;
     }
 
-
     header .logo {
       display: flex;
       align-items: center;
@@ -52,28 +51,6 @@
       height: calc(100vh - 50px);
     }
 
-    /* Sidebar */
-    aside {
-      width: 220px;
-      background: #9cb6d6ff;
-      color: #fff;
-      padding: 15px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    aside a {
-      display: flex;
-      align-items: center;
-      padding: 40px;
-      border-radius: 5px;
-      color: #000000ff;
-      text-decoration: none;
-      font-size: 14px;
-    }
-
-
     /* Main */
     main {
       flex: 1;
@@ -94,6 +71,7 @@
       font-weight: bold;
       flex-direction: column;
       color: #333;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .card:nth-child(1) {
@@ -113,28 +91,30 @@
       width: 40px;
       margin-bottom: 10px;
     }
-    /*solo para quitar la linea de seleccion del texto*/
-.card {
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+    .card {
+  background: #dce6f3;
+  border-radius: 8px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  background: #f1f1f1;
-  border: none;
-  text-decoration: none;  /* 👈 elimina el subrayado */
-  font-size: 16px;
-  font-family: Arial, sans-serif;
-  color: #000;            /* 👈 asegura que el texto no quede azul */
-  cursor: pointer;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  flex-direction: column;
+  color: #333;
   transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none; /* 👈 Quita la raya subrayada */
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+.card:link,
+.card:visited {
+  text-decoration: none; /* 👈 Evita que regrese */
+  color: inherit; /* 👈 Mantiene el color del texto */
 }
-
 
   </style>
 </head>
@@ -145,43 +125,39 @@
       <span>ClickMatic</span>
     </div>
     <div class="user">
-      <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: px; height: 20px;">
-  <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
-</svg>
- Administrador</span>
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 20px; height: 20px;">
+          <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
+        </svg>
+        Administrador
+      </span>
       <div class="time">
         01:26 am<br>
-        25 de Agosto 2025 xd
+        25 de Agosto 2025
       </div>
     </div>
   </header>
 
   <div class="container">
-<?php
-require '../../elementos/redirecciones.php';
-loadNavbar();
+    <?php
+    require '../../elementos/redirecciones.php';
+    loadNavbar();
+    ?>
 
-?>
-
-
-
-<main>
-  <a href="../pantalla_espera.php" class="card">
-    <img src="https://img.icons8.com/ios-filled/50/000000/conference.png"/>
-    Pantalla de espera
-  </a>
-  <a href="../pantallaDeTurno.php" class="card">
-    <img src="https://img.icons8.com/ios-filled/50/000000/return.png"/>
-    Pantalla de turno
-  </a>
-  <a href="../pantallaEmpleado.php" class="card">
-    <img src="https://img.icons8.com/ios-filled/50/000000/conference-call.png"/>
-    Pantalla de empleado
-  </a>
-</main>
-
-
+    <main>
+      <a href="../pantalla_espera.php" class="card">
+        <img src="https://img.icons8.com/ios-filled/50/000000/conference.png"/>
+        Pantalla de espera
+      </a>
+      <a href="../pantallaDeTurno.php" class="card">
+        <img src="https://img.icons8.com/ios-filled/50/000000/return.png"/>
+        Pantalla de turno
+      </a>
+      <a href="../pantallaEmpleado.php" class="card">
+        <img src="https://img.icons8.com/ios-filled/50/000000/conference-call.png"/>
+        Pantalla de empleado
+      </a>
+    </main>
   </div>
 </body>
 </html>
-
