@@ -1,7 +1,7 @@
 body {
         margin: 0;
         font-family: Arial, sans-serif;
-        background: #f5f5f5;
+        background: #c5d4e7;
     }
 
     /* Barra superior */
@@ -263,3 +263,4 @@ body {
 .login-button:hover {
   transform: scale(1.05);
 }
+
