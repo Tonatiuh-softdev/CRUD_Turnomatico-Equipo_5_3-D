@@ -18,7 +18,7 @@
 </svg> Empleado</span>
         <div class="time">
             01:26 am<br>
-            25 de Agosto 2025
+            26 de Agosto 2025
         </div>
     </div>
 </header>
