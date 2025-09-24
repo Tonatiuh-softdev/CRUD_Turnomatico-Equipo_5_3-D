@@ -29,7 +29,7 @@
   <div class="circulo azul"></div>
   <div class="circulo verde"></div>
 
-  <button class="boton izquierda" onclick="window.location.href='/CRUD_Turnomatico-Equipo_5_3-D/pantallas/login.php'">CLIENTE</button>
+  <button class="boton izquierda" onclick="window.location.href='/pantallas/login.php'">CLIENTE</button>
   <button class="boton derecha" onclick="abrirModal()">VISITANTE</button>
 </div>
 
@@ -38,7 +38,7 @@
   <div class="modal">
     <div class="turno-modal">
       <button class="cerrar" onclick="cerrarModal()">✖</button>
-      <img src="/CRUD_Turnomatico-Equipo_5_3-D/img/img.Logo_blanco-Photoroom.png" alt="Mi Imagen" class="imagen">
+      <img src="/img/img.Logo_blanco-Photoroom.png" alt="Mi Imagen" class="imagen">
       <div class="texto">ClickMatic</div>
       <div class="rectangulo">Turno</div>
       <div class="rectangulo1">A-001</div>
