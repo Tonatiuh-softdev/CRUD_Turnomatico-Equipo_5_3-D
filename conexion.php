@@ -1,24 +1,21 @@
 <?php
-// Parámetros de conexión
-$host = "localhost";     // o la IP de tu servidor
-$port = "5432";          // puerto por defecto de PostgreSQL
-$dbname = "ClickMatic";     // nombre de la base de datos
-$user = "postgres";    // usuario de la BD
-$password = "123"; // contraseña del usuario
+function ConexionBD() {
+    $conn = null; // evitar warning
 
-try {
-    // Cadena DSN (Data Source Name)
-    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
+    $host = "localhost";
+    $port = "5432"; 
+    $dbname = "ClickMatic";
+    $username = "postgres";
+    $password = "root";
 
-    // Crear la conexión con PDO
-    $pdo = new PDO($dsn, $user, $password, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Modo de errores: excepciones
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC // Resultados como array asociativo
-    ]);
+    try {
+        $conn = new PDO("pgsql:host=$host;port=$port;dbname=$dbname", $username, $password);
+        echo "Se conectó correctamente a la Base de Datos";
+    } 
+    catch (PDOException $exp) {
+        echo "No se pudo conectar a la base de datos: " . $exp->getMessage();
+    }
 
-    echo "✅ Conexión exitosa a PostgreSQL con PDO";
-
-} catch (PDOException $e) {
-    echo "❌ Error de conexión: " . $e->getMessage();
+    return $conn;
 }
 ?>
