@@ -2,7 +2,7 @@
 include_once "conexion.php";
 
 
-$conn = ConexionBD();
+$conn = conexion();
 
 if ($conn) {
     echo "<br>Prueba extra: conexión devuelta correctamente.";
