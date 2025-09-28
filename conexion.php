@@ -2,16 +2,24 @@
 
 function conexion(){
     $host = "localhost";
-    $usuario = "root";
+    $username = "root";
     $password = "";
-    $BD = "voces_db";
+    $dbname = "clickmatic";
+    $port = "3306";  
 
-    $conn = new mysqli($host,$usuario,$password,$BD);
+    try {
+        // Creamos la conexión
+        $conn = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $username, $password);
+        
+        // Configuramos atributos
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    if($conn->connect_error){
-        die("Error de conexion: " . $conn->connect_error);
+        echo "✅ Conexión exitosa a MySQL";
+    } catch (PDOException $e) {
+        echo "❌ Error en la conexión: " . $e->getMessage();
+        $conn = null;
     }
 
-   return $conn; 
+    return $conn;
 }
 ?>
