@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-     <link rel="stylesheet" href="/CRUD_Turnomatico-Equipo_5_3-D/css/components/turno2.css">
+     <link rel="stylesheet" href="css/components/turno2.css">
 </head>
 <body>
 
-<img src="/CRUD_Turnomatico-Equipo_5_3-D/img/img.Logo_blanco-Photoroom.png" alt="Mi Imagen" class="imagen">
+<img src="img/Captura de pantalla 2025-09-11 115134.png" alt="Mi Imagen" class="imagen">
 
 <div class="texto">ClickMatic</div>
 

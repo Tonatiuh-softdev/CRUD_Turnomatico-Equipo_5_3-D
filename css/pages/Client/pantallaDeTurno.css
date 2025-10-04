@@ -5,37 +5,12 @@
         background: #f5f5f5;
     }
     /* Header */
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #fff;
-        padding: 8px 20px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        font-size: 14px;
-    }
-    header .empresa {
-        display: flex;
-        align-items: center;
-        font-weight: bold;
-        font-size: 18px;
-    }
-    header .empresa img {
-        width: 40px;
-        margin-right: 10px;
-    }
-    header .info {
-        text-align: right;
-        font-size: 12px;
-        color: #555;
-    }
 
-    /* Contenedor principal */
+   /* Contenedor principal */
     .contenedor {
         display: flex;
         height: calc(100vh - 80px);
     }
-
     /* Lista de turnos */
     .lista-turnos {
         width: 45%;

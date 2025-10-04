@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preload" href="../../../css/pages/Client/login.css" as="style">
+    <link rel="stylesheet" href="../../../css/pages/Client/login.css">
+
+</head>
+<body>
+
+<img src="../img/fondo_login.png" alt="Mi Imagen" class="imagen">
+
+<img src="../img/img.Logo_blanco-Photoroom.png" alt="Mi Imagen" class="imagen1">
+
+    <header>
+    <div class="logo">
+         <img src="../img/img.Logo_blanco-Photoroom.png" width="70"/>
+      <span>ClickMatic</span>
+    </div>
+    <div class="user">
+        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 20px; height: 20px;">
+  <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
+</svg> Empleado</span>
+        <div class="time">
+            01:26 am<br>
+            25 de Agosto 2025
+        </div>
+    </div>
+</header>
+
+<div class="rectangulo1">
+    
+  </div>
+
+<div class="rectangulo2">
+    
+  </div>
+
+<div class="texto1">Welcome Back</div>
+
+<div class="texto2">Sign in  to contunue</div>
+
+<div class="texto3">LOG IN</div>
+
+<button class="boton">
+  <img src="../img/flecha_regresar.png" alt="" class="icono">
+</button>
+
+<div class="input-field email-field">
+  <input type="email" class="email-input" placeholder="Email">
+</div>
+
+<div class="input-field password-field">
+  <input type="password" class="password-input" placeholder="Password">
+</div>
+
+
+    <!-- Botón -->
+    <button class="login-button">Continue</button>
+  </div>
+
+</body>
+</html>

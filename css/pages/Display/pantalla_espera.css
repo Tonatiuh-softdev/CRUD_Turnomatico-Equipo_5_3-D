@@ -1,0 +1,144 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between; /* logo a la izquierda, menú a la derecha */
+  align-items: center;
+  padding: 20px 50px;
+  background-color: #eceae7ff;; /* azul bonito */
+  color: #666666;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+header .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+header .menu a {
+  text-decoration: none;
+  color: #666666;
+  margin-left: 25px;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+header .menu a:hover {
+  color: #ffdd57; /* efecto al pasar el mouse */
+}
+
+/* Main ejemplo */
+main {
+  padding: 50px;
+  text-align: center;
+}
+
+main h1 {
+  margin-bottom: 20px;
+  color: #d3d3d3;
+}
+
+main p {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+
+.contenedor {
+  position: relative; /* Contenedor relativo para mover círculos absolutos */
+  width: 400px;
+  height: 200px;
+}
+
+/* Círculos */
+.circulo {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: absolute; /* Permite superposición */
+}
+
+/* Posiciones y colores */
+.rojo {
+  background-color: #B0C4DE;
+  top: 20px;
+  left: 450px;
+  z-index: 1; /* queda debajo de azul */
+}
+
+.azul {
+  background-color: #9b9b9b;
+  top: -20px;
+  left: 640px;
+  z-index: 2; /* queda arriba de rojo y debajo de verde */
+}
+
+.verde {
+  background-color: #d3d3d3;
+  top: 21px;
+  left: 830px;
+  z-index: 3; /* queda arriba de todos */
+}
+
+.texto {
+  position: absolute;
+  top: 50%;   /* Centra vertical */
+  left: 50%;  /* Centra horizontal */
+  transform: translate(-54%, -170%); /* Ajusta el centro exacto */
+  font-size: 70px;
+  font-weight: bold;
+  color: #000000;
+  z-index: 10;
+}
+
+/* Rectangulo */
+    .boton {
+      width: 280px;
+      height: 180px;
+      border: none;
+      border-radius: 30px;
+      color: #000000;
+      font-size: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      position: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    /* Botón izquierda */
+    .izquierda {
+      bottom: 120px;
+      left: 420px;
+      background-color: #B0C4DE;
+    }
+
+    .izquierda:hover {
+      background-color:  #B0C4DE;
+      transform: scale(1.05);
+    }
+
+    /* Botón derecha */
+    .derecha {
+      bottom: 120px;
+      right: 420px;
+      background-color: #B0C4DE;
+    }
+
+    .derecha:hover {
+      background-color: #B0C4DE;
+      transform: scale(1.05);
+    }
