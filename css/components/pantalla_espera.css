@@ -534,3 +534,25 @@ main p {
   .turno-modal .rectangulo3 { width: 35%; left: 10%; font-size: 3vw; }
   .turno-modal .time { font-size: 3vw; left: 50%; }
 }
+  .btn-pantalla {
+      background-color: #90b7e2;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn-pantalla:hover {
+      background-color: #616c7a;
+      transform: scale(1.1);
+      box-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }

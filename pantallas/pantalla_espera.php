@@ -10,6 +10,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Círculos entrelazados</title>
   <link rel="stylesheet" href="../css/components/pantalla_espera.css">
+
+  <!-- Íconos (Font Awesome) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
 
@@ -18,6 +22,12 @@
     <img src="../img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
     <span>ClickMatic</span>
   </div>
+
+<!-- 🔹 Botón con ícono de pantalla (lado derecho) -->
+<a href="/pantallas/pantallaDeTurno.php" class="btn-pantalla" title="Pantalla">
+  <i class="fa-solid fa-display"></i>
+</a>
+
 </header>
 
 <main></main>
@@ -59,25 +69,24 @@
     document.getElementById('modal').style.display = 'none';
   }
   const overlay = document.querySelector('.overlay');
-const modal = document.querySelector('.modal');
-const cerrar = document.querySelector('.cerrar');
+  const modal = document.querySelector('.modal');
+  const cerrar = document.querySelector('.cerrar');
 
-function abrirModal() {
-  overlay.classList.add('active');
-  modal.classList.add('active');
-}
+  function abrirModal() {
+    overlay.classList.add('active');
+    modal.classList.add('active');
+  }
 
-function cerrarModal() {
-  modal.classList.add('closing');
-  overlay.classList.remove('active');
-  setTimeout(() => {
-    modal.classList.remove('active', 'closing');
-  }, 600); // Duración de la animación
-}
+  function cerrarModal() {
+    modal.classList.add('closing');
+    overlay.classList.remove('active');
+    setTimeout(() => {
+      modal.classList.remove('active', 'closing');
+    }, 600); // Duración de la animación
+  }
 
-cerrar.addEventListener('click', cerrarModal);
-overlay.addEventListener('click', cerrarModal);
-
+  cerrar.addEventListener('click', cerrarModal);
+  overlay.addEventListener('click', cerrarModal);
 </script>
 
 </body>
