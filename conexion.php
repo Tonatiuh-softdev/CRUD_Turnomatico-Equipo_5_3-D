@@ -1,25 +1,12 @@
 <?php
+$host = "localhost";
+$user = "root";     
+$pass = "";         
+$db   = "nexora";
 
-function conexion(){
-    $host = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "clickmatic";
-    $port = "3306";  
+$conn = new mysqli($host, $user, $pass, $db);
 
-    try {
-        // Creamos la conexión
-        $conn = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $username, $password);
-        
-        // Configuramos atributos
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        echo "✅ Conexión exitosa a MySQL";
-    } catch (PDOException $e) {
-        echo "❌ Error en la conexión: " . $e->getMessage();
-        $conn = null;
-    }
-
-    return $conn;
+if ($conn->connect_error) {
+    die("Error de conexión: " . $conn->connect_error);
 }
 ?>
