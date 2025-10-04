@@ -107,13 +107,13 @@
   flex-direction: column;
   color: #333;
   transition: transform 0.2s, box-shadow 0.2s;
-  text-decoration: none; /* 👈 Quita la raya subrayada */
+  text-decoration: none; /* Quita la raya subrayada */
 }
 
 .card:link,
 .card:visited {
-  text-decoration: none; /* 👈 Evita que regrese */
-  color: inherit; /* 👈 Mantiene el color del texto */
+  text-decoration: none; /* Evita que regrese */
+  color: inherit; /*  Mantiene el color del texto */
 }
 
   </style>
