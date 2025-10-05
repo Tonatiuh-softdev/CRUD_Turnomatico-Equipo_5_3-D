@@ -61,33 +61,46 @@
   </div>
 </div>
 
+
+
+  
 <script>
-  function abrirModal() {
-    document.getElementById('modal').style.display = 'flex';
-  }
-  function cerrarModal() {
-    document.getElementById('modal').style.display = 'none';
-  }
   const overlay = document.querySelector('.overlay');
   const modal = document.querySelector('.modal');
   const cerrar = document.querySelector('.cerrar');
 
-  function abrirModal() {
-    overlay.classList.add('active');
-    modal.classList.add('active');
+  // 🔹 Abrir modal y obtener turno
+  async function abrirModal() {
+    try {
+      // Obtener turno del servidor PHP
+      const response = await fetch("generar_turno.php");
+      const turno = await response.text();
+
+      // Mostrar el turno dinámico dentro del modal
+      document.querySelector(".rectangulo1").textContent = turno;
+
+      // Mostrar el modal con animación
+      overlay.classList.add('active');
+      modal.classList.add('active');
+    } catch (error) {
+      console.error("Error al generar turno:", error);
+    }
   }
 
+  // 🔹 Cerrar modal con animación
   function cerrarModal() {
     modal.classList.add('closing');
     overlay.classList.remove('active');
     setTimeout(() => {
       modal.classList.remove('active', 'closing');
-    }, 600); // Duración de la animación
+    }, 600); // duración de animación
   }
 
+  // 🔹 Eventos de cierre
   cerrar.addEventListener('click', cerrarModal);
   overlay.addEventListener('click', cerrarModal);
 </script>
+
 
 </body>
 </html>
