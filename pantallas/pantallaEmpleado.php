@@ -52,8 +52,8 @@ $conn->close();
             <p><?= $en_espera ?></p>
         </div>
         <div class="card">
-            <h3><?= htmlspecialchars($turno_actual['codigo_turno'] ?? '---') ?></h3>
             <p>Turno actual</p>
+            <h3><?= htmlspecialchars($turno_actual['codigo_turno'] ?? '---') ?></h3>
         </div>
         <div class="card">
             <h3>ESTATUS</h3>
