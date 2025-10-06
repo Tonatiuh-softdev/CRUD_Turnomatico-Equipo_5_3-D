@@ -1,20 +1,33 @@
 <?php
+include __DIR__ . "/../conexion.php";
 date_default_timezone_set("America/Mexico_City");
 $hora = date("h:i a");
 setlocale(LC_TIME, "es_ES.UTF-8");
 $fecha = strftime("%d de %B %Y");
 
-// Datos de ejemplo
-$turnos = [
-    ["turno" => "B-001", "modulo" => "1", "nombre" => "Camila Perez"],
-    ["turno" => "B-002", "modulo" => "2", "nombre" => "Ximena Vega"],
-    ["turno" => "B-003", "modulo" => "3", "nombre" => "Fatima Alvarez"],
-    ["turno" => "B-004", "modulo" => "4", "nombre" => "Abigail Suarez"],
-];
+// 🔹 Obtener turnos en espera
+$sql_turnos = "SELECT codigo_turno, tipo, estado FROM turnos WHERE estado = 'EN_ESPERA' ORDER BY id ASC";
+$res_turnos = $conn->query($sql_turnos);
+$turnos = [];
+while ($row = $res_turnos->fetch_assoc()) {
+    $turnos[] = $row;
+}
 
-// Turno actual
-$turnoActual = $turnos[0];
+// 🔹 Obtener turno actual
+$sql_actual = "SELECT codigo_turno, tipo, estado FROM turnos WHERE estado = 'ATENDIENDO' ORDER BY id DESC LIMIT 1";
+$res_actual = $conn->query($sql_actual);
+$turnoActual = $res_actual->fetch_assoc();
+
+// Si no hay turno en atención, mostrar el último generado
+if (!$turnoActual) {
+    $sql_actual = "SELECT codigo_turno, tipo, estado FROM turnos ORDER BY id DESC LIMIT 1";
+    $res_actual = $conn->query($sql_actual);
+    $turnoActual = $res_actual->fetch_assoc();
+}
+
+$conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,51 +36,45 @@ $turnoActual = $turnos[0];
 <link rel="stylesheet" href="../css/components/pantallaDeTurno.css">
 </head>
 <body>
-    <header>
-        <div class="empresa">
-            <img src="../img/img.Logo_blanco.png" alt="logo">
-            ClickMatic
-        </div>
-        <div class="info">
-            <?php echo $hora; ?><br>
-            <?php echo ucfirst($fecha); ?>
-        </div>
-    </header>
+<header>
+    <div class="empresa">
+        <img src="../img/img.Logo_blanco.png" alt="logo">
+        ClickMatic
+    </div>
+    <div class="info">
+        <?= $hora ?><br>
+        <?= ucfirst($fecha) ?>
+    </div>
+</header>
 
-    <div class="contenedor">
-        <!-- Lista de turnos -->
-        <div class="lista-turnos">
-            <table class="tabla">
+<div class="contenedor">
+    <!-- Lista de turnos -->
+    <div class="lista-turnos">
+        <table class="tabla">
+            <tr>
+                <th>Turno</th>
+                <th>Módulo</th>
+            </tr>
+            <?php foreach ($turnos as $t): ?>
                 <tr>
-                    <th>Turno</th>
-                    <th>Módulo</th>
+                    <td><?= htmlspecialchars($t["codigo_turno"]) ?></td>
+                    <td><?= htmlspecialchars($t["tipo"]) ?></td>
                 </tr>
-                <?php foreach ($turnos as $t): ?>
-                    <tr>
-                        <td><?php echo $t["turno"]; ?></td>
-                        <td><?php echo $t["modulo"]; ?></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="nombre"><?php echo $t["nombre"]; ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
-        </div>
-
-        <!-- Panel turno actual -->
-        <div class="panel-actual">
-            <div class="datos">
-                <div><?php echo $turnoActual["turno"]; ?></div>
-                <div><?php echo str_pad($turnoActual["modulo"],3,"0",STR_PAD_LEFT); ?></div>
-            </div>
-            <div class="nombre">
-                <?php echo $turnoActual["nombre"]; ?>
-            </div>
-        </div>
+            <?php endforeach; ?>
+        </table>
     </div>
 
-    <footer>
-        ClickMatic
-    </footer>
+    <!-- Panel turno actual -->
+    <div class="panel-actual">
+        <div class="datos">
+            <div><?= htmlspecialchars($turnoActual["codigo_turno"]) ?></div>
+            <div><?= htmlspecialchars($turnoActual["tipo"]) ?></div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    ClickMatic
+</footer>
 </body>
 </html>
