@@ -72,7 +72,6 @@
         font-size: 14px;
     }
 
-
     /* Sección de servicios */
     main {
         flex: 1;
@@ -83,18 +82,6 @@
 
     h2 {
         margin-top: 0;
-    }
-
-    form {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-    }
-
-    form input, form button {
-        padding: 8px;
-        font-size: 14px;
     }
 
     table {
@@ -139,12 +126,78 @@
     .btn-configurar:hover {
         background: #3f5675;
     }
+
+    /* Botón grande */
+    .btn-agregar {
+        display: block;
+        margin: 20px auto;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        border-radius: 30px;
+        background: #2b3d57;
+        color: #fff;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-agregar:hover {
+        background: #3f5675;
+    }
+
+    /* Fondo degradado del modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0; top: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(50,50,50,0.9));
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Contenido del modal */
+    .modal-contenido {
+        background: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        width: 300px;
+        text-align: center;
+    }
+    .modal-contenido h3 {
+        margin-top: 0;
+    }
+    .modal-contenido input {
+        width: 90%;
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+    .modal-contenido button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        background: #2b3d57;
+        color: #fff;
+        cursor: pointer;
+    }
+    .modal-contenido button:hover {
+        background: #3f5675;
+    }
+    .cerrar {
+        margin-top: 10px;
+        background: red !important;
+    }
+    .cerrar:hover {
+        background: darkred !important;
+    }
 </style>
 </head>
 <body>
 <header>
     <div class="logo">
-        <img src="img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
+        <img src="../../img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
         <span>ClickMatic</span>
     </div>
     <div class="user">
@@ -164,87 +217,132 @@ require '../../elementos/redirecciones.php';
 loadNavbar();
 ?>
 
-    <main>
-        <h2><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 22px; height: 22px;">
+<main>
+    <h2><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 22px; height: 22px;">
   <path d="M5.223 2.25c-.497 0-.974.198-1.325.55l-1.3 1.298A3.75 3.75 0 0 0 7.5 9.75c.627.47 1.406.75 2.25.75.844 0 1.624-.28 2.25-.75.626.47 1.406.75 2.25.75.844 0 1.623-.28 2.25-.75a3.75 3.75 0 0 0 4.902-5.652l-1.3-1.299a1.875 1.875 0 0 0-1.325-.549H5.223Z" />
   <path fill-rule="evenodd" d="M3 20.25v-8.755c1.42.674 3.08.673 4.5 0A5.234 5.234 0 0 0 9.75 12c.804 0 1.568-.182 2.25-.506a5.234 5.234 0 0 0 2.25.506c.804 0 1.567-.182 2.25-.506 1.42.674 3.08.675 4.5.001v8.755h.75a.75.75 0 0 1 0 1.5H2.25a.75.75 0 0 1 0-1.5H3Zm3-6a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-.75.75h-3a.75.75 0 0 1-.75-.75v-3Zm8.25-.75a.75.75 0 0 0-.75.75v5.25c0 .414.336.75.75.75h3a.75.75 0 0 0 .75-.75v-5.25a.75.75 0 0 0-.75-.75h-3Z" clip-rule="evenodd" />
-</svg>
- Administrar Servicios</h2>
+</svg> Administrar Servicios</h2>
 
-        <!-- Formulario agregar -->
-        <form id="formServicio">
-            <input type="text" id="nombreServicio" placeholder="Nombre del servicio" required>
-            <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 18px; height: 18px;">
-  <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
-</svg> Agregar Servicio</button>
-        </form>
+<!-- Botón grande para abrir el modal -->
+<button class="btn-agregar" onclick="abrirModal()">+ Agregar Servicio</button>
 
-        <!-- Tabla servicios -->
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Servicio</th>
-                    <th>Configurar</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
-            <tbody id="tablaServicios">
-                <!-- Los servicios aparecerán aquí -->
-            </tbody>
-        </table>
-    </main>
+<!-- Modal agregar -->
+<div id="modalServicio" class="modal">
+  <div class="modal-contenido">
+    <h3>Agregar Servicio</h3>
+    <form id="formModal">
+      <input type="text" id="nombreModal" placeholder="Nombre del servicio" required>
+      <button type="submit">Agregar Datos</button>
+    </form>
+    <button class="cerrar" onclick="cerrarModal()">Cerrar</button>
+  </div>
+</div>
+
+<!-- Modal editar -->
+<div id="modalEditar" class="modal">
+  <div class="modal-contenido">
+    <h3>Editar Servicio</h3>
+    <form id="formEditar">
+      <input type="text" id="nombreEditar" placeholder="Nombre del servicio" required>
+      <button type="submit">Guardar Cambios</button>
+    </form>
+    <button class="cerrar" onclick="cerrarModalEditar()">Cerrar</button>
+  </div>
+</div>
+
+<!-- Tabla servicios -->
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Servicio</th>
+            <th>Configurar</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody id="tablaServicios"></tbody>
+</table>
+</main>
 </div>
 
 <script>
-    let servicios = [];
-    let id = 1;
+let servicios = [];
+let id = 1;
+const tabla = document.getElementById("tablaServicios");
 
-    const form = document.getElementById("formServicio");
-    const tabla = document.getElementById("tablaServicios");
-
-    form.addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        const nombre = document.getElementById("nombreServicio").value;
-
-        servicios.push({ id: id++, nombre });
-        mostrarServicios();
-
-        form.reset();
+function mostrarServicios() {
+    tabla.innerHTML = "";
+    servicios.forEach(serv => {
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+            <td>${serv.id}</td>
+            <td>${serv.nombre}</td>
+            <td><button class="btn-configurar" onclick="configurarServicio(${serv.id})">Configurar</button></td>
+            <td><button class="btn-eliminar" onclick="eliminarServicio(${serv.id})">Eliminar</button></td>
+        `;
+        tabla.appendChild(fila);
     });
+}
 
-    function mostrarServicios() {
-        tabla.innerHTML = "";
-        servicios.forEach(serv => {
-            const fila = document.createElement("tr");
-            fila.innerHTML = `
-                <td>${serv.id}</td>
-                <td>${serv.nombre}</td>
-                <td><button class="btn-configurar" onclick="configurarServicio(${serv.id})">Configurar</button></td>
-                <td><button class="btn-eliminar" onclick="eliminarServicio(${serv.id})">Eliminar</button></td>
-            `;
-            tabla.appendChild(fila);
-        });
+function eliminarServicio(id) {
+    servicios = servicios.filter(serv => serv.id !== id);
+    mostrarServicios();
+}
+
+// Función para abrir modal de edición
+function configurarServicio(id) {
+    const servicio = servicios.find(serv => serv.id === id);
+    if(servicio){
+        abrirModalEditar(servicio);
     }
+}
 
-    function eliminarServicio(id) {
-        servicios = servicios.filter(serv => serv.id !== id);
-        mostrarServicios();
-    }
+// Modal agregar
+const modal = document.getElementById("modalServicio");
+const formModal = document.getElementById("formModal");
 
-    function configurarServicio(id) {
-        const nuevoNombre = prompt("Editar nombre del servicio:");
-        if (nuevoNombre && nuevoNombre.trim() !== "") {
-            servicios = servicios.map(serv => {
-                if (serv.id === id) {
-                    serv.nombre = nuevoNombre;
-                }
-                return serv;
-            });
-            mostrarServicios();
+function abrirModal() { modal.style.display = "flex"; }
+function cerrarModal() { modal.style.display = "none"; }
+
+formModal.addEventListener("submit", function(e){
+    e.preventDefault();
+    const nombre = document.getElementById("nombreModal").value;
+    servicios.push({ id: id++, nombre });
+    mostrarServicios();
+    formModal.reset();
+    cerrarModal();
+});
+
+// Modal editar
+const modalEditar = document.getElementById("modalEditar");
+const formEditar = document.getElementById("formEditar");
+let idEditar = null;
+
+function abrirModalEditar(servicio){
+    idEditar = servicio.id;
+    document.getElementById("nombreEditar").value = servicio.nombre;
+    modalEditar.style.display = "flex";
+}
+function cerrarModalEditar(){ modalEditar.style.display = "none"; }
+
+formEditar.addEventListener("submit", function(e){
+    e.preventDefault();
+    const nuevoNombre = document.getElementById("nombreEditar").value;
+    servicios = servicios.map(serv=>{
+        if(serv.id === idEditar){
+            serv.nombre = nuevoNombre;
         }
-    }
+        return serv;
+    });
+    mostrarServicios();
+    cerrarModalEditar();
+});
+
+// Cerrar modal al hacer clic fuera del contenido
+window.addEventListener("click", function(e){
+    if(e.target === modal) cerrarModal();
+    if(e.target === modalEditar) cerrarModalEditar();
+});
 </script>
 </body>
 </html>

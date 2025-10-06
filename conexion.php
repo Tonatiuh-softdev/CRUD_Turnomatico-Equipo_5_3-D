@@ -1,21 +1,12 @@
 <?php
-class CConexion {
+$host = "localhost";
+$user = "root";     
+$pass = "";         
+$db   = "nexora";
 
-    function ConexionBD() {
-        $host = "localhost";
-        $port = "5432"; // Puerto por defecto de PostgreSQL
-        $dbname = "ClickMatic";
-        $username = "postgres";
-        $password = "root";
+$conn = new mysqli($host, $user, $pass, $db);
 
-        try {
-            $conn = new PDO("pgsql:host=$host;port=$port;dbname=$dbname", $username, $password);
-            echo "Se conectó correctamente a la Base de Datos";
-        } 
-        catch (PDOException $exp) {
-            echo "No se pudo conectar a la base de datos: " . $exp->getMessage();
-        }
-        return $conn;
-    }
+if ($conn->connect_error) {
+    die("Error de conexión: " . $conn->connect_error);
 }
 ?>
