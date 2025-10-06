@@ -11,6 +11,10 @@ $sql_turno = "SELECT codigo_turno, tipo FROM turnos ORDER BY id DESC LIMIT 1";
 $res_turno = $conn->query($sql_turno);
 $turno_actual = $res_turno->fetch_assoc();
 
+// 🔹 Obtener lista de espera
+$sql_lista = "SELECT codigo_turno, tipo, estado FROM turnos WHERE estado = 'EN_ESPERA' ORDER BY id ASC";
+$res_lista = $conn->query($sql_lista);
+
 $conn->close();
 ?>
 
@@ -63,13 +67,37 @@ $conn->close();
 
     <!-- Acciones -->
     <div class="actions">
-        <button class="btn">LISTA DE ESPERA</button>
+        <button class="btn" onclick="toggleLista()">LISTA DE ESPERA</button>
         <button class="btn">PAUSAR ATENCIÓN</button>
         <button class="btn">ATENDER SIGUIENTE</button>
     </div>
 
+    <!-- 🔹 Lista de espera -->
+    <table id="tablaLista" class="lista-espera">
+        <tr>
+            <th>Código de turno</th>
+            <th>Módulo (tipo)</th>
+            <th>Estado</th>
+        </tr>
+        <?php while ($fila = $res_lista->fetch_assoc()): ?>
+            <tr>
+                <td><?= htmlspecialchars($fila['codigo_turno']) ?></td>
+                <td><?= htmlspecialchars($fila['tipo']) ?></td>
+                <td><?= htmlspecialchars($fila['estado']) ?></td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
+
     <!-- Registrar nuevo cliente -->
     <a href="/pantallas/login.php" class="register">REGISTRAR NUEVO CLIENTE</a>
 </main>
+
+<script>
+function toggleLista() {
+    const tabla = document.getElementById('tablaLista');
+    tabla.style.display = tabla.style.display === 'none' || tabla.style.display === '' ? 'table' : 'none';
+}
+</script>
+
 </body>
 </html>
