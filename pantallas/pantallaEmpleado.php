@@ -1,15 +1,54 @@
 <?php
 include __DIR__ . "/../conexion.php";
 
+// 🔹 Procesar acciones de los botones
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (isset($_POST["accion"])) {
+        $accion = $_POST["accion"];
+
+        if ($accion === "atender") {
+            // Buscar el siguiente turno en espera
+            $sql_siguiente = "SELECT id FROM turnos WHERE estado = 'EN_ESPERA' ORDER BY id ASC LIMIT 1";
+            $res_siguiente = $conn->query($sql_siguiente);
+
+            if ($res_siguiente->num_rows > 0) {
+                $siguiente = $res_siguiente->fetch_assoc()['id'];
+
+                // Marcar todos los turnos como atendidos para evitar conflictos
+                $conn->query("UPDATE turnos SET estado = 'ATENDIDO' WHERE estado = 'ATENDIENDO'");
+
+                // Cambiar el siguiente turno a ATENDIENDO
+                $conn->query("UPDATE turnos SET estado = 'ATENDIENDO' WHERE id = $siguiente");
+            }
+        }
+
+        if ($accion === "pausar") {
+            // Poner en pausa el turno que se esté atendiendo
+            $conn->query("UPDATE turnos SET estado = 'PAUSADO' WHERE estado = 'ATENDIENDO'");
+        }
+    }
+
+    // 🔄 Recargar página para reflejar cambios
+    header("Location: pantallaEmpleado.php");
+    exit;
+}
+
 // 🔹 Obtener número de personas en espera
 $sql_espera = "SELECT COUNT(*) AS total FROM turnos WHERE estado = 'EN_ESPERA'";
 $res_espera = $conn->query($sql_espera);
 $en_espera = $res_espera->fetch_assoc()['total'];
 
-// 🔹 Obtener el último turno generado
-$sql_turno = "SELECT codigo_turno, tipo FROM turnos ORDER BY id DESC LIMIT 1";
+// 🔹 Obtener el turno actual (el que está siendo atendido)
+$sql_turno = "SELECT codigo_turno, tipo, estado FROM turnos WHERE estado = 'ATENDIENDO' ORDER BY id DESC LIMIT 1";
 $res_turno = $conn->query($sql_turno);
 $turno_actual = $res_turno->fetch_assoc();
+
+// Si no hay turno atendiendo, mostrar el último generado
+if (!$turno_actual) {
+    $sql_turno = "SELECT codigo_turno, tipo, estado FROM turnos ORDER BY id DESC LIMIT 1";
+    $res_turno = $conn->query($sql_turno);
+    $turno_actual = $res_turno->fetch_assoc();
+}
 
 // 🔹 Obtener lista de espera
 $sql_lista = "SELECT codigo_turno, tipo, estado FROM turnos WHERE estado = 'EN_ESPERA' ORDER BY id ASC";
@@ -25,7 +64,6 @@ $conn->close();
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sistema de Turnos - Empleado</title>
 <link rel="stylesheet" href="../css/components/pantalla_empleado.css">
-<meta http-equiv="refresh" content="3"> <!-- 🔁 Actualiza cada 3 segundos -->
 </head>
 <body>
 <header>
@@ -49,7 +87,6 @@ $conn->close();
 </header>
 
 <main>
-    <!-- Info de turno -->
     <div class="info-container">
         <div class="card">
             <h3>EN ESPERA</h3>
@@ -61,16 +98,16 @@ $conn->close();
         </div>
         <div class="card">
             <h3>ESTATUS</h3>
-            <p><?= htmlspecialchars($turno_actual['tipo'] ?? '---') ?></p>
+            <p><?= htmlspecialchars($turno_actual['estado'] ?? '---') ?></p>
         </div>
     </div>
 
     <!-- Acciones -->
-    <div class="actions">
-        <button class="btn" onclick="toggleLista()">LISTA DE ESPERA</button>
-        <button class="btn">PAUSAR ATENCIÓN</button>
-        <button class="btn">ATENDER SIGUIENTE</button>
-    </div>
+    <form method="post" class="actions">
+        <button type="button" class="btn" onclick="toggleLista()">LISTA DE ESPERA</button>
+        <button type="submit" name="accion" value="pausar" class="btn">PAUSAR ATENCIÓN</button>
+        <button type="submit" name="accion" value="atender" class="btn">ATENDER SIGUIENTE</button>
+    </form>
 
     <!-- 🔹 Lista de espera -->
     <table id="tablaLista" class="lista-espera">
