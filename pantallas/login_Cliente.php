@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="../css/components/login.css">
+    <link rel="stylesheet" href="../css/components/login_Cliente.css">
 </head>
 <body>
 
@@ -82,6 +82,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="texto1">Welcome Back</div>
 <div class="texto2">Sign in to continue</div>
 <div class="texto3">LOG IN</div>
+
+<button class="boton" onclick="location.href='/pantallas/pantalla_espera.php'">
+  <img src="../img/flecha_regresar.png" alt="" class="icono">
+</button>
 
 <!-- 🔹 FORMULARIO CORRECTO -->
 <form action="login.php" method="POST">

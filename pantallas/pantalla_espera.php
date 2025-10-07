@@ -39,7 +39,7 @@
   <div class="circulo azul"></div>
   <div class="circulo verde"></div>
 
-  <button class="boton izquierda" onclick="window.location.href='/pantallas/login.php'">CLIENTE</button>
+  <button class="boton izquierda" onclick="window.location.href='/pantallas/login_Cliente.php'">CLIENTE</button>
   <button class="boton derecha" onclick="abrirModal()">VISITANTE</button>
 </div>
 
