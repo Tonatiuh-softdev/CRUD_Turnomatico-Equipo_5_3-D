@@ -55,8 +55,6 @@
       <div class="rectangulo2"></div>
       <div class="rectangulo3"></div>
       <div class="texto1">TOMA TURNO |</div>
-      <div class="texto2">Mexico <p>Manzanillo Colima</p></div>
-      <div class="time">01:26 am<br>25 de Agosto 2025</div>
     </div>
   </div>
 </div>
