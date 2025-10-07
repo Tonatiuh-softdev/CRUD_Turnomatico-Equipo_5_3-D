@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = $result->fetch_assoc();
 
         // Comparar contraseñas (si usas password_hash cambia a password_verify)
-        if ($user["password"] === $password) {
+        if (password_verify($password, $user["password"])) {
             $_SESSION["usuario"] = $user["nombre"];
             $_SESSION["rol"] = $user["rol"];
 
@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("Location: ./admin/index.php");
                     break;
                 case "empleado":
-                    header("Location: ./pantallaEmpleado.php");
+                    header("Location: ./admin/index.php");
                     break;
                 case "cliente":
                     header("Location: cliente.php");
