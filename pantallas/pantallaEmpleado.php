@@ -117,7 +117,7 @@ $conn->close();
         </span>
 
         <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] === 'empleado'): ?>
-            <a href="/index.php" class="btn-regresar" title="Regresar"></a>
+            <a href="./admin/" class="btn-regresar" title="Regresar"></a>
         <?php endif; ?>
 
         <form method="post" style="margin:0;">
