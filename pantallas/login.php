@@ -32,9 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 case "empleado":
                     header("Location: ./admin/index.php");
                     break;
-                case "cliente":
-                    header("Location: cliente.php");
-                    break;
             }
             exit;
         } else {
