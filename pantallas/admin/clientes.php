@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar_id'])) {
     exit;
 }
 
-// 🔹 Agregar cliente desde el CRUD
+// 🔹 Agregar cliente desde el modal
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombreCliente'])) {
     $nombre = trim($_POST['nombreCliente']);
     if (!empty($nombre)) {
@@ -53,26 +53,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombreCliente'])) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sistema de Turnos - Clientes</title>
 <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f5f5f5; }
-    header { display: flex; justify-content: space-between; align-items: center; background: #eceae7ff; padding: 10px 20px; border-bottom: 1px solid #ddd; }
-    header .logo { display: flex; align-items: center; font-weight: bold; }
-    header .logo span { margin-left: 10px; font-size: 14px; }
-    header .user { display: flex; align-items: center; gap: 15px; font-weight: bold; }
-    header .time { font-size: 12px; color: #666; text-align: right; }
-    .container { display: flex; height: calc(100vh - 50px); }
-    aside { width: 220px; background: #9cb6d6ff; color: #fff; padding: 15px 10px; display: flex; flex-direction: column; gap: 10px; }
-    aside a { display: flex; align-items: center; padding: 40px; border-radius: 5px; color: #000000ff; text-decoration: none; font-size: 14px; }
-    main { flex: 1; padding: 20px; background: #fff; overflow-y: auto; }
-    h2 { margin-top: 0; }
-    form { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-    form input, form button { padding: 8px; font-size: 14px; }
-    table { width: 100%; border-collapse: collapse; background: #fafafa; }
-    table th, table td { padding: 10px; border: 1px solid #ddd; text-align: center; }
-    table th { background: #747e8bff; color: white; }
-    .btn-eliminar { background: red; color: white; border: none; padding: 5px 8px; cursor: pointer; border-radius: 4px; }
-    .btn-eliminar:hover { background: darkred; }
-    .btn-status { background: #2b3d57; color: white; border: none; padding: 5px 8px; cursor: pointer; border-radius: 4px; }
-    .btn-status:hover { background: #3f5675; }
+body { margin: 0; font-family: Arial, sans-serif; background: #f5f5f5; }
+header { display: flex; justify-content: space-between; align-items: center; background: #eceae7ff; padding: 10px 20px; border-bottom: 1px solid #ddd; }
+header .logo { display: flex; align-items: center; font-weight: bold; }
+header .logo span { margin-left: 10px; font-size: 14px; }
+header .user { display: flex; align-items: center; gap: 15px; font-weight: bold; }
+header .time { font-size: 12px; color: #666; text-align: right; }
+.container { display: flex; height: calc(100vh - 50px); }
+aside { width: 220px; background: #9cb6d6ff; color: #fff; padding: 15px 10px; display: flex; flex-direction: column; gap: 10px; }
+aside a { display: flex; align-items: center; padding: 40px; border-radius: 5px; color: #000000ff; text-decoration: none; font-size: 14px; }
+main { flex: 1; padding: 20px; background: #fff; overflow-y: auto; }
+h2 { margin-top: 0; display: flex; align-items: center; gap: 10px; }
+table { width: 100%; border-collapse: collapse; background: #fafafa; }
+table th, table td { padding: 10px; border: 1px solid #ddd; text-align: center; }
+table th { background: #747e8bff; color: white; }
+.btn-eliminar { background: red; color: white; border: none; padding: 5px 8px; cursor: pointer; border-radius: 4px; }
+.btn-eliminar:hover { background: darkred; }
+.btn-status { background: #2b3d57; color: white; border: none; padding: 5px 8px; cursor: pointer; border-radius: 4px; }
+.btn-status:hover { background: #3f5675; }
+
+/* Botón grande estilo servicios */
+.btn-agregar {
+    display: block;
+    margin: 20px auto;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    background: #2b3d57;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-agregar:hover { background: #3f5675; }
+
+/* Modal estilo servicios */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(50,50,50,0.9));
+    justify-content: center;
+    align-items: center;
+}
+.modal-contenido {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    width: 300px;
+    text-align: center;
+}
+.modal-contenido h3 { margin-top: 0; }
+.modal-contenido input { width: 90%; padding: 10px; margin-bottom: 15px; }
+.modal-contenido button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #2b3d57;
+    color: #fff;
+    cursor: pointer;
+}
+.modal-contenido button:hover { background: #3f5675; }
+.cerrar { margin-top: 10px; background: red !important; }
+.cerrar:hover { background: darkred !important; }
+
 </style>
 </head>
 <body>
@@ -82,33 +129,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombreCliente'])) {
         <span>ClickMatic</span>
     </div>
     <div class="user">
-        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 20px; height: 20px;">
-  <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
-</svg> Administrador</span>
+        <span>Administrador</span>
         <div class="time"><?= date("h:i a"); ?><br><?= date("d \d\e F Y"); ?></div>
     </div>
 </header>
 
 <div class="container">
-   <?php
+<?php
 require '../../elementos/redirecciones.php';
 loadNavbar();
 ?>
 
 <main>
-    <h2><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 22px; height: 22px;">
-  <path d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003Z" />
-</svg> Administrar Clientes</h2>
+    <h2>Administrar Clientes</h2>
 
-    <!-- Formulario agregar -->
-    <form method="POST" id="formCliente">
-        <input type="text" name="nombreCliente" placeholder="Nombre del cliente" required>
-        <button type="submit">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 18px; height: 18px;">
-                <path d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
-            </svg> Agregar Cliente
-        </button>
-    </form>
+    <!-- Botón grande para abrir modal -->
+    <button class="btn-agregar" onclick="abrirModalCliente()">➕ Agregar Cliente</button>
+
+    <!-- Modal agregar cliente -->
+    <div id="modalCliente" class="modal">
+        <div class="modal-contenido">
+            <h3>Agregar Cliente</h3>
+            <form method="POST">
+                <input type="text" name="nombreCliente" placeholder="Nombre del cliente" required>
+                <button type="submit">Agregar</button>
+            </form>
+            <button class="cerrar" onclick="cerrarModalCliente()">Cerrar</button>
+        </div>
+    </div>
 
     <!-- Tabla clientes -->
     <table>
@@ -154,5 +202,17 @@ loadNavbar();
     </table>
 </main>
 </div>
+
+<script>
+// Abrir y cerrar modal
+const modalCliente = document.getElementById("modalCliente");
+function abrirModalCliente(){ modalCliente.style.display = "flex"; }
+function cerrarModalCliente(){ modalCliente.style.display = "none"; }
+// Cerrar modal al hacer clic fuera del contenido
+window.addEventListener("click", function(e){
+    if(e.target === modalCliente) cerrarModalCliente();
+});
+</script>
 </body>
 </html>
+
