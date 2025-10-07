@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 <img src="../img/fondo_login.png" alt="Fondo" class="imagen">
-<img src="../img/img.Logo_blanco-Photoroom.png" alt="Logo" class="imagen1">
+<img src="../img/img.Logo_blanco-Photoroom.png" alt="Mi Imagen" class="imagen1">
 
 <header>
   <div class="logo">
@@ -64,6 +64,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="error-msg"><?php echo $mensaje; ?></div>
 <?php endif; ?>
 
+<!-- Botón de regreso -->
+<a href="pantalla_espera.php" class="boton">
+    <img src="../img/flecha_regresar.png" alt="Regresar" class="icono">
+</a>
+
 <form action="" method="POST">
   <div class="input-field email-field">
     <input type="email" name="email" placeholder="Email" required>
@@ -73,5 +78,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
   <button type="submit" class="login-button">Continue</button>
 </form>
+
 </body>
 </html>

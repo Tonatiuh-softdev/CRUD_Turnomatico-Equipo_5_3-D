@@ -556,3 +556,25 @@ main p {
       justify-content: space-between;
       align-items: center;
     }
+.rectangulo4 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  display: inline-block; /* importante */
+  margin-top: 10px;
+
+  background: linear-gradient(90deg, #8eaab1, #506783);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: brillo 2s infinite linear;
+}
+
+@keyframes brillo {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.8); }
+  100% { filter: brightness(1); }
+}
