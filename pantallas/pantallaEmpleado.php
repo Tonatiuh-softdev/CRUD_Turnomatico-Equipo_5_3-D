@@ -126,7 +126,7 @@ $conn->close();
     </table>
 
     <!-- Registrar nuevo cliente -->
-    <a href="/pantallas/login.php" class="register">REGISTRAR NUEVO CLIENTE</a>
+    <a href="/pantallas/registro.php" class="register">REGISTRAR NUEVO CLIENTE</a>
 </main>
 
 <script>
