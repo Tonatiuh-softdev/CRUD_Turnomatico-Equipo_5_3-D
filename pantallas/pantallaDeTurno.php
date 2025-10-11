@@ -167,7 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
 </div>
 
 <footer>
-    ClickMatic
+    Nexora
 </footer>
 </body>
 </html>
