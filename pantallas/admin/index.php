@@ -6,6 +6,12 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// 🔒 CONTROL DE ACCESO POR ROL
+if (!isset($_SESSION['rol'])) {
+    header("Location: /pantallas/login.php");
+    exit;
+}
+
 // 🔹 Cerrar sesión
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cerrar_sesion'])) {
     session_unset();    // Elimina todas las variables de sesión
@@ -38,6 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
     exit;
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -45,11 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistema de Turnos</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-    }
+    body { margin: 0; font-family: Arial, sans-serif; background: #f5f5f5; }
 
     /* Barra superior */
     header {
@@ -60,36 +63,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
       padding: 10px 20px;
       border-bottom: 1px solid #ddd;
     }
-
-    header .logo {
-      display: flex;
-      align-items: center;
-      font-weight: bold;
-    }
-
-    header .logo span {
-      margin-left: 10px;
-      font-size: 14px;
-    }
-
-    header .user {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      font-weight: bold;
-    }
-
-    header .time {
-      font-size: 12px;
-      color: #666;
-      text-align: right;
-    }
+    header .logo { display: flex; align-items: center; font-weight: bold; }
+    header .logo span { margin-left: 10px; font-size: 14px; }
+    header .user { display: flex; align-items: center; gap: 15px; font-weight: bold; }
+    header .time { font-size: 12px; color: #666; text-align: right; }
 
     /* Layout general */
-    .container {
-      display: flex;
-      height: calc(100vh - 50px);
-    }
+    .container { display: flex; height: calc(100vh - 50px); }
 
     /* Main */
     main {
@@ -112,88 +92,47 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
       flex-direction: column;
       color: #333;
       transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
     }
+    .card:link, .card:visited { text-decoration: none; color: inherit; }
+    .card:nth-child(1) { background: #92aecbff; }
+    .card:nth-child(2) { background: #bfd4eaff; }
+    .card:nth-child(3) { background: #e1ebf6; grid-column: span 2; }
+    .card img { width: 40px; margin-bottom: 10px; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
 
-    .card:nth-child(1) {
-      background: #92aecbff;
+    /* Botón regresar (flecha) */
+    .btn-regresar {
+        width: 24px;
+        height: 24px;
+        background-color: #2b3d57;
+        mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>') no-repeat center;
+        -webkit-mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>') no-repeat center;
+        display:inline-block;
+        cursor:pointer;
+        transition: background-color 0.2s, transform 0.3s;
     }
+    .btn-regresar:hover { background-color: #3f5675; transform: translateX(-5px); }
 
-    .card:nth-child(2) {
-      background: #bfd4eaff;
+    /* Botón cerrar sesión (ícono puerta con flecha) */
+    .btn-cerrar {
+        width: 24px;
+        height: 24px;
+        background-color: #d9534f;
+        mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10zm8-11h-6v2h6v10h-6v2h6c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2z"/></svg>') no-repeat center;
+        -webkit-mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10zm8-11h-6v2h6v10h-6v2h6c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2z"/></svg>') no-repeat center;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s, transform 0.2s;
     }
-
-    .card:nth-child(3) {
-      background: #e1ebf6;
-      grid-column: span 2;
-    }
-
-    .card img {
-      width: 40px;
-      margin-bottom: 10px;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-    }
-    .card {
-  background: #dce6f3;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  font-weight: bold;
-  flex-direction: column;
-  color: #333;
-  transition: transform 0.2s, box-shadow 0.2s;
-  text-decoration: none; /* Quita la raya subrayada */
-}
-
-.card:link,
-.card:visited {
-  text-decoration: none; /* Evita que regrese */
-  color: inherit; /*  Mantiene el color del texto */
-}
-/* Botón regresar (flecha) */
-.btn-regresar {
-    width: 24px;
-    height: 24px;
-    background-color: #2b3d57;
-    mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>') no-repeat center;
-    -webkit-mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>') no-repeat center;
-    display:inline-block;
-    cursor:pointer;
-    transition: background-color 0.2s, transform 0.3s;
-}
-
-.btn-regresar:hover {
-    background-color: #3f5675;
-    transform: translateX(-5px);
-}
-
-/* Botón cerrar sesión (ícono puerta con flecha) */
-.btn-cerrar {
-    width: 24px;
-    height: 24px;
-    background-color: #d9534f;
-    mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10zm8-11h-6v2h6v10h-6v2h6c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2z"/></svg>') no-repeat center;
-    -webkit-mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10zm8-11h-6v2h6v10h-6v2h6c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2z"/></svg>') no-repeat center;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
-}
-
-.btn-cerrar:hover {
-    background-color: #c9302c;
-    transform: translateY(-2px);
-}
+    .btn-cerrar:hover { background-color: #c9302c; transform: translateY(-2px); }
   </style>
 </head>
 <body>
-  <header>
-      <div class="logo">
-        <img src="/img/img.Logo_blanco-Photoroom.png" width="70"/>
+
+<header>
+    <div class="logo">
+      <img src="/img/img.Logo_blanco-Photoroom.png" width="70"/>
     </div>
     <div class="user-panel" style="display:flex; align-items:center; gap:8px;">
         <span style="display:flex; align-items:center; gap:5px;">
@@ -218,28 +157,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
             ?>
         </div>
     </div>
-  </header>
+</header>
 
-  <div class="container">
-    <?php
-    require '../../elementos/redirecciones.php';
-    loadNavbar();
-    ?>
+<div class="container">
+    <?php require '../../elementos/redirecciones.php'; loadNavbar(); ?>
 
     <main>
-      <a href="../pantalla_espera.php" class="card">
-        <img src="https://img.icons8.com/ios-filled/50/000000/conference.png"/>
-        Pantalla de espera
-      </a>
-      <a href="../pantallaDeTurno.php" class="card">
-        <img src="https://img.icons8.com/ios-filled/50/000000/return.png"/>
-        Pantalla de turno
-      </a>
-      <a href="../pantallaEmpleado.php" class="card">
-        <img src="https://img.icons8.com/ios-filled/50/000000/conference-call.png"/>
-        Pantalla de empleado
-      </a>
+        <a href="../pantalla_espera.php" class="card">
+          <img src="https://img.icons8.com/ios-filled/50/000000/conference.png"/>
+          Pantalla de espera
+        </a>
+        <a href="../pantallaDeTurno.php" class="card">
+          <img src="https://img.icons8.com/ios-filled/50/000000/return.png"/>
+          Pantalla de turno
+        </a>
+        <a href="../pantallaEmpleado.php" class="card">
+          <img src="https://img.icons8.com/ios-filled/50/000000/conference-call.png"/>
+          Pantalla de empleado
+        </a>
     </main>
-  </div>
+</div>
+
 </body>
 </html>
