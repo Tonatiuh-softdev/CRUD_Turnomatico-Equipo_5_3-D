@@ -160,7 +160,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
 </header>
 
 <div class="container">
-    <?php require '../../elementos/redirecciones.php'; loadNavbar(); ?>
+    <!-- Solo admin y superadmin ven la barra de navegación -->
+    <?php if(isset($_SESSION['rol']) && in_array($_SESSION['rol'], ['admin','superadmin'])): ?>
+        <?php require '../../elementos/redirecciones.php'; loadNavbar(); ?>
+    <?php endif; ?>
 
     <main>
         <a href="../pantalla_espera.php" class="card">
