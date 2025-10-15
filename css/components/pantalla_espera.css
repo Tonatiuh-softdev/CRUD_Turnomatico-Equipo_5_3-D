@@ -72,21 +72,21 @@ main p {
 /* Posiciones y colores */
 .rojo {
   background-color: #B0C4DE;
-  top: 20px;
+  top: 50px;
   left: 450px;
   z-index: 1; /* queda debajo de azul */
 }
 
 .azul {
   background-color: #9b9b9b;
-  top: -20px;
+  top: 10px;
   left: 640px;
   z-index: 2; /* queda arriba de rojo y debajo de verde */
 }
 
 .verde {
   background-color: #d3d3d3;
-  top: 21px;
+  top: 51px;
   left: 830px;
   z-index: 3; /* queda arriba de todos */
 }
@@ -556,3 +556,25 @@ main p {
       justify-content: space-between;
       align-items: center;
     }
+.rectangulo4 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  display: inline-block; /* importante */
+  margin-top: 10px;
+
+  background: linear-gradient(90deg, #8eaab1, #506783);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: brillo 2s infinite linear;
+}
+
+@keyframes brillo {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.8); }
+  100% { filter: brightness(1); }
+}

@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = $result->fetch_assoc();
 
         // Comparar contraseñas (si usas password_hash cambia a password_verify)
-        if ($user["password"] === $password) {
+        if (password_verify($password, $user["password"])) {
             $_SESSION["usuario"] = $user["nombre"];
             $_SESSION["rol"] = $user["rol"];
 
@@ -30,10 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("Location: ./admin/index.php");
                     break;
                 case "empleado":
-                    header("Location: ./pantallaEmpleado.php");
-                    break;
-                case "cliente":
-                    header("Location: cliente.php");
+                    header("Location: ./admin/index.php");
                     break;
             }
             exit;
@@ -82,10 +79,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="texto1">Welcome Back</div>
 <div class="texto2">Sign in to continue</div>
 <div class="texto3">LOG IN</div>
-
-<button class="boton">
-  <img src="../img/flecha_regresar.png" alt="" class="icono">
-</button>
 
 <!-- 🔹 FORMULARIO CORRECTO -->
 <form action="login.php" method="POST">
