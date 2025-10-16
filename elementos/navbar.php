@@ -2,63 +2,85 @@
 function renderNavbar(){
   ?>
   <style>
-  .container {
+  /* Contenedor principal que divide aside y contenido */
+.container {
+    display: flex;
+    min-height: 90vh; /* toda la altura visible */
+    background: #f5f5f5;
+}
+.navbar{
+  height: 90vh;
+}
+/* Barra lateral */
+aside {
+    width: 100px; /* tamaño inicial solo iconos */
+    background: #9cb6d6ff;
+    color: #fff;
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 90vh; /* ocupa solo la pantalla visible */
+    transition: width 0.3s;
+    overflow: hidden;
+    position: relative; /* ya no fixed */
+    flex-shrink: 0; /* evita que se encoja */
+}
 
-  }
-  aside {
-      width: 100px; /* tamaño inicial solo iconos */
-      background: #9cb6d6ff;
-      color: #fff;
-      padding: 10px 5px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      height: 120vh;
-      transition: width 0.3s;
-      overflow: hidden;
-  }
+/* Al pasar el mouse se expande */
+aside:hover {
+    width: 200px;
+}
 
-  aside:hover {
-      width: 200px;
-  }
+/* Enlaces del menú */
+aside a {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    padding-left: 30px;
+    border-radius: 5px;
+    color: #000;
+    text-decoration: none;
+    font-size: 14px;
+    margin: 10px 0;
+    transition: background 0.3s, color 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+}
 
-  aside a {
-      display: flex;
-      align-items: center;
-      padding: 35px;
-      border-radius: 5px;
-      color: #000;
-      text-decoration: none;
-      font-size: 14px;
-      margin: 8px 0;
-      transition: background 0.3s, color 0.3s;
-      width: 100%;
-      box-sizing: border-box;
-  }
+aside a:hover {
+    background: #88a1c3ff;
+    color: #fff;
+}
 
-  aside a:hover {
-      background: #88a1c3ff;
-      color: #fff;
-  }
+aside a svg {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+}
 
-  aside a svg {
-      flex-shrink: 0;
-      width: 28px;
-      height: 28px;
-  }
+aside a span {
+    margin-left: 10px;
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.3s;
+}
 
-  aside a span {
-      margin-left: 10px;
-      opacity: 0;
-      white-space: nowrap;
-      transition: opacity 0.3s;
-  }
+/* Muestra los textos al expandirse */
+aside:hover a span {
+    opacity: 1;
+}
 
-  aside:hover a span {
-      opacity: 1;
-  }
+/* Zona del contenido */
+.main-content {
+    flex: 1; /* ocupa todo el espacio restante */
+    background: #fff;
+    padding: 20px;
+    overflow-y: auto; /* aquí va el scroll */
+}
+
   </style>
-  <div class = "container">
+  <div class='navbar'>
     <aside>
       <a href="index.php">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="28" stroke="currentColor">

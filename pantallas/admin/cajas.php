@@ -91,7 +91,7 @@ require '../../elementos/redirecciones.php';
 loadNavbar();
 ?>
 
-<main>
+<div class='main-content'>
     <h2>Administrar Cajas</h2>
 
     <!-- Botón grande para abrir modal -->
@@ -123,7 +123,7 @@ loadNavbar();
         </thead>
         <tbody id="tablaCajas"></tbody>
     </table>
-</main>
+
 </div>
 
 <script>
