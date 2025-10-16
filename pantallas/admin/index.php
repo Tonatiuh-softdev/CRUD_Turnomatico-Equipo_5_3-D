@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // 🔒 CONTROL DE ACCESO POR ROL
 if (!isset($_SESSION['rol'])) {
-    header("Location: /pantallas/login.php");
+    header("Location: ../login.php");
     exit;
 }
 
@@ -16,7 +16,7 @@ if (!isset($_SESSION['rol'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cerrar_sesion'])) {
     session_unset();    // Elimina todas las variables de sesión
     session_destroy();  // Destruye la sesión
-    header("Location: /pantallas/login.php");
+    header("Location: ../login.php");
     exit;
 }
 
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
     }
 
     // 🔄 Recargar página
-    header("Location: pantallaEmpleado.php");
+    header("Location: ../pantallaEmpleado.php");
     exit;
 }
 ?>
@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
         </span>
 
         <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] === 'empleado'): ?>
-            <a href="./admin/" class="btn-regresar" title="Regresar"></a>
+            <a href="../admin/" class="btn-regresar" title="Regresar"></a>
         <?php endif; ?>
 
         <form method="post" style="margin:0;">

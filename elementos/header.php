@@ -6,6 +6,45 @@ $fecha = (new DateTime())->format("d \ \e F \ \e Y");
 ?>
 <style>
 /* Botón regresar (flecha) */
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+    }
+
+    /* Barra superior */
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #eceae7ff;
+        padding: 10px 20px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    header .logo {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    header .logo span {
+        margin-left: 10px;
+        font-size: 14px;
+    }
+
+    header .user {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-weight: bold;
+    }
+
+    header .time {
+        font-size: 12px;
+        color: #666;
+        text-align: right;
+    }
 .btn-regresar {
     width: 24px;
     height: 24px;
@@ -44,7 +83,7 @@ $fecha = (new DateTime())->format("d \ \e F \ \e Y");
 
 <header>
     <div class="logo">
-        <img src="/img/img.Logo_blanco-Photoroom.png" width="70"/>
+        <img src="../img/img.Logo_blanco-Photoroom.png" width="70"/>
     </div>
     <div class="user-panel" style="display:flex; align-items:center; gap:8px;">
         <span style="display:flex; align-items:center; gap:5px;">
