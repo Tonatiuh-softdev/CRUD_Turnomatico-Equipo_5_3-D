@@ -1,5 +1,6 @@
 <?php
-include __DIR__ . "/../../conexion.php";
+require '../../elementos/redirecciones.php';
+loadConexion();
 
 // ✅ Evitar notice si la sesión ya está iniciada
 if (session_status() === PHP_SESSION_NONE) {

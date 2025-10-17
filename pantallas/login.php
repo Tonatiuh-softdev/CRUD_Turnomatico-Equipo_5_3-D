@@ -1,7 +1,8 @@
 <?php
-session_start();
-include __DIR__ . "/../conexion.php";
 
+require '../elementos/redirecciones.php';
+loadConexion();
+session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
@@ -95,3 +96,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </body>
 </html>
+

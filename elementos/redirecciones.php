@@ -10,6 +10,11 @@ function loadLogIn(){
     require_once __DIR__ . "/ctrl_sesion.php";
     renderLogIn();
 }
+
+function loadConexion(){
+    require_once __DIR__ . "/conexion.php";
+    conexion();
+}
     
 
 

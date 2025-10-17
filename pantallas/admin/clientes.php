@@ -1,6 +1,6 @@
 <?php
 require '../../elementos/redirecciones.php';
-require '../../conexion.php';
+
 
 // 🔹 Cambiar status
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cambiar_status_id'])) {
