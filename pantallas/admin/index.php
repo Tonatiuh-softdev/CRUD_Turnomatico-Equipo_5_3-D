@@ -1,12 +1,12 @@
 <?php
 include __DIR__ . "/../../conexion.php";
 
-// ✅ Evitar notice si la sesión ya está iniciada
+//  Evitar notice si la sesión ya está iniciada
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// 🔒 CONTROL DE ACCESO POR ROL
+//  CONTROL DE ACCESO POR ROL
 if (!isset($_SESSION['rol'])) {
     header("Location: /pantallas/login.php");
     exit;
