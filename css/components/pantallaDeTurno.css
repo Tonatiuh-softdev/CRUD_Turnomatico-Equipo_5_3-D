@@ -69,7 +69,7 @@ header .logo img {
 
 /* Lista de turnos */
 .lista-turnos {
-    background: #d4d4d4;
+    background: #7e93a9;
     padding: 10px;
     border-radius: 10px;
     overflow-x: auto;
@@ -219,11 +219,18 @@ footer {
     gap: 20px;
 
     /* Fondo */
-    background-image: url('/img/fondoPagTurnos.jpg'); /* Cambia por tu imagen */
+    background-image: url('/img/nose.jpg'); /* Cambia por tu imagen */
     background-size: cover;       /* Ajusta la imagen al contenedor */
     background-position: center;  /* Centrado */
     background-repeat: no-repeat; /* Sin repetición */
     border-radius: 10px;          /* Opcional */
     padding: 50px;                /* Opcional */
 }
-
+/* ===== FONDO GENERAL DE TODA LA PÁGINA ===== */
+body {
+    background-image: url('/img/fondoAzelPagTurno.jpg'); /* 👉 cambia la ruta por tu imagen */
+    background-size: cover;        /* Hace que cubra toda la pantalla */
+    background-position: center;   /* Centra la imagen */
+    background-repeat: no-repeat;  /* Evita repeticiones */
+    background-attachment: fixed;  /* Hace que el fondo quede fijo al hacer scroll */
+}
