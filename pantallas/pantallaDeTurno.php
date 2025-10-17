@@ -66,8 +66,31 @@ $turnoActual = $turnos[0];
         </div>
     </div>
 
+<<<<<<< Updated upstream
     <footer>
         ClickMatic
     </footer>
+=======
+    <!-- Lado derecho: panel actual con rectángulos -->
+    <div class="lado-derecho">
+        <div class="grupo">
+            <div class="rectangulo">Turno</div>
+            <div class="rectanguloR">Módulo</div>
+        </div>
+
+        <div class="datos">
+            <div><?= htmlspecialchars($turnoActual["codigo_turno"]) ?></div>
+            <div><?= htmlspecialchars($turnoActual["tipo"]) ?></div>
+        </div>
+
+        <div class="rectangulo3">Karina Perez</div>
+    </div>
+</div>
+
+
+<footer>
+    ClickMatic
+</footer>
+>>>>>>> Stashed changes
 </body>
 </html>
