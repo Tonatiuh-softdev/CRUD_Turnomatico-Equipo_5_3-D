@@ -1,12 +1,6 @@
 <?php
-include __DIR__ . "/../../conexion.php"; // Ajusta la ruta a tu conexión
-session_start();
-
-// Solo permitir acceso si es empleado o admin
-if (!isset($_SESSION["rol"]) || !in_array($_SESSION["rol"], ['empleado','admin','superadmin'])) {
-    header("Location: login.php");
-    exit;
-}
+require '../../elementos/redirecciones.php';
+require '../../conexion.php';
 
 // 🔹 Cambiar status
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cambiar_status_id'])) {
@@ -135,11 +129,11 @@ table th { background: #747e8bff; color: white; }
 </header>
 
 <div class="container">
+
 <?php
-require '../../elementos/redirecciones.php';
+loadLogIn();
 loadNavbar();
 ?>
-
 <main>
     <h2>Administrar Clientes</h2>
 
