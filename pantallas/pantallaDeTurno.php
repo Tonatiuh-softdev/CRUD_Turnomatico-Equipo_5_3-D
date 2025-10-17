@@ -135,38 +135,41 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
     </div>
 </header>
 
-<div class="contenedor">
-    <!-- Lista de turnos -->
-    <div class="lista-turnos">
-        <table class="tabla">
-            <tr>
-                <th>Turno</th>
-                <th>Módulo</th>
-            </tr>
-            <?php foreach ($turnos as $t): ?>
+<div class="contenedor-principal">
+    <!-- Lado izquierdo: lista de turnos -->
+    <div class="lado-izquierdo">
+        <div class="lista-turnos">
+            <table class="tabla">
                 <tr>
-                    <td><?= htmlspecialchars($t["codigo_turno"]) ?></td>
-                    <td><?= htmlspecialchars($t["tipo"]) ?></td>
+                    <th>Turno</th>
+                    <th>Módulo</th>
                 </tr>
-            <?php endforeach; ?>
-        </table>
+                <?php foreach ($turnos as $t): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($t["codigo_turno"]) ?></td>
+                        <td><?= htmlspecialchars($t["tipo"]) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
     </div>
 
-    <!-- Panel turno actual -->
-    <div class="panel-actual">
+    <!-- Lado derecho: panel actual con rectángulos -->
+    <div class="lado-derecho">
+        <div class="grupo">
+            <div class="rectangulo">Turno</div>
+            <div class="rectanguloR">Módulo</div>
+        </div>
+
         <div class="datos">
             <div><?= htmlspecialchars($turnoActual["codigo_turno"]) ?></div>
             <div><?= htmlspecialchars($turnoActual["tipo"]) ?></div>
         </div>
+
+        <div class="rectangulo3">Camila Perez</div>
     </div>
 </div>
 
-<!-- Decorativos adicionales -->
-<div class="grupo">
-    <div class="rectangulo">Turno</div>
-    <div class="rectanguloR">Módulo</div>
-</div>
-<div class="rectangulo3">Camila Perez</div>
 
 <footer>
     ClickMatic
