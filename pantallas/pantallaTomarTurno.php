@@ -16,7 +16,7 @@ if (isset($_SESSION["usuario"]) && $_SESSION["rol"] === "cliente") {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pantalla de Espera</title>
-<link rel="stylesheet" href="../css/components/pantalla_espera.css">
+<link rel="stylesheet" href="../css/components/pantallaTomarTurno.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
@@ -31,23 +31,26 @@ if (isset($_SESSION["usuario"]) && $_SESSION["rol"] === "cliente") {
   </a>
 </header>
 
-<div class="texto">TOMA TU TURNO</div>
+<main>
+  <div class="contenedor">
+    <div class="texto">TOMA TU TURNO</div>
+    <div class="circulo rojo"></div>
+    <div class="circulo azul"></div>
+    <div class="circulo verde"></div>
+  </div>
 
-<div class="contenedor">
-  <div class="circulo rojo"></div>
-  <div class="circulo azul"></div>
-  <div class="circulo verde"></div>
+  <div class="botones-container">
+    <!-- Botón CLIENTE -->
+    <?php if ($clienteLogueado): ?>
+        <button class="boton" onclick="abrirModalCliente()">CLIENTE</button>
+    <?php else: ?>
+        <button class="boton" onclick="window.location.href='/pantallas/login_Cliente.php'">CLIENTE</button>
+    <?php endif; ?>
 
-  <!-- Botón CLIENTE -->
-  <?php if ($clienteLogueado): ?>
-      <button class="boton izquierda" onclick="abrirModalCliente()">CLIENTE</button>
-  <?php else: ?>
-      <button class="boton izquierda" onclick="window.location.href='/pantallas/login_Cliente.php'">CLIENTE</button>
-  <?php endif; ?>
-
-  <!-- Botón VISITANTE -->
-  <button class="boton derecha" onclick="abrirModalVisitante()">VISITANTE</button>
-</div>
+    <!-- Botón VISITANTE -->
+    <button class="boton" onclick="abrirModalVisitante()">VISITANTE</button>
+  </div>
+</main>
 
 <!-- Modal -->
 <div class="overlay" id="modal">
