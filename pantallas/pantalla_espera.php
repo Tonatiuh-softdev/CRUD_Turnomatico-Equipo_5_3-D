@@ -1,6 +1,8 @@
 <?php
+require '../elementos/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+loadLogIn();
 session_start();
-include __DIR__ . "/../conexion.php";
 
 $clienteLogueado = false;
 $nombreCliente = "";

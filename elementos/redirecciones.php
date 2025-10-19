@@ -16,7 +16,11 @@ function loadConexion(){
     conexion();
     return conexion();
 }
-    
+
+function loadHeader(){
+    require_once __DIR__ . "/header.php";
+    renderHeader();
+}
 
 
 

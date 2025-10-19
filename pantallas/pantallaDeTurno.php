@@ -1,5 +1,12 @@
 <?php
-include __DIR__ . "/../conexion.php";
+require '../elementos/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+loadConexion();
+loadLogIn();
+session_start();
+
+
+
 date_default_timezone_set("America/Mexico_City");
 $hora = date("h:i a");
 setlocale(LC_TIME, "es_ES.UTF-8");
