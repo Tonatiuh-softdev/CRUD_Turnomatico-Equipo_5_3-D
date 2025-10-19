@@ -1,6 +1,7 @@
 <?php
 
 require '../elementos/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
 loadConexion();
 session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

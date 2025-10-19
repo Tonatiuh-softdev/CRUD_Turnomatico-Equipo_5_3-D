@@ -14,6 +14,7 @@ function loadLogIn(){
 function loadConexion(){
     require_once __DIR__ . "/conexion.php";
     conexion();
+    return conexion();
 }
     
 

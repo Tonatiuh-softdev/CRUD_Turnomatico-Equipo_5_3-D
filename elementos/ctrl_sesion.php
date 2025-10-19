@@ -1,6 +1,6 @@
 <?php
 function renderLogIn(){
-    include __DIR__ . "../../conexion.php"; // Ajusta la ruta a tu conexión
+   
     session_start();
 
     // Solo permitir acceso si es empleado o admin

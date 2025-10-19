@@ -1,5 +1,7 @@
 <?php
-include __DIR__ . "/../conexion.php"; 
+require '../elementos/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+loadConexion();
 session_start();
 
 // Solo permitir si el usuario logueado es empleado

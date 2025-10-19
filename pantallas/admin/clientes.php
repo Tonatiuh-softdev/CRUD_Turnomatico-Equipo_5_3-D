@@ -1,6 +1,7 @@
 <?php
 require '../../elementos/redirecciones.php';
-
+$conn = loadConexion(); // ✅ Crea la conexión
+loadLogIn();
 
 // 🔹 Cambiar status
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cambiar_status_id'])) {
@@ -131,7 +132,7 @@ table th { background: #747e8bff; color: white; }
 <div class="container">
 
 <?php
-loadLogIn();
+
 loadNavbar();
 ?>
 <main>

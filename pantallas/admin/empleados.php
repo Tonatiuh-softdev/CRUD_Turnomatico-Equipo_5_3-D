@@ -1,14 +1,7 @@
 <?php
-// Conexión a la base de datos
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "nexora";
-
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-    die("Error de conexión: " . $conn->connect_error);
-}
+require '../../elementos/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+loadLogIn();
 
 // Obtener los empleados (rol = 'empleado')
 $sql = "SELECT id, nombre, rol as puesto FROM usuarios WHERE rol='empleado'";

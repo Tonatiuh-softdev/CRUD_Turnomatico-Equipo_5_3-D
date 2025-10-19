@@ -1,17 +1,14 @@
 <?php
 require '../../elementos/redirecciones.php';
-loadConexion();
+$conn = loadConexion(); // ✅ Crea la conexión
+loadLogIn();
 
 // ✅ Evitar notice si la sesión ya está iniciada
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// 🔒 CONTROL DE ACCESO POR ROL
-if (!isset($_SESSION['rol'])) {
-    header("Location: ../login.php");
-    exit;
-}
+
 
 // 🔹 Cerrar sesión
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cerrar_sesion'])) {
@@ -162,9 +159,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
 
 <div class="container">
     <!-- Solo admin y superadmin ven la barra de navegación -->
-    <?php if(isset($_SESSION['rol']) && in_array($_SESSION['rol'], ['admin','superadmin'])): ?>
-        <?php require '../../elementos/redirecciones.php'; loadNavbar(); ?>
-    <?php endif; ?>
+   <?php
+loadNavbar(); 
+   ?>
 
     <main>
       <a href="../pantallaDeTurno.php" class="card">

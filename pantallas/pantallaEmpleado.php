@@ -1,5 +1,8 @@
 <?php
-include __DIR__ . "/../conexion.php";
+require '../elementos/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+loadConexion();
+session_start();
 
 // ✅ Evitar notice si la sesión ya está iniciada
 if (session_status() === PHP_SESSION_NONE) {
@@ -170,7 +173,8 @@ $conn->close();
         <?php endwhile; ?>
     </table>
 
-    <a href="/pantallas/registro.php" class="register">REGISTRAR NUEVO CLIENTE</a>
+    <a href="../pantallas/registro.php" class="register">REGISTRAR NUEVO CLIENTE</a>
+    
 </main>
 
 <script>
