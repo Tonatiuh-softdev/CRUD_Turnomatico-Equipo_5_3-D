@@ -116,4 +116,6 @@ function renderHeader(){
     </header>
 <?php
 }
+
+
 ?>

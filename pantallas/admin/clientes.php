@@ -118,17 +118,11 @@ table th { background: #747e8bff; color: white; }
 </style>
 </head>
 <body>
-<header>
-    <div class="logo">
-        <img src="../../img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
-        <span>ClickMatic</span>
-    </div>
-    <div class="user">
-        <span>Administrador</span>
-        <div class="time"><?= date("h:i a"); ?><br><?= date("d \d\e F Y"); ?></div>
-    </div>
-</header>
 
+<?php
+
+loadHeader();
+?>
 <div class="container">
 
 <?php
