@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . "/../conexion.php"; 
+include __DIR__ . "/../Recursos/PHP/conexion.php"; 
 session_start();
 
 // Solo permitir si el usuario logueado es empleado

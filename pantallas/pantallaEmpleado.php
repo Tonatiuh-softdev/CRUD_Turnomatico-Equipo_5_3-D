@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . "/../conexion.php";
+include __DIR__ . "/../Recursos/PHP/conexion.php";
 
 // ✅ Evitar notice si la sesión ya está iniciada
 if (session_status() === PHP_SESSION_NONE) {

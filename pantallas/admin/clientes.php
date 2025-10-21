@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . "/../../conexion.php"; // Ajusta la ruta a tu conexión
+include __DIR__ . "/../../Recursos/PHP/conexion.php"; // Ajusta la ruta a tu conexión
 session_start();
 
 // Solo permitir acceso si es empleado o admin

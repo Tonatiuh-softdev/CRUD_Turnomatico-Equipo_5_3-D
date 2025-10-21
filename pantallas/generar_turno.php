@@ -1,6 +1,6 @@
 <?php
 session_start();
-include __DIR__ . "/../conexion.php";
+include __DIR__ . "/../Recursos/PHP/conexion.php";
 
 $tipo = isset($_GET["tipo"]) ? strtoupper($_GET["tipo"]) : "VISITANTE";
 $nombreCliente = ($tipo === "CLIENTE" && isset($_SESSION["usuario"])) ? $_SESSION["usuario"] : null;
