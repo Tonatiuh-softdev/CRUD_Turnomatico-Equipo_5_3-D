@@ -10,7 +10,7 @@ $fecha = (new DateTime())->format("d \ \e F \ \e Y");
 
 <header>
         <div class="empresa">
-            <img src="../img/img.Logo_blanco.png" alt="logo">
+            <img src="../../../img/img.Logo_blanco.png" alt="logo">
             ClickMatic
         </div>
         <div class="info">
