@@ -44,7 +44,7 @@ if (isset($_SESSION["usuario"]) && $_SESSION["rol"] === "cliente") {
     <?php if ($clienteLogueado): ?>
         <button class="boton" onclick="abrirModalCliente()">CLIENTE</button>
     <?php else: ?>
-        <button class="boton" onclick="window.location.href='/pantallas/login_Cliente.php'">CLIENTE</button>
+        <button class="boton" onclick="window.location.href='/Paginas/PHP/login_Cliente.php'">CLIENTE</button>
     <?php endif; ?>
 
     <!-- Botón VISITANTE -->

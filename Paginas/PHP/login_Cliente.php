@@ -43,15 +43,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login Cliente</title>
-<link rel="stylesheet" href="../css/components/login_Cliente.css">
+<link rel="stylesheet" href="../../css/components/login_Cliente.css">
 </head>
 <body>
-<img src="../img/fondo_login.png" alt="Fondo" class="imagen">
-<img src="../img/img.Logo_blanco-Photoroom.png" alt="Mi Imagen" class="imagen1">
+<img src="../../img/fondo_login.png" alt="Fondo" class="imagen">
+<img src="../../img/img.Logo_blanco-Photoroom.png" alt="Mi Imagen" class="imagen1">
 
 <header>
   <div class="logo">
-    <img src="../img/img.Logo_blanco-Photoroom.png" width="70"/>
+    <img src="../../img/img.Logo_blanco-Photoroom.png" width="70"/>
     <span>ClickMatic</span>
   </div>
 </header>
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!-- Botón de regreso -->
 <a href="pantalla_espera.php" class="boton">
-    <img src="../img/flecha_regresar.png" alt="Regresar" class="icono">
+    <img src="../../img/flecha_regresar.png" alt="Regresar" class="icono">
 </a>
 
 <form action="" method="POST">
