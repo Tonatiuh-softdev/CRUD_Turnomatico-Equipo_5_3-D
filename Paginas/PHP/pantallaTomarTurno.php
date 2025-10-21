@@ -26,7 +26,7 @@ if (isset($_SESSION["usuario"]) && $_SESSION["rol"] === "cliente") {
     <img src="../../img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
     <span>ClickMatic</span>
   </div>
-  <a href="../../pantallas/pantallaDeTurno.php" class="btn-pantalla" title="Pantalla">
+  <a href="./pantallaDeTurno.php" class="btn-pantalla" title="Pantalla">
     <i class="fa-solid fa-display"></i>
   </a>
 </header>

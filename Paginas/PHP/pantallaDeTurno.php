@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . "/../Recursos/PHP/conexion.php";
+include __DIR__ . "/../../Recursos/PHP/conexion.php";
 date_default_timezone_set("America/Mexico_City");
 $hora = date("h:i a");
 setlocale(LC_TIME, "es_ES.UTF-8");
@@ -36,7 +36,7 @@ if (session_status() === PHP_SESSION_NONE) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cerrar_sesion'])) {
     session_unset();    // Elimina todas las variables de sesión
     session_destroy();  // Destruye la sesión
-    header("Location: ../Paginas/PHP/login.php");
+    header("Location: ./login.php");
     exit;
 }
 
@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
     }
 
     // 🔄 Recargar página
-    header("Location: ../Paginas/PHP/pantallaEmpleado.php");
+    header("Location: ./pantallaEmpleado.php");
     exit;
 }
 ?>
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
 <head>
 <meta charset="UTF-8">
 <title>Sistema de Turnos</title>
-<link rel="stylesheet" href="/css/components/pantallaDeTurno.css">
+<link rel="stylesheet" href="../../css/components/pantallaDeTurno.css">
 <style>
 /* Botón regresar (flecha) */
 .btn-regresar {
@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
 <body>
 <header>
     <div class="logo">
-        <img src="/img/img.Logo_blanco-Photoroom.png" width="70"/>
+        <img src="../../img/img.Logo_blanco-Photoroom.png" width="70"/>
     </div>
     <div class="user-panel" style="display:flex; align-items:center; gap:8px;">
         <span style="display:flex; align-items:center; gap:5px;">
@@ -122,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
         </span>
 
         <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] === 'empleado'): ?>
-            <a href="./admin/" class="btn-regresar" title="Regresar"></a>
+            <a href="../../pantallas/admin/" class="btn-regresar" title="Regresar"></a>
         <?php endif; ?>
 
         <form method="post" style="margin:0;">
