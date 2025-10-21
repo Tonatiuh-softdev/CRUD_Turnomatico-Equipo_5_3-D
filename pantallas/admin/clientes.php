@@ -136,7 +136,7 @@ table th { background: #747e8bff; color: white; }
 
 <div class="container">
 <?php
-require '../../elementos/redirecciones.php';
+require '../../Recursos/PHP/redirecciones.php';
 loadNavbar();
 ?>
 
