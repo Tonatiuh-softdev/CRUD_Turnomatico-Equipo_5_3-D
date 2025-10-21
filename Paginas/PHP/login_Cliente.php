@@ -1,6 +1,6 @@
 <?php
 session_start();
-include __DIR__ . "/../Recursos/PHP/conexion.php";
+include __DIR__ . "/../../Recursos/PHP/conexion.php";
 
 $mensaje = "";
 
