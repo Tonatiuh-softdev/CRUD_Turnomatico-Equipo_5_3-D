@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 //  CONTROL DE ACCESO POR ROL
 if (!isset($_SESSION['rol'])) {
-    header("Location: ../../Paginas/PHP/login.php");
+    header("Location: ./login.php");
     exit;
 }
 
@@ -16,7 +16,7 @@ if (!isset($_SESSION['rol'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cerrar_sesion'])) {
     session_unset();    // Elimina todas las variables de sesión
     session_destroy();  // Destruye la sesión
-    header("Location: ../../Paginas/PHP/login.php");
+    header("Location: ./login.php");
     exit;
 }
 
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
     }
 
     // 🔄 Recargar página
-    header("Location: ../../Paginas/PHP/pantallaEmpleado.php");
+    header("Location: ./pantallaEmpleado.php");
     exit;
 }
 ?>
@@ -132,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
 
 <header>
     <div class="logo">
-      <img src="/img/img.Logo_blanco-Photoroom.png" width="70"/>
+      <img src="../../img/img.Logo_blanco-Photoroom.png" width="70"/>
     </div>
     <div class="user-panel" style="display:flex; align-items:center; gap:8px;">
         <span style="display:flex; align-items:center; gap:5px;">
@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
         </span>
 
         <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] === 'empleado'): ?>
-            <a href="./admin/" class="btn-regresar" title="Regresar"></a>
+            <a href="../../pantallas/admin/" class="btn-regresar" title="Regresar"></a>
         <?php endif; ?>
 
         <form method="post" style="margin:0;">
@@ -166,15 +166,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
     <?php endif; ?>
 
     <main>
-        <a href="../pantalla_espera.php" class="card">
+        <a href="../../pantallas/pantalla_espera.php" class="card">
           <img src="https://img.icons8.com/ios-filled/50/000000/conference.png"/>
           Pantalla de espera
         </a>
-        <a href="../../Paginas/PHP/pantallaDeTurno.php" class="card">
+        <a href="./pantallaDeTurno.php" class="card">
           <img src="https://img.icons8.com/ios-filled/50/000000/return.png"/>
           Pantalla de turno
         </a>
-        <a href="../../Paginas/PHP/pantallaEmpleado.php" class="card">
+        <a href="./pantallaEmpleado.php" class="card">
           <img src="https://img.icons8.com/ios-filled/50/000000/conference-call.png"/>
           Pantalla de empleado
         </a>
