@@ -1,6 +1,7 @@
 <?php
-session_start();
-include __DIR__ . "/../conexion.php";
+require '../elementos/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+loadLogIn();
 
 $tipo = isset($_GET["tipo"]) ? strtoupper($_GET["tipo"]) : "VISITANTE";
 $nombreCliente = ($tipo === "CLIENTE" && isset($_SESSION["usuario"])) ? $_SESSION["usuario"] : null;

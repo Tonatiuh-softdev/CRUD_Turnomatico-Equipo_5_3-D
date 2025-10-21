@@ -1,5 +1,6 @@
 <?php
-include __DIR__ . "/../conexion.php";
+require '../elementos/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
 
 $result = $conn->query("SELECT id, password FROM usuarios");
 
