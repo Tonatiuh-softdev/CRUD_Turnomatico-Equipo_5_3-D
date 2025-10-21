@@ -170,7 +170,7 @@ $conn->close();
         <?php endwhile; ?>
     </table>
 
-    <a href="/pantallas/registro.php" class="register">REGISTRAR NUEVO CLIENTE</a>
+    <a href="/Paginas/PHP/registro.php" class="register">REGISTRAR NUEVO CLIENTE</a>
 </main>
 
 <script>

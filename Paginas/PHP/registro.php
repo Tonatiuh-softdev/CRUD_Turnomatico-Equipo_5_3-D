@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . "/../Recursos/PHP/conexion.php"; 
+include __DIR__ . "/../../Recursos/PHP/conexion.php"; 
 session_start();
 
 // Solo permitir si el usuario logueado es empleado
@@ -55,14 +55,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../css/components/registro.css">
+    <link rel="stylesheet" href="../../css/components/registro.css">
 </head>
 <body>
-<img src="../img/fondo_login.png" alt="Mi Imagen" class="imagen">
-<img src="../img/img.Logo_blanco-Photoroom.png" alt="Mi Imagen" class="imagen1">
+<img src="../../img/fondo_login.png" alt="Mi Imagen" class="imagen">
+<img src="../../img/img.Logo_blanco-Photoroom.png" alt="Mi Imagen" class="imagen1">
     <header>
     <div class="logo">
-        <img src="../img/img.Logo_blanco-Photoroom.png" width="70"/>
+        <img src="../../img/img.Logo_blanco-Photoroom.png" width="70"/>
       <span>ClickMatic</span>
     </div>
     <div class="user">
@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <div class="texto3">REGISTER</div>
 
 <button class="boton" onclick="window.history.back()">
-  <img src="../img/flecha_regresar.png" alt="" class="icono">
+  <img src="../../img/flecha_regresar.png" alt="" class="icono">
 </button>
 
 <!-- ✅ Aquí empieza el formulario (sin mover nada visual) -->
