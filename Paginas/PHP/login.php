@@ -1,6 +1,6 @@
 <?php
 session_start();
-include __DIR__ . "/../Recursos/PHP/conexion.php";
+include __DIR__ . "/../../Recursos/PHP/conexion.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
@@ -24,13 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Redirecciones según el rol
             switch ($user["rol"]) {
                 case "superadmin":
-                    header("Location: ./admin/index.php");
+                    header("Location: ../../pantallas/admin/index.php");
                     break;
                 case "admin":
-                    header("Location: ./admin/index.php");
+                    header("Location: ../../pantallas/admin/index.php");
                     break;
                 case "empleado":
-                    header("Location: ./admin/index.php");
+                    header("Location: ../../pantallas/admin/index.php");
                     break;
             }
             exit;
@@ -48,16 +48,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="../css/components/login.css">
+    <link rel="stylesheet" href="../../css/components/login.css">
 </head>
 <body>
 
-<img src="../img/fondo_login.png" alt="Mi Imagen" class="imagen">
-<img src="../img/img.Logo_blanco-Photoroom.png" alt="Mi Imagen" class="imagen1">
+<img src="../../img/fondo_login.png" alt="Mi Imagen" class="imagen">
+<img src="../../img/img.Logo_blanco-Photoroom.png" alt="Mi Imagen" class="imagen1">
 
 <header>
     <div class="logo">
-        <img src="../img/img.Logo_blanco-Photoroom.png" width="70"/>
+        <img src="../../img/img.Logo_blanco-Photoroom.png" width="70"/>
         <span>ClickMatic</span>
     </div>
     <div class="user">

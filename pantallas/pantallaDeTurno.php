@@ -36,7 +36,7 @@ if (session_status() === PHP_SESSION_NONE) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cerrar_sesion'])) {
     session_unset();    // Elimina todas las variables de sesión
     session_destroy();  // Destruye la sesión
-    header("Location: login.php");
+    header("Location: ../Paginas/PHP/login.php");
     exit;
 }
 

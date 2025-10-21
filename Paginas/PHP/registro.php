@@ -4,7 +4,7 @@ session_start();
 
 // Solo permitir si el usuario logueado es empleado
 if (!isset($_SESSION["rol"]) || $_SESSION["rol"] !== "empleado") {
-    header("Location: login.php");
+    header("Location: ./login.php");
     exit;
 }
 

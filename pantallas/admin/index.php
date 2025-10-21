@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 //  CONTROL DE ACCESO POR ROL
 if (!isset($_SESSION['rol'])) {
-    header("Location: /pantallas/login.php");
+    header("Location: ../../Paginas/PHP/login.php");
     exit;
 }
 
@@ -16,7 +16,7 @@ if (!isset($_SESSION['rol'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cerrar_sesion'])) {
     session_unset();    // Elimina todas las variables de sesión
     session_destroy();  // Destruye la sesión
-    header("Location: /pantallas/login.php");
+    header("Location: ../../Paginas/PHP/login.php");
     exit;
 }
 
