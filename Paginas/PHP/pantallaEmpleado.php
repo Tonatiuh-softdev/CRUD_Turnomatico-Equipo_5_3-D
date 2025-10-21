@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . "/../Recursos/PHP/conexion.php";
+include __DIR__ . "/../../Recursos/PHP/conexion.php";
 
 // ✅ Evitar notice si la sesión ya está iniciada
 if (session_status() === PHP_SESSION_NONE) {
@@ -10,7 +10,7 @@ if (session_status() === PHP_SESSION_NONE) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cerrar_sesion'])) {
     session_unset();    // Elimina todas las variables de sesión
     session_destroy();  // Destruye la sesión
-    header("Location: login.php");
+    header("Location: ../../pantallas/login.php");
     exit;
 }
 
@@ -65,7 +65,7 @@ $conn->close();
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sistema de Turnos - Empleado</title>
-<link rel="stylesheet" href="../css/components/pantalla_empleado.css">
+<link rel="stylesheet" href="../../css/components/pantalla_empleado.css">
 <style>
 /* Botón regresar (flecha) */
 .btn-regresar {
@@ -105,7 +105,7 @@ $conn->close();
 <body>
 <header>
     <div class="logo">
-        <img src="/img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
+        <img src="../../img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
         <span>ClickMatic</span>
     </div>
     <div class="user-panel" style="display:flex; align-items:center; gap:8px;">
@@ -117,7 +117,7 @@ $conn->close();
         </span>
 
         <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] === 'empleado'): ?>
-            <a href="./admin/" class="btn-regresar" title="Regresar"></a>
+            <a href="../../pantallas/admin/" class="btn-regresar" title="Regresar"></a>
         <?php endif; ?>
 
         <form method="post" style="margin:0;">
@@ -170,7 +170,7 @@ $conn->close();
         <?php endwhile; ?>
     </table>
 
-    <a href="/Paginas/PHP/registro.php" class="register">REGISTRAR NUEVO CLIENTE</a>
+    <a href="./registro.php" class="register">REGISTRAR NUEVO CLIENTE</a>
 </main>
 
 <script>

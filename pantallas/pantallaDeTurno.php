@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
     }
 
     // 🔄 Recargar página
-    header("Location: pantallaEmpleado.php");
+    header("Location: ../Paginas/PHP/pantallaEmpleado.php");
     exit;
 }
 ?>
