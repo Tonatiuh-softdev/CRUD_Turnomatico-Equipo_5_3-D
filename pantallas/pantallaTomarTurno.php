@@ -78,7 +78,7 @@ overlay.addEventListener('click', cerrarModal);
 // Generar turno visitante
 async function abrirModalVisitante() {
     try {
-        const response = await fetch("generar_turno.php?tipo=visitante");
+        const response = await fetch("../Recursos/PHP/generar_turno.php?tipo=visitante");
         const turno = await response.text();
         document.getElementById("turnoModal").textContent = turno;
         document.getElementById("nombreModal").textContent = "Visitante";
@@ -92,7 +92,7 @@ async function abrirModalVisitante() {
 // Generar turno cliente logueado
 async function abrirModalCliente() {
     try {
-        const response = await fetch("generar_turno.php?tipo=cliente");
+        const response = await fetch("../Recursos/PHP/generar_turno.php?tipo=cliente");
         const turno = await response.text();
         document.getElementById("turnoModal").textContent = turno;
         document.getElementById("nombreModal").textContent = "<?php echo htmlspecialchars($nombreCliente); ?>";
