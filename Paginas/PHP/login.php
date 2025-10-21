@@ -24,13 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Redirecciones según el rol
             switch ($user["rol"]) {
                 case "superadmin":
-                    header("Location: ../../pantallas/admin/index.php");
+                    header("Location: ./index.php");
                     break;
                 case "admin":
-                    header("Location: ../../pantallas/admin/index.php");
+                    header("Location: ./index.php");
                     break;
                 case "empleado":
-                    header("Location: ../../pantallas/admin/index.php");
+                    header("Location: ./index.php");
                     break;
             }
             exit;
