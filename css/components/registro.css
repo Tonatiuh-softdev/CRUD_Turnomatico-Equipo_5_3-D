@@ -94,7 +94,7 @@ body {
 .texto1 {
   position: absolute; /* Se puede mover libremente */
   top: 300px;   /* Baja el texto */
-  left: 15%;  /* Mueve el texto a la derecha */
+  left: 12%;  /* Mueve el texto a la derecha */
   font-size: 45px;  /* Tamaño de letra */
   color: #FFFFFF;      /* Color */
   font-weight: bold; /* Negrita */
@@ -103,8 +103,8 @@ body {
 
 .texto2 {
   position: absolute; /* Se puede mover libremente */
-  top: 380px;   /* Baja el texto */
-  left: 19%;  /* Mueve el texto a la derecha */
+  top: 370px;   /* Baja el texto */
+  left: 18%;  /* Mueve el texto a la derecha */
   font-size: 20px;  /* Tamaño de letra */
   color: #FFFFFF;      /* Color */
   font-weight: bold; /* Negrita */
@@ -149,6 +149,14 @@ body {
 
 /*formulario*/
 
+.email-field2 {
+  position: absolute;
+  top: 320px; /* más arriba */
+  left: 65%;
+  transform: translate(-50%, 0);
+  z-index: 1;
+}
+
 .email-field {
   position: absolute;
   top: 400px; /* más arriba */
@@ -166,7 +174,7 @@ body {
 }
 
     input {
-      width: 170%;
+      width: 180%;
       padding: 15px;
       border: none;
       border-radius: 25px;
@@ -234,6 +242,7 @@ body {
 .texto2,
 .texto3,
 .email-field,
+.email-field2,
 .password-field,
 .login-button,
 .boton {
@@ -249,6 +258,7 @@ body {
 .texto2 { animation-delay: 0.9s; }
 .texto3 { animation-delay: 1.1s; }
 .email-field { animation-delay: 1.3s; }
+.email-field2 { animation-delay: 1.3s; }
 .password-field { animation-delay: 1.4s; }
 .login-button { animation-delay: 1.5s; }
 .boton { animation-delay: 1.6s; }
@@ -259,7 +269,6 @@ body {
   transition: background 0.3s ease, transform 0.3s ease;
 }
 
-
 /* Media Queries para Responsive */
 
         /* Móviles pequeños - Todo centrado y más compacto */
@@ -267,28 +276,28 @@ body {
             .main-section {
                 padding: 15px 10px;
             }
-            
+
             .content-wrapper {
                 align-items: center;
                 justify-content: center;
             }
-            
+
             .left-section {
                 padding: 15px 0;
             }
-            
+
             .imagen {
                 max-width: 280px;
                 margin-bottom: 15px;
             }
-            
+
             .texto1 {
                 font-size: 1.8rem;
                 margin-bottom: 8px;
                 line-height: 1.2;
                 left: 5%;
             }
-            
+
             .texto2 {
                 font-size: 1rem;
                 margin-bottom: 20px;
@@ -296,7 +305,7 @@ body {
                 padding: 0 10px;
                 left: 8%;
             }
-            
+
             .boton {
                 width: 200px;   /* más angosto */
                 height: 80px;   /* más bajo */
@@ -314,28 +323,28 @@ body {
                 height: 60px;
                 font-size: 0.9rem;
             }
-            
+
             .right-section {
                 padding: 20px 15px;
                 margin-top: 20px;
                 max-width: 350px;
             }
-            
+
             .texto3 {
                 font-size: 1.6rem;
                 margin-bottom: 20px;
             }
-            
+
             .form-container {
                 max-width: 300px;
             }
-            
+
             input {
                 padding: 12px;
                 font-size: 0.9rem;
                 width: 100%;
             }
-            
+
             .email-field {
                 left: 70%;
             }
@@ -350,16 +359,16 @@ body {
                 padding: 12px;
                 font-size: 1rem;
             }
-            
+
             header {
                 padding: 10px 15px;
                 flex-wrap: wrap;
             }
-            
+
             header .logo span {
                 font-size: 14px;
             }
-            
+
             header .user {
                 font-size: 14px;
             }
@@ -421,7 +430,7 @@ body {
             .password-input {
                 padding-right: 10px;
             }
-            
+
             .boton {
                 width: 280px;
                 height: 120px;
@@ -486,7 +495,7 @@ body {
                 font-size: 1.3rem;
                 padding: 18px;
             }
-            
+
             .boton {
                 margin: 0;
             }
@@ -508,24 +517,24 @@ body {
             .texto1 {
                 font-size: 1.6rem;
             }
-            
+
             .texto2 {
                 font-size: 0.9rem;
             }
-            
+
             .texto3 {
                 font-size: 1.4rem;
             }
-            
+
             .imagen {
                 max-width: 240px;
             }
-            
+
             .boton {
                 max-width: 240px;
                 font-size: 0.9rem;
             }
-            
+
             .right-section {
                 padding: 15px 10px;
             }
@@ -538,4 +547,3 @@ body {
                 margin-top: 5px;      /* Menos margen superior */
     }
         }
-
