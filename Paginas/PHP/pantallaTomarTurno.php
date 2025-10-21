@@ -100,7 +100,7 @@ async function abrirModalCliente() {
         modal.classList.add('active');
 
         // 🔹 Destruir sesión al sacar el turno (para que otro cliente pueda iniciar)
-        await fetch("../../pantallas/logout_cliente.php");
+        await fetch("./logout_cliente.php");
     } catch (error) {
         console.error("Error al generar turno cliente:", error);
     }
