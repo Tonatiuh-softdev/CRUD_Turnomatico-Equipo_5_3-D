@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . "/../Recursos/PHP/conexion.php";
+include __DIR__ . "/conexion.php";
 
 $result = $conn->query("SELECT id, password FROM usuarios");
 
