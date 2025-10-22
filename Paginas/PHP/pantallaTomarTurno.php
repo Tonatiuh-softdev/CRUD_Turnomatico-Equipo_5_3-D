@@ -1,7 +1,6 @@
 <?php
-require '../elementos/redirecciones.php';
+require '../../Recursos/PHP/redirecciones.php';
 $conn = loadConexion(); // ✅ Crea la conexión
-loadConexion();
 loadLogIn();
 
 

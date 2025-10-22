@@ -1,5 +1,5 @@
 <?php
-require '../elementos/redirecciones.php';
+require '../CRUD_Turnomatico-Equipo_5_3-D/Recursos/PHP/conexion.php';
 $conn = loadConexion(); // ✅ Crea la conexión
 loadLogIn();
 

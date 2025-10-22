@@ -1,24 +1,13 @@
 <?php
-include __DIR__ . "/../../Recursos/PHP/conexion.php";
+require '../../Recursos/PHP/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+loadLogIn();
 
 //  Evitar notice si la sesión ya está iniciada
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-//  CONTROL DE ACCESO POR ROL
-if (!isset($_SESSION['rol'])) {
-    header("Location: ./login.php");
-    exit;
-}
-
-// 🔹 Cerrar sesión
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cerrar_sesion'])) {
-    session_unset();    // Elimina todas las variables de sesión
-    session_destroy();  // Destruye la sesión
-    header("Location: ./login.php");
-    exit;
-}
 
 // 🔹 Procesar acciones de botones
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {

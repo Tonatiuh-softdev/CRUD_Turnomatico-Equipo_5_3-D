@@ -1,8 +1,7 @@
 <?php
-require '../elementos/redirecciones.php';
+require '../../Recursos/PHP/redirecciones.php';
 $conn = loadConexion(); // ✅ Crea la conexión
-loadConexion();
-session_start();
+loadLogIn();
 
 // ✅ Evitar notice si la sesión ya está iniciada
 if (session_status() === PHP_SESSION_NONE) {

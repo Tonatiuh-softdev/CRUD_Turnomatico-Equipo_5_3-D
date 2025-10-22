@@ -1,3 +1,10 @@
+<?php
+require '../../Recursos/PHP/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+loadLogIn();
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -25,7 +32,7 @@
 
   <div class="container">
 <?php
-require '../../Recursos/PHP/redirecciones.php';
+
 loadNavbar();
 ?>
 

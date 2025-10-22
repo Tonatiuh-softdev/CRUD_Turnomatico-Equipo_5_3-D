@@ -1,9 +1,7 @@
 <?php
-
-require '../elementos/redirecciones.php';
+require '../../Recursos/PHP/redirecciones.php';
 $conn = loadConexion(); // ✅ Crea la conexión
-loadConexion();
-session_start();
+loadLogIn();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];

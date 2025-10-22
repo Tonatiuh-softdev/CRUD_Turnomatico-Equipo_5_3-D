@@ -1,8 +1,7 @@
 <?php
-require '../elementos/redirecciones.php';
+require '../../Recursos/PHP/redirecciones.php';
 $conn = loadConexion(); // ✅ Crea la conexión
-loadConexion();
-session_start();
+loadLogIn();
 
 // Solo permitir si el usuario logueado es empleado
 if (!isset($_SESSION["rol"]) || $_SESSION["rol"] !== "empleado") {
