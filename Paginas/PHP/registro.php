@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../../css/components/registro.css">
+    <link rel="stylesheet" href="../CSS/registro.css">
 </head>
 <body>
 <img src="../../img/fondo_login.png" alt="Mi Imagen" class="imagen">

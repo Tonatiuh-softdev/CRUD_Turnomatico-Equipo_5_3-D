@@ -65,7 +65,7 @@ $conn->close();
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sistema de Turnos - Empleado</title>
-<link rel="stylesheet" href="../../css/components/pantalla_empleado.css">
+<link rel="stylesheet" href="../CSS/pantalla_empleado.css">
 <style>
 /* Botón regresar (flecha) */
 .btn-regresar {

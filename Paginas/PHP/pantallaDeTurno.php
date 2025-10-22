@@ -70,42 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
 <head>
 <meta charset="UTF-8">
 <title>Sistema de Turnos</title>
-<link rel="stylesheet" href="../../css/components/pantallaDeTurno.css">
-<style>
-/* Botón regresar (flecha) */
-.btn-regresar {
-    width: 24px;
-    height: 24px;
-    background-color: #2b3d57;
-    mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>') no-repeat center;
-    -webkit-mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>') no-repeat center;
-    display:inline-block;
-    cursor:pointer;
-    transition: background-color 0.2s, transform 0.3s;
-}
-
-.btn-regresar:hover {
-    background-color: #3f5675;
-    transform: translateX(-5px);
-}
-
-/* Botón cerrar sesión (ícono puerta con flecha) */
-.btn-cerrar {
-    width: 24px;
-    height: 24px;
-    background-color: #d9534f;
-    mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10zm8-11h-6v2h6v10h-6v2h6c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2z"/></svg>') no-repeat center;
-    -webkit-mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10zm8-11h-6v2h6v10h-6v2h6c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2z"/></svg>') no-repeat center;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
-}
-
-.btn-cerrar:hover {
-    background-color: #c9302c;
-    transform: translateY(-2px);
-}
-</style>
+<link rel="stylesheet" href="../CSS/pantallaDeTurno.css">
 </head>
 
 <body>
