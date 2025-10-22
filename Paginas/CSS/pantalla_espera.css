@@ -567,7 +567,8 @@ main p {
   margin-top: 10px;
 
   background: linear-gradient(90deg, #8eaab1, #506783);
-  -webkit-background-clip: text;
+  -webkit-background-clip: text; 
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 
   animation: brillo 2s infinite linear;
