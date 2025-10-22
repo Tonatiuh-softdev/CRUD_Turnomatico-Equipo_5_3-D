@@ -1,0 +1,120 @@
+<?php
+require '../../Recursos/PHP/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+loadLogIn();
+
+// Obtener los empleados (rol = 'empleado')
+$sql = "SELECT id, nombre, rol as puesto FROM usuarios WHERE rol='empleado'";
+$result = $conn->query($sql);
+$empleados = [];
+
+if ($result && $result->num_rows > 0) {
+    while($row = $result->fetch_assoc()){
+        $empleados[] = $row;
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Turnos - Empleados</title>
+<link rel="stylesheet" href="../CSS/empleados.css">
+</head>
+<body>
+<?php
+
+loadHeader();
+?>
+
+<div class="container">
+<?php
+
+
+loadNavbar();
+?>
+
+<main>
+    <h2>Administrar Empleados</h2>
+
+    <!-- Botón grande para abrir modal -->
+    <button class="btn-agregar" onclick="abrirModalEmpleado()">➕ Agregar Empleado</button>
+
+    <!-- Modal agregar empleado -->
+    <div id="modalEmpleado" class="modal">
+        <div class="modal-contenido">
+            <h3>Agregar Empleado</h3>
+            <form id="formEmpleadoModal">
+                <input type="text" id="nombre" placeholder="Nombre" required>
+                <input type="text" id="puesto" placeholder="Puesto" required>
+                <button type="submit">Agregar</button>
+            </form>
+            <button class="cerrar" onclick="cerrarModalEmpleado()">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Tabla empleados -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Puesto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tablaEmpleados"></tbody>
+    </table>
+</main>
+</div>
+
+<script>
+let empleados = <?php echo json_encode($empleados); ?>;
+let id = empleados.length > 0 ? empleados[empleados.length-1].id + 1 : 1;
+
+const tabla = document.getElementById("tablaEmpleados");
+const formModal = document.getElementById("formEmpleadoModal");
+const modalEmpleado = document.getElementById("modalEmpleado");
+
+function abrirModalEmpleado(){ modalEmpleado.style.display = "flex"; }
+function cerrarModalEmpleado(){ modalEmpleado.style.display = "none"; }
+window.addEventListener("click", e => { if(e.target === modalEmpleado) cerrarModalEmpleado(); });
+
+formModal.addEventListener("submit", function(e){
+    e.preventDefault();
+    const nombre = document.getElementById("nombre").value;
+    const puesto = document.getElementById("puesto").value;
+    empleados.push({ id: id++, nombre, puesto });
+    mostrarEmpleados();
+    formModal.reset();
+    cerrarModalEmpleado();
+});
+
+function mostrarEmpleados(){
+    tabla.innerHTML = "";
+    empleados.forEach(emp => {
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+            <td>${emp.id}</td>
+            <td>${emp.nombre}</td>
+            <td>${emp.puesto}</td>
+            <td>
+                <button class="btn-eliminar" onclick="eliminarEmpleado(${emp.id})">Eliminar</button>
+            </td>
+        `;
+        tabla.appendChild(fila);
+    });
+}
+
+// Inicializa la tabla al cargar
+mostrarEmpleados();
+
+function eliminarEmpleado(id){
+    empleados = empleados.filter(emp => emp.id !== id);
+    mostrarEmpleados();
+}
+</script>
+</body>
+</html>

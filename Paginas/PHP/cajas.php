@@ -1,0 +1,123 @@
+<?php
+require '../../Recursos/PHP/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+loadLogIn();
+
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Turnos - Cajas</title>
+<link rel="stylesheet" href="../CSS/cajas.css">
+</head>
+<body>
+
+<?php
+loadHeader();
+?>
+
+<div class="container">
+<?php
+
+
+loadNavbar();
+?>
+
+<div class='main-content'>
+    <h2>Administrar Cajas</h2>
+
+    <!-- Botón grande para abrir modal -->
+    <button class="btn-agregar" onclick="abrirModalCaja()">➕ Agregar Caja</button>
+
+    <!-- Modal agregar caja -->
+    <div id="modalCaja" class="modal">
+        <div class="modal-contenido">
+            <h3>Agregar Caja</h3>
+            <form id="formCajaModal">
+                <input type="text" id="numeroCaja" placeholder="Nombre de la caja" required>
+                <input type="text" id="ubicacion" placeholder="Servicio asociado" required>
+                <button type="submit">Agregar</button>
+            </form>
+            <button class="cerrar" onclick="cerrarModalCaja()">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Tabla cajas -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Servicio</th>
+                <th>Configurar</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody id="tablaCajas"></tbody>
+    </table>
+
+</div>
+
+<script>
+// Datos y contadores
+let cajas = [];
+let id = 1;
+const tabla = document.getElementById("tablaCajas");
+const formModal = document.getElementById("formCajaModal");
+const modalCaja = document.getElementById("modalCaja");
+
+// Abrir y cerrar modal
+function abrirModalCaja(){ modalCaja.style.display = "flex"; }
+function cerrarModalCaja(){ modalCaja.style.display = "none"; }
+window.addEventListener("click", e => { if(e.target === modalCaja) cerrarModalCaja(); });
+
+// Agregar caja
+formModal.addEventListener("submit", function(e){
+    e.preventDefault();
+    const numeroCaja = document.getElementById("numeroCaja").value;
+    const ubicacion = document.getElementById("ubicacion").value;
+    cajas.push({ id: id++, numeroCaja, ubicacion });
+    mostrarCajas();
+    formModal.reset();
+    cerrarModalCaja();
+});
+
+// Mostrar tabla
+function mostrarCajas(){
+    tabla.innerHTML = "";
+    cajas.forEach(caja => {
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+            <td>${caja.id}</td>
+            <td>${caja.numeroCaja}</td>
+            <td>${caja.ubicacion}</td>
+            <td><button class="btn-configurar" onclick="configurarCaja(${caja.id})">Configurar</button></td>
+            <td><button class="btn-eliminar" onclick="eliminarCaja(${caja.id})">Eliminar</button></td>
+        `;
+        tabla.appendChild(fila);
+    });
+}
+
+// Configurar/editar caja
+function configurarCaja(id){
+    const caja = cajas.find(c => c.id === id);
+    if(!caja) return;
+    const nuevoNumero = prompt("Editar Nombre de la Caja:", caja.numeroCaja);
+    const nuevoUbicacion = prompt("Editar Servicio:", caja.ubicacion);
+    if(nuevoNumero !== null && nuevoUbicacion !== null){
+        caja.numeroCaja = nuevoNumero;
+        caja.ubicacion = nuevoUbicacion;
+        mostrarCajas();
+    }
+}
+
+// Eliminar caja
+function eliminarCaja(id){
+    cajas = cajas.filter(c => c.id !== id);
+    mostrarCajas();
+}
+</script>
+</body>
+</html>
