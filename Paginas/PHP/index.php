@@ -1,7 +1,7 @@
 <?php
 require '../../Recursos/PHP/redirecciones.php';
 $conn = loadConexion(); // ✅ Crea la conexión
-loadLogIn();
+
 
 //  Evitar notice si la sesión ya está iniciada
 if (session_status() === PHP_SESSION_NONE) {
@@ -80,11 +80,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
     <?php endif; ?>
 
     <main>
-        <a href="../../pantallas/pantalla_espera.php" class="card">
+        <a href="./pantallaDeTurno.php" class="card">
           <img src="https://img.icons8.com/ios-filled/50/000000/conference.png"/>
           Pantalla de espera
         </a>
-        <a href="./pantallaDeTurno.php" class="card">
+        <a href="./pantallaTomarTurno.php" class="card">
           <img src="https://img.icons8.com/ios-filled/50/000000/return.png"/>
           Pantalla de turno
         </a>
