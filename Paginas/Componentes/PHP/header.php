@@ -88,7 +88,7 @@ function renderHeader(){
     
     <header>
         <div class="logo">
-            <img src="../img/img.Logo_blanco-Photoroom.png" width="70"/>
+            <img src="../../img/img.Logo_blanco-Photoroom.png" width="70"/>
         </div>
         <div class="user-panel" style="display:flex; align-items:center; gap:8px;">
             <span style="display:flex; align-items:center; gap:5px;">

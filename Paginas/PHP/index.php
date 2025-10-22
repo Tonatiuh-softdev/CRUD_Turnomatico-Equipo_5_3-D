@@ -46,34 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
 </head>
 <body>
 
-<header>
-    <div class="logo">
-      <img src="../../img/img.Logo_blanco-Photoroom.png" width="70"/>
-    </div>
-    <div class="user-panel" style="display:flex; align-items:center; gap:8px;">
-        <span style="display:flex; align-items:center; gap:5px;">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 20px; height: 20px;">
-                <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd"/>
-            </svg>
-            <?= $_SESSION['rol'] ?? 'Empleado' ?>
-        </span>
+<?php
 
-        <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] === 'empleado'): ?>
-            <a href="../../pantallas/admin/" class="btn-regresar" title="Regresar"></a>
-        <?php endif; ?>
-
-        <form method="post" style="margin:0;">
-            <button type="submit" name="cerrar_sesion" class="btn-cerrar" title="Cerrar sesión"></button>
-        </form>
-
-        <div class="time">
-            <?php
-                date_default_timezone_set('America/Mexico_City');
-                echo date('h:i a') . "<br>" . date('d \d\e F Y');
-            ?>
-        </div>
-    </div>
-</header>
+loadHeader();
+?>
 
 <div class="container">
     <!-- Solo admin y superadmin ven la barra de navegación -->
