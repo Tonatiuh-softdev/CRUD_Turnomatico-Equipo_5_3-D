@@ -17,4 +17,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cerrar_sesion'])) {
     header("Location: ../../Paginas/PHP/login.php");
     exit;
 }
+
 ?>

@@ -1,7 +1,18 @@
 <?php
 require '../../Recursos/PHP/redirecciones.php';
 $conn = loadConexion(); // ✅ Crea la conexión
-loadLogIn();
+
+// Iniciar sesión sin verificación de rol
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Si ya hay sesión iniciada, redirigir al index
+if (isset($_SESSION["rol"]) && in_array($_SESSION["rol"], ['empleado','admin','superadmin'])) {
+    header("Location: ./index.php");
+    exit;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
