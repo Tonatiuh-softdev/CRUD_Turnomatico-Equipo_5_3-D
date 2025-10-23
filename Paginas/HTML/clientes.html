@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Turnos - Clientes</title>
+<link rel="stylesheet" href="../CSS/clientes.css">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="../../img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
+        <span>ClickMatic</span>
+    </div>
+    <div class="user">
+        <span>Administrador</span>
+        <div class="time" id="headerTime"></div>
+    </div>
+</header>
+
+<div class="container">
+<aside id="navbar"></aside>
+
+<main>
+    <h2>Administrar Clientes</h2>
+
+    <!-- Botón grande para abrir modal -->
+    <button class="btn-agregar" onclick="abrirModalCliente()">➕ Agregar Cliente</button>
+
+    <!-- Modal agregar cliente -->
+    <div id="modalCliente" class="modal">
+        <div class="modal-contenido">
+            <h3>Agregar Cliente</h3>
+            <form method="POST">
+                <input type="text" name="nombreCliente" placeholder="Nombre del cliente" required>
+                <button type="submit">Agregar</button>
+            </form>
+            <button class="cerrar" onclick="cerrarModalCliente()">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Tabla clientes -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tablaClientes">
+        </tbody>
+    </table>
+</main>
+</div>
+
+<script>
+// Abrir y cerrar modal
+const modalCliente = document.getElementById("modalCliente");
+function abrirModalCliente(){ modalCliente.style.display = "flex"; }
+function cerrarModalCliente(){ modalCliente.style.display = "none"; }
+// Cerrar modal al hacer clic fuera del contenido
+window.addEventListener("click", function(e){
+    if(e.target === modalCliente) cerrarModalCliente();
+});
+</script>
+</body>
+</html>
