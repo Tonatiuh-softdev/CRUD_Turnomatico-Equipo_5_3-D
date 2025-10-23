@@ -1,12 +1,12 @@
 <?php
 include __DIR__ . "/../../Recursos/PHP/conexion.php";
 
-//  Evitar notice si la sesión ya está iniciada
+// Evitar notice si la sesión ya está iniciada
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-//  CONTROL DE ACCESO POR ROL
+// CONTROL DE ACCESO POR ROL
 if (!isset($_SESSION['rol'])) {
     header("Location: ./login.php");
     exit;
@@ -14,8 +14,8 @@ if (!isset($_SESSION['rol'])) {
 
 // 🔹 Cerrar sesión
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cerrar_sesion'])) {
-    session_unset();    // Elimina todas las variables de sesión
-    session_destroy();  // Destruye la sesión
+    session_unset();
+    session_destroy();
     header("Location: ./login.php");
     exit;
 }
@@ -39,72 +39,53 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
         $conn->query("UPDATE turnos SET estado = 'PAUSADO' WHERE estado = 'ATENDIENDO'");
     }
 
-    // 🔄 Recargar página
     header("Location: ./pantallaEmpleado.php");
     exit;
 }
+
+// Configurar zona horaria y obtener fecha/hora
+date_default_timezone_set('America/Mexico_City');
+$hora = date('h:i a');
+$fecha = date('d \d\e F Y');
+
+// Obtener rol del usuario
+$rol = $_SESSION['rol'] ?? 'Empleado';
+
+// Determinar si debe mostrar navbar (solo admin y superadmin)
+$mostrarNavbar = in_array($rol, ['admin', 'superadmin']);
+
+// Cargar el navbar si corresponde
+$navbarHTML = '';
+if ($mostrarNavbar) {
+    require '../../Recursos/PHP/redirecciones.php';
+    ob_start();
+    loadNavbar();
+    $navbarHTML = ob_get_clean();
+}
+
+// Determinar si mostrar botón regresar (solo empleado)
+$mostrarBtnRegresar = ($rol === 'empleado');
+
+// Incluir el archivo HTML
+include __DIR__ . "/../HTML/index.html";
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema de Turnos</title>
-    <link rel="stylesheet" href="../CSS/index.css">
-</head>
-<body>
+<script>
+// Insertar rol del usuario
+document.getElementById('userRole').textContent = '<?= $rol; ?>';
 
-<header>
-    <div class="logo">
-      <img src="../../img/img.Logo_blanco-Photoroom.png" width="70"/>
-    </div>
-    <div class="user-panel" style="display:flex; align-items:center; gap:8px;">
-        <span style="display:flex; align-items:center; gap:5px;">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 20px; height: 20px;">
-                <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd"/>
-            </svg>
-            <?= $_SESSION['rol'] ?? 'Empleado' ?>
-        </span>
+// Insertar la hora y fecha
+document.getElementById('headerTime').innerHTML = '<?= $hora; ?><br><?= $fecha; ?>';
 
-        <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] === 'empleado'): ?>
-            <a href="../../pantallas/admin/" class="btn-regresar" title="Regresar"></a>
-        <?php endif; ?>
+// Mostrar/ocultar botón regresar según rol
+<?php if ($mostrarBtnRegresar): ?>
+document.getElementById('btnRegresar').style.display = 'inline-block';
+<?php endif; ?>
 
-        <form method="post" style="margin:0;">
-            <button type="submit" name="cerrar_sesion" class="btn-cerrar" title="Cerrar sesión"></button>
-        </form>
-
-        <div class="time">
-            <?php
-                date_default_timezone_set('America/Mexico_City');
-                echo date('h:i a') . "<br>" . date('d \d\e F Y');
-            ?>
-        </div>
-    </div>
-</header>
-
-<div class="container">
-    <!-- Solo admin y superadmin ven la barra de navegación -->
-    <?php if(isset($_SESSION['rol']) && in_array($_SESSION['rol'], ['admin','superadmin'])): ?>
-        <?php require '../../Recursos/PHP/redirecciones.php'; loadNavbar(); ?>
-    <?php endif; ?>
-
-    <main>
-        <a href="../../pantallas/pantalla_espera.php" class="card">
-          <img src="https://img.icons8.com/ios-filled/50/000000/conference.png"/>
-          Pantalla de espera
-        </a>
-        <a href="./pantallaDeTurno.php" class="card">
-          <img src="https://img.icons8.com/ios-filled/50/000000/return.png"/>
-          Pantalla de turno
-        </a>
-        <a href="./pantallaEmpleado.php" class="card">
-          <img src="https://img.icons8.com/ios-filled/50/000000/conference-call.png"/>
-          Pantalla de empleado
-        </a>
-    </main>
-</div>
-
-</body>
-</html>
+// Insertar el navbar si corresponde
+<?php if ($mostrarNavbar): ?>
+document.getElementById('navbar').outerHTML = `<?= addslashes($navbarHTML); ?>`;
+<?php else: ?>
+document.getElementById('navbar').remove();
+<?php endif; ?>
+</script>
