@@ -20,113 +20,36 @@ if ($result && $result->num_rows > 0) {
         $empleados[] = $row;
     }
 }
-?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistema de Turnos - Empleados</title>
-<link rel="stylesheet" href="../CSS/empleados.css">
-</head>
-<body>
-<header>
-    <div class="logo">
-        <img src="../../img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
-        <span>ClickMatic</span>
-    </div>
-    <div class="user">
-        <span>Administrador</span>
-        <div class="time"><?= date("h:i a"); ?><br><?= date("d \d\e F Y"); ?></div>
-    </div>
-</header>
+// Configurar zona horaria y obtener fecha/hora
+date_default_timezone_set("America/Mexico_City");
+$hora = date("h:i a");
+$fecha = date("d \d\e F Y");
 
-<div class="container">
-<?php
+// Cargar el navbar
 require '../../Recursos/PHP/redirecciones.php';
+ob_start();
 loadNavbar();
+$navbarHTML = ob_get_clean();
+
+// Convertir empleados a JSON para JavaScript
+$empleadosJSON = json_encode($empleados);
+
+// Incluir el archivo HTML
+include __DIR__ . "/../HTML/empleados.html";
 ?>
-
-<main>
-    <h2>Administrar Empleados</h2>
-
-    <!-- Botón grande para abrir modal -->
-    <button class="btn-agregar" onclick="abrirModalEmpleado()">➕ Agregar Empleado</button>
-
-    <!-- Modal agregar empleado -->
-    <div id="modalEmpleado" class="modal">
-        <div class="modal-contenido">
-            <h3>Agregar Empleado</h3>
-            <form id="formEmpleadoModal">
-                <input type="text" id="nombre" placeholder="Nombre" required>
-                <input type="text" id="puesto" placeholder="Puesto" required>
-                <button type="submit">Agregar</button>
-            </form>
-            <button class="cerrar" onclick="cerrarModalEmpleado()">Cerrar</button>
-        </div>
-    </div>
-
-    <!-- Tabla empleados -->
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Puesto</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="tablaEmpleados"></tbody>
-    </table>
-</main>
-</div>
 
 <script>
-let empleados = <?php echo json_encode($empleados); ?>;
-let id = empleados.length > 0 ? empleados[empleados.length-1].id + 1 : 1;
+// Insertar la hora y fecha en el header
+document.getElementById('headerTime').innerHTML = '<?= $hora; ?><br><?= $fecha; ?>';
 
-const tabla = document.getElementById("tablaEmpleados");
-const formModal = document.getElementById("formEmpleadoModal");
-const modalEmpleado = document.getElementById("modalEmpleado");
+// Insertar el navbar
+document.getElementById('navbar').outerHTML = `<?= addslashes($navbarHTML); ?>`;
 
-function abrirModalEmpleado(){ modalEmpleado.style.display = "flex"; }
-function cerrarModalEmpleado(){ modalEmpleado.style.display = "none"; }
-window.addEventListener("click", e => { if(e.target === modalEmpleado) cerrarModalEmpleado(); });
+// Cargar datos de empleados desde PHP
+empleados = <?= $empleadosJSON; ?>;
+id = empleados.length > 0 ? empleados[empleados.length-1].id + 1 : 1;
 
-formModal.addEventListener("submit", function(e){
-    e.preventDefault();
-    const nombre = document.getElementById("nombre").value;
-    const puesto = document.getElementById("puesto").value;
-    empleados.push({ id: id++, nombre, puesto });
-    mostrarEmpleados();
-    formModal.reset();
-    cerrarModalEmpleado();
-});
-
-function mostrarEmpleados(){
-    tabla.innerHTML = "";
-    empleados.forEach(emp => {
-        const fila = document.createElement("tr");
-        fila.innerHTML = `
-            <td>${emp.id}</td>
-            <td>${emp.nombre}</td>
-            <td>${emp.puesto}</td>
-            <td>
-                <button class="btn-eliminar" onclick="eliminarEmpleado(${emp.id})">Eliminar</button>
-            </td>
-        `;
-        tabla.appendChild(fila);
-    });
-}
-
-// Inicializa la tabla al cargar
+// Inicializar la tabla con los datos
 mostrarEmpleados();
-
-function eliminarEmpleado(id){
-    empleados = empleados.filter(emp => emp.id !== id);
-    mostrarEmpleados();
-}
 </script>
-</body>
-</html>
