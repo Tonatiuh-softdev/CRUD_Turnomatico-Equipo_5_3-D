@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . "/../../Recursos/PHP/conexion.php"; // Ajusta la ruta a tu conexión
+include __DIR__ . "/../../Recursos/PHP/conexion.php";
 session_start();
 
 // Solo permitir acceso si es empleado o admin
@@ -45,107 +45,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombreCliente'])) {
         exit;
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistema de Turnos - Clientes</title>
-<link rel="stylesheet" href="../CSS/clientes.css">
 
-</head>
-<body>
-<header>
-    <div class="logo">
-        <img src="../../img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
-        <span>ClickMatic</span>
-    </div>
-    <div class="user">
-        <span>Administrador</span>
-        <div class="time"><?= date("h:i a"); ?><br><?= date("d \d\e F Y"); ?></div>
-    </div>
-</header>
+// Configurar zona horaria y obtener fecha/hora
+date_default_timezone_set("America/Mexico_City");
+$hora = date("h:i a");
+$fecha = date("d \d\e F Y");
 
-<div class="container">
-<?php
+// Cargar el navbar
 require '../../Recursos/PHP/redirecciones.php';
+ob_start();
 loadNavbar();
+$navbarHTML = ob_get_clean();
+
+// Obtener los datos de clientes
+$sql = "SELECT id, nombre, email, status FROM usuarios WHERE rol='cliente' ORDER BY id ASC";
+$result = $conn->query($sql);
+$clientesHTML = "";
+
+if ($result && $result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $clientesHTML .= "<tr>
+            <td>{$row['id']}</td>
+            <td>{$row['nombre']}</td>
+            <td>{$row['email']}</td>
+            <td>
+                <form method='POST'>
+                    <input type='hidden' name='cambiar_status_id' value='{$row['id']}'>
+                    <input type='hidden' name='nuevo_status' value='{$row['status']}'>
+                    <button type='submit' class='btn-status'>{$row['status']}</button>
+                </form>
+            </td>
+            <td>
+                <form method='POST' style='display:inline'>
+                    <input type='hidden' name='eliminar_id' value='{$row['id']}'>
+                    <button type='submit' class='btn-eliminar'>Eliminar</button>
+                </form>
+            </td>
+        </tr>";
+    }
+} else {
+    $clientesHTML = "<tr><td colspan='5'>No hay clientes registrados</td></tr>";
+}
+
+// Incluir el archivo HTML
+include __DIR__ . "/../HTML/clientes.html";
 ?>
-
-<main>
-    <h2>Administrar Clientes</h2>
-
-    <!-- Botón grande para abrir modal -->
-    <button class="btn-agregar" onclick="abrirModalCliente()">➕ Agregar Cliente</button>
-
-    <!-- Modal agregar cliente -->
-    <div id="modalCliente" class="modal">
-        <div class="modal-contenido">
-            <h3>Agregar Cliente</h3>
-            <form method="POST">
-                <input type="text" name="nombreCliente" placeholder="Nombre del cliente" required>
-                <button type="submit">Agregar</button>
-            </form>
-            <button class="cerrar" onclick="cerrarModalCliente()">Cerrar</button>
-        </div>
-    </div>
-
-    <!-- Tabla clientes -->
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Cliente</th>
-                <th>Email</th>
-                <th>Status</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php
-            $sql = "SELECT id, nombre, email, status FROM usuarios WHERE rol='cliente' ORDER BY id ASC";
-            $result = $conn->query($sql);
-            if ($result && $result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    echo "<tr>
-                        <td>{$row['id']}</td>
-                        <td>{$row['nombre']}</td>
-                        <td>{$row['email']}</td>
-                        <td>
-                            <form method='POST'>
-                                <input type='hidden' name='cambiar_status_id' value='{$row['id']}'>
-                                <input type='hidden' name='nuevo_status' value='{$row['status']}'>
-                                <button type='submit' class='btn-status'>{$row['status']}</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form method='POST' style='display:inline'>
-                                <input type='hidden' name='eliminar_id' value='{$row['id']}'>
-                                <button type='submit' class='btn-eliminar'>Eliminar</button>
-                            </form>
-                        </td>
-                    </tr>";
-                }
-            } else {
-                echo "<tr><td colspan='5'>No hay clientes registrados</td></tr>";
-            }
-        ?>
-        </tbody>
-    </table>
-</main>
-</div>
 
 <script>
-// Abrir y cerrar modal
-const modalCliente = document.getElementById("modalCliente");
-function abrirModalCliente(){ modalCliente.style.display = "flex"; }
-function cerrarModalCliente(){ modalCliente.style.display = "none"; }
-// Cerrar modal al hacer clic fuera del contenido
-window.addEventListener("click", function(e){
-    if(e.target === modalCliente) cerrarModalCliente();
-});
-</script>
-</body>
-</html>
+// Insertar la hora y fecha en el header
+document.getElementById('headerTime').innerHTML = '<?= $hora; ?><br><?= $fecha; ?>';
 
+// Insertar el navbar
+document.getElementById('navbar').outerHTML = `<?= addslashes($navbarHTML); ?>`;
+
+// Insertar los datos de clientes en la tabla
+document.getElementById('tablaClientes').innerHTML = `<?= addslashes($clientesHTML); ?>`;
+</script>
