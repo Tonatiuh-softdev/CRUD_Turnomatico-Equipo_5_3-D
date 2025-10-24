@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Cliente</title>
+  <link rel="stylesheet" href="../CSS/login_Cliente.css">
+</head>
+<body>
+  <img src="../../img/fondo_login.png" alt="Fondo" class="imagen">
+  <img src="../../img/img.Logo_blanco-Photoroom.png" alt="Mi Imagen" class="imagen1">
+
+  <header>
+    <div class="logo">
+      <img src="../../img/img.Logo_blanco-Photoroom.png" width="70"/>
+      <span>ClickMatic</span>
+    </div>
+  </header>
+
+  <div class="texto1">Welcome Back</div>
+  <div class="texto2">Sign in to continue</div>
+  <div class="texto3">LOG IN</div>
+
+  <div id="mensaje-contenedor"></div>
+
+  <!-- Botón de regreso -->
+  <a href="../PHP/pantalla_espera.php" class="boton">
+      <img src="../../img/flecha_regresar.png" alt="Regresar" class="icono">
+  </a>
+
+  <form action="../PHP/login_Cliente.php" method="POST">
+    <div class="input-field email-field">
+      <input type="email" name="email" placeholder="Email" required>
+    </div>
+    <div class="input-field password-field">
+      <input type="password" name="password" placeholder="Password" required>
+    </div>
+    <button type="submit" class="login-button">Continue</button>
+  </form>
+
+  <script>
+    // Mostrar mensaje si viene en la query string (msg)
+    (function(){
+      const params = new URLSearchParams(window.location.search);
+      const msg = params.get('msg');
+      if (msg) {
+        const cont = document.getElementById('mensaje-contenedor');
+        const div = document.createElement('div');
+        div.className = 'error-msg';
+        div.textContent = decodeURIComponent(msg);
+        cont.appendChild(div);
+      }
+    })();
+  </script>
+</body>
+</html>
