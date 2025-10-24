@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pantalla de Turno</title>
+  <link rel="stylesheet" href="../CSS/pantallaDeTurno.css">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="../../img/img.Logo_blanco-Photoroom.png" width="70"/>
+    </div>
+    <div class="user-panel" style="display:flex; align-items:center; gap:8px;">
+        <span id="rol-usuario" style="display:flex; align-items:center; gap:5px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 20px; height: 20px;">
+                <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd"/>
+            </svg>
+            <span id="rol-text">Empleado</span>
+        </span>
+
+        <button id="btn-regresar" class="btn-regresar" title="Regresar" style="display:none;"></button>
+
+        <button id="btn-cerrar" class="btn-cerrar" title="Cerrar sesión"></button>
+
+        <div class="time" id="hora-fecha">
+            --:--<br>--
+        </div>
+    </div>
+</header>
+
+<div class="contenedor-principal">
+    <!-- Lado izquierdo: lista de turnos -->
+    <div class="lado-izquierdo">
+        <div class="lista-turnos">
+            <table class="tabla">
+                <thead>
+                <tr>
+                    <th>Turno</th>
+                    <th>Módulo</th>
+                </tr>
+                </thead>
+                <tbody id="lista-turnos-body">
+                <!-- Se llenará por JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Lado derecho: panel actual con rectángulos -->
+    <div class="lado-derecho">
+        <div class="grupo">
+            <div class="rectangulo">Turno</div>
+            <div class="rectanguloR">Módulo</div>
+        </div>
+
+        <div class="datos">
+            <div id="turno-actual">--</div>
+            <div id="modulo-actual">--</div>
+        </div>
+
+        <div class="rectangulo3" id="operador-nombre">Operador</div>
+
+        <div style="margin-top:12px; display:flex; gap:8px;">
+          <button id="btn-atender">Atender siguiente</button>
+          <button id="btn-pausar">Pausar</button>
+        </div>
+    </div>
+</div>
+
+
+<footer>
+    ClickMatic
+</footer>
+
+<script>
+  const apiUrl = '../PHP/pantallaDeTurno.php?api=1';
+
+  async function fetchData(){
+    try{
+      const res = await fetch(apiUrl, {cache: 'no-store'});
+      if(!res.ok) throw new Error('Error al obtener datos');
+      const data = await res.json();
+
+      // Rol y botón regresar
+      document.getElementById('rol-text').textContent = data.rol || 'Empleado';
+      if(data.rol === 'empleado') document.getElementById('btn-regresar').style.display = 'inline-block';
+
+      // Hora/fecha
+      document.getElementById('hora-fecha').innerHTML = `${data.hora}<br>${data.fecha}`;
+
+      // Lista de turnos
+      const tbody = document.getElementById('lista-turnos-body');
+      tbody.innerHTML = '';
+      (data.turnos || []).forEach(t => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${escapeHtml(t.codigo_turno)}</td><td>${escapeHtml(t.tipo)}</td>`;
+        tbody.appendChild(tr);
+      });
+
+      // Turno actual
+      document.getElementById('turno-actual').textContent = data.turnoActual?.codigo_turno || '--';
+      document.getElementById('modulo-actual').textContent = data.turnoActual?.tipo || '--';
+
+    }catch(err){
+      console.error(err);
+    }
+  }
+
+  function escapeHtml(str){
+    if(!str) return '';
+    return String(str).replace(/[&<>"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s]));
+  }
+
+  async function postAction(formData){
+    try{
+      const res = await fetch('../PHP/pantallaDeTurno.php', {method: 'POST', body: formData});
+      const json = await res.json();
+      if(json.redirect) window.location.href = json.redirect;
+      else await fetchData();
+    }catch(err){ console.error(err); }
+  }
+
+  document.getElementById('btn-atender').addEventListener('click', ()=>{
+    const fd = new FormData(); fd.append('accion','atender'); postAction(fd);
+  });
+
+  document.getElementById('btn-pausar').addEventListener('click', ()=>{
+    const fd = new FormData(); fd.append('accion','pausar'); postAction(fd);
+  });
+
+  document.getElementById('btn-cerrar').addEventListener('click', ()=>{
+    const fd = new FormData(); fd.append('cerrar_sesion','1'); postAction(fd);
+  });
+
+  // Botón regresar (si se quiere redirigir a admin)
+  document.getElementById('btn-regresar').addEventListener('click', ()=>{
+    window.location.href = '../../pantallas/admin/';
+  });
+
+  // Inicializar y refrescar cada 5s
+  fetchData();
+  setInterval(fetchData, 5000);
+  </script>
+</body>
+</html>

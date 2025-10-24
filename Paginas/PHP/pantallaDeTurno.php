@@ -1,143 +1,93 @@
 <?php
+// Este archivo ahora actúa como endpoint JSON para la pantalla de turnos.
+header('Content-Type: application/json; charset=utf-8');
 include __DIR__ . "/../../Recursos/PHP/conexion.php";
+
+// Asegurar sesión para leer rol u otras variables
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 date_default_timezone_set("America/Mexico_City");
 $hora = date("h:i a");
 setlocale(LC_TIME, "es_ES.UTF-8");
 $fecha = strftime("%d de %B %Y");
 
-// 🔹 Obtener turnos en espera
-$sql_turnos = "SELECT codigo_turno, tipo, estado FROM turnos WHERE estado = 'EN_ESPERA' ORDER BY id ASC";
-$res_turnos = $conn->query($sql_turnos);
-$turnos = [];
-while ($row = $res_turnos->fetch_assoc()) {
-    $turnos[] = $row;
+// Procesar POST: acciones y cierre de sesión
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Cerrar sesión
+    if (isset($_POST['cerrar_sesion'])) {
+        session_unset();
+        session_destroy();
+        echo json_encode(['redirect' => './login.php']);
+        $conn->close();
+        exit;
+    }
+
+    // Acciones: atender, pausar
+    if (isset($_POST['accion'])) {
+        $accion = $_POST['accion'];
+
+        if ($accion === 'atender') {
+            $sql_siguiente = "SELECT id FROM turnos WHERE estado = 'EN_ESPERA' ORDER BY id ASC LIMIT 1";
+            $res_siguiente = $conn->query($sql_siguiente);
+
+            if ($res_siguiente && $res_siguiente->num_rows > 0) {
+                $siguiente = (int)$res_siguiente->fetch_assoc()['id'];
+                $conn->query("UPDATE turnos SET estado = 'ATENDIDO' WHERE estado = 'ATENDIENDO'");
+                $conn->query("UPDATE turnos SET estado = 'ATENDIENDO' WHERE id = $siguiente");
+            }
+        }
+
+        if ($accion === 'pausar') {
+            $conn->query("UPDATE turnos SET estado = 'PAUSADO' WHERE estado = 'ATENDIENDO'");
+        }
+
+        // Responder con éxito
+        echo json_encode(['success' => true]);
+        $conn->close();
+        exit;
+    }
 }
 
-// 🔹 Obtener turno actual
-$sql_actual = "SELECT codigo_turno, tipo, estado FROM turnos WHERE estado = 'ATENDIENDO' ORDER BY id DESC LIMIT 1";
-$res_actual = $conn->query($sql_actual);
-$turnoActual = $res_actual->fetch_assoc();
-
-// Si no hay turno en atención, mostrar el último generado
-if (!$turnoActual) {
-    $sql_actual = "SELECT codigo_turno, tipo, estado FROM turnos ORDER BY id DESC LIMIT 1";
-    $res_actual = $conn->query($sql_actual);
-    $turnoActual = $res_actual->fetch_assoc();
-}
-
-$conn->close();
-
-// ✅ Evitar notice si la sesión ya está iniciada
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-// 🔹 Cerrar sesión
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cerrar_sesion'])) {
-    session_unset();    // Elimina todas las variables de sesión
-    session_destroy();  // Destruye la sesión
-    header("Location: ./login.php");
-    exit;
-}
-
-// 🔹 Procesar acciones de botones
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
-    $accion = $_POST["accion"];
-
-    if ($accion === "atender") {
-        $sql_siguiente = "SELECT id FROM turnos WHERE estado = 'EN_ESPERA' ORDER BY id ASC LIMIT 1";
-        $res_siguiente = $conn->query($sql_siguiente);
-
-        if ($res_siguiente->num_rows > 0) {
-            $siguiente = $res_siguiente->fetch_assoc()['id'];
-            $conn->query("UPDATE turnos SET estado = 'ATENDIDO' WHERE estado = 'ATENDIENDO'");
-            $conn->query("UPDATE turnos SET estado = 'ATENDIENDO' WHERE id = $siguiente");
+// Si se pide la API (GET con ?api=1) devolver datos
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['api'])) {
+    // Obtener turnos en espera
+    $sql_turnos = "SELECT codigo_turno, tipo, estado FROM turnos WHERE estado = 'EN_ESPERA' ORDER BY id ASC";
+    $res_turnos = $conn->query($sql_turnos);
+    $turnos = [];
+    if ($res_turnos) {
+        while ($row = $res_turnos->fetch_assoc()) {
+            $turnos[] = $row;
         }
     }
 
-    if ($accion === "pausar") {
-        $conn->query("UPDATE turnos SET estado = 'PAUSADO' WHERE estado = 'ATENDIENDO'");
+    // Obtener turno actual
+    $sql_actual = "SELECT codigo_turno, tipo, estado FROM turnos WHERE estado = 'ATENDIENDO' ORDER BY id DESC LIMIT 1";
+    $res_actual = $conn->query($sql_actual);
+    $turnoActual = $res_actual ? $res_actual->fetch_assoc() : null;
+
+    // Si no hay turno en atención, mostrar el último generado
+    if (!$turnoActual) {
+        $sql_actual = "SELECT codigo_turno, tipo, estado FROM turnos ORDER BY id DESC LIMIT 1";
+        $res_actual = $conn->query($sql_actual);
+        $turnoActual = $res_actual ? $res_actual->fetch_assoc() : null;
     }
 
-    // 🔄 Recargar página
-    header("Location: ./pantallaEmpleado.php");
+    $resp = [
+        'turnos' => $turnos,
+        'turnoActual' => $turnoActual,
+        'hora' => $hora,
+        'fecha' => $fecha,
+        'rol' => $_SESSION['rol'] ?? null
+    ];
+
+    echo json_encode($resp, JSON_UNESCAPED_UNICODE);
+    $conn->close();
     exit;
 }
-?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Sistema de Turnos</title>
-<link rel="stylesheet" href="../CSS/pantallaDeTurno.css">
-</head>
+// Si se llega aquí sin parámetros, devolver un pequeño mensaje de ayuda
+echo json_encode(['error' => 'Endpoint de API. Usa ?api=1 para obtener datos o envía POST para acciones.']);
+$conn->close();
 
-<body>
-<header>
-    <div class="logo">
-        <img src="../../img/img.Logo_blanco-Photoroom.png" width="70"/>
-    </div>
-    <div class="user-panel" style="display:flex; align-items:center; gap:8px;">
-        <span style="display:flex; align-items:center; gap:5px;">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 20px; height: 20px;">
-                <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd"/>
-            </svg>
-            <?= $_SESSION['rol'] ?? 'Empleado' ?>
-        </span>
-
-        <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] === 'empleado'): ?>
-            <a href="../../pantallas/admin/" class="btn-regresar" title="Regresar"></a>
-        <?php endif; ?>
-
-        <form method="post" style="margin:0;">
-            <button type="submit" name="cerrar_sesion" class="btn-cerrar" title="Cerrar sesión"></button>
-        </form>
-
-        <div class="time">
-            <?= $hora ?><br><?= $fecha ?>
-        </div>
-    </div>
-</header>
-
-<div class="contenedor-principal">
-    <!-- Lado izquierdo: lista de turnos -->
-    <div class="lado-izquierdo">
-        <div class="lista-turnos">
-            <table class="tabla">
-                <tr>
-                    <th>Turno</th>
-                    <th>Módulo</th>
-                </tr>
-                <?php foreach ($turnos as $t): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($t["codigo_turno"]) ?></td>
-                        <td><?= htmlspecialchars($t["tipo"]) ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
-        </div>
-    </div>
-
-    <!-- Lado derecho: panel actual con rectángulos -->
-    <div class="lado-derecho">
-        <div class="grupo">
-            <div class="rectangulo">Turno</div>
-            <div class="rectanguloR">Módulo</div>
-        </div>
-
-        <div class="datos">
-            <div><?= htmlspecialchars($turnoActual["codigo_turno"]) ?></div>
-            <div><?= htmlspecialchars($turnoActual["tipo"]) ?></div>
-        </div>
-
-        <div class="rectangulo3">Camila Perez</div>
-    </div>
-</div>
-
-
-<footer>
-    ClickMatic
-</footer>
-</body>
-</html>
