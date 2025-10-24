@@ -1,7 +1,7 @@
 <?php
-require '../CRUD_Turnomatico-Equipo_5_3-D/Recursos/PHP/conexion.php';
-$conn = loadConexion(); // ✅ Crea la conexión
-loadLogIn();
+require '../PHP/conexion.php';
+$conn = conexion();
+
 
 $tipo = isset($_GET["tipo"]) ? strtoupper($_GET["tipo"]) : "VISITANTE";
 $nombreCliente = ($tipo === "CLIENTE" && isset($_SESSION["usuario"])) ? $_SESSION["usuario"] : null;

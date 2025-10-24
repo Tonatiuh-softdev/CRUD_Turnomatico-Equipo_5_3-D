@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
 <head>
 <meta charset="UTF-8">
 <title>Sistema de Turnos</title>
-<link rel="stylesheet" href="../CSS/pantallaDeTurno.css">
+<link rel="stylesheet" href="../CSS/pantalla_espera.css">
 </head>
 
 <body>

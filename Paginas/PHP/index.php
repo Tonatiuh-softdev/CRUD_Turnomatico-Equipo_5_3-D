@@ -54,11 +54,11 @@ loadHeader();
 <div class="container">
     <!-- Solo admin y superadmin ven la barra de navegación -->
     <?php if(isset($_SESSION['rol']) && in_array($_SESSION['rol'], ['admin','superadmin'])): ?>
-        <?php require '../../Recursos/PHP/redirecciones.php'; loadNavbar(); ?>
+        <?php loadNavbar(); ?>
     <?php endif; ?>
 
     <main>
-        <a href="./pantallaDeTurno.php" class="card">
+        <a href="./pantalla_espera.php" class="card">
           <img src="https://img.icons8.com/ios-filled/50/000000/conference.png"/>
           Pantalla de espera
         </a>

@@ -1,7 +1,17 @@
 <?php
 require '../../Recursos/PHP/redirecciones.php';
 $conn = loadConexion(); // ✅ Crea la conexión
-loadLogIn(); 
+
+// No usar loadLogIn() aquí: esa función valida roles de empleado/admin
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
+// Si ya hay un cliente logueado redirigir a pantalla de espera
+if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'cliente') {
+  header('Location: pantalla_espera.php');
+  exit;
+}
 
 $mensaje = "";
 

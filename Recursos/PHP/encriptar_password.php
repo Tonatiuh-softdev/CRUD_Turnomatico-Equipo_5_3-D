@@ -11,6 +11,8 @@ while ($row = $result->fetch_assoc()) {
     $update->execute();
 }
 
+
+
 echo "Contraseñas encriptadas correctamente";
 ?>
 
