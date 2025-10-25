@@ -25,7 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
             $conn->query("UPDATE turnos SET estado = 'ATENDIENDO' WHERE id = $siguiente");
         }
     }
-
     if ($accion === "pausar") {
         $conn->query("UPDATE turnos SET estado = 'PAUSADO' WHERE estado = 'ATENDIENDO'");
     }
