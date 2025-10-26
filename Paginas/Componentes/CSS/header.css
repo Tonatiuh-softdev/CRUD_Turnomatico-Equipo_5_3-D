@@ -1,11 +1,66 @@
     header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #fff;
-        padding: 8px 20px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #eceae7ff;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+    
+        header .logo {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+    
+        header .logo span {
+            margin-left: 10px;
+            font-size: 14px;
+        }
+    
+        header .user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: bold;
+        }
+    
+        header .time {
+            font-size: 12px;
+            color: #666;
+            text-align: right;
+        }
+    .btn-regresar {
+        width: 24px;
+        height: 24px;
+        background-color: #2b3d57;
+        mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>') no-repeat center;
+        -webkit-mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>') no-repeat center;
+        display:inline-block;
+        cursor:pointer;
+        transition: background-color 0.2s, transform 0.3s;
+    }
+    
+    .btn-regresar:hover {
+        background-color: #3f5675;
+        transform: translateX(-5px);
+    }
+    
+    /* Botón cerrar sesión (ícono puerta con flecha) */
+    .btn-cerrar {
+        width: 24px;
+        height: 24px;
+        background-color: #d9534f;
+        mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10zm8-11h-6v2h6v10h-6v2h6c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2z"/></svg>') no-repeat center;
+        -webkit-mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10zm8-11h-6v2h6v10h-6v2h6c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2z"/></svg>') no-repeat center;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s, transform 0.2s;
+    }
+    
+    .btn-cerrar:hover {
+        background-color: #c9302c;
+        transform: translateY(-2px);
     }
     header .empresa {
         display: flex;
