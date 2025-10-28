@@ -1,6 +1,7 @@
 <?php
-include __DIR__ . "/../../Recursos/PHP/conexion.php"; 
-session_start();
+require '../../Recursos/PHP/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+loadLogIn();
 
 // Solo permitir si el usuario logueado es empleado
 if (!isset($_SESSION["rol"]) || $_SESSION["rol"] !== "empleado") {
@@ -48,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 }
 
-// Incluir la vista HTML (contiene el formulario y el markup)
-include __DIR__ . "/../HTML/registro.html";
+require __DIR__ . '/../HTML/registro.html';
+?>
 
 

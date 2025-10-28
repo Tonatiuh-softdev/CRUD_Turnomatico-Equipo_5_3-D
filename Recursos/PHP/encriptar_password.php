@@ -1,5 +1,6 @@
 <?php
-include __DIR__ . "/conexion.php";
+require '../PHP/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
 
 $result = $conn->query("SELECT id, password FROM usuarios");
 
@@ -9,6 +10,8 @@ while ($row = $result->fetch_assoc()) {
     $update->bind_param("si", $hashed, $row['id']);
     $update->execute();
 }
+
+
 
 echo "Contraseñas encriptadas correctamente";
 ?>

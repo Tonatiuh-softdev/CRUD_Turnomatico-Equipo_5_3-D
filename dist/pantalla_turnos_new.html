@@ -1,41 +1,36 @@
+<?php
+require '../elementos/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+loadLogIn();
+
+
+$clienteLogueado = false;
+$nombreCliente = "";
+
+if (isset($_SESSION["usuario"]) && $_SESSION["rol"] === "cliente") {
+    $clienteLogueado = true;
+    $nombreCliente = $_SESSION["usuario"];
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pantalla de Espera</title>
+<link rel="stylesheet" href="../css/components/pantalla_espera.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <title>Sistema de Turnos</title>
 <link rel="stylesheet" href="pantalla_turnos_new.css">
 </head>
 <body>
-<style>
-/* Botón regresar (flecha) */
-.btn-regresar {
-    width: 24px;
-    height: 24px;
-    background-color: #2b3d57;
-    mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>') no-repeat center;
-    -webkit-mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>') no-repeat center;
-    display:inline-block;
-    cursor:pointer;
-    transition: background-color 0.2s, transform 0.3s;
-}
 
-.btn-regresar:hover {
-    background-color: #3f5675;
-    transform: translateX(-5px);
-}
+<?php
 
-/* Botón cerrar sesión (ícono puerta con flecha) */
-.btn-cerrar {
-    width: 24px;
-    height: 24px;
-    background-color: #d9534f;
-    mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10zm8-11h-6v2h6v10h-6v2h6c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2z"/></svg>') no-repeat center;
-    -webkit-mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10zm8-11h-6v2h6v10h-6v2h6c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2z"/></svg>') no-repeat center;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
-}
+loadHeader();
+?>
 
+<div class="texto">TOMA TU TURNO</div>
 .btn-cerrar:hover {
     background-color: #c9302c;
     transform: translateY(-2px);
@@ -75,30 +70,83 @@
 </header>
 
 <div class="contenedor">
-    <!-- Lista de turnos -->
-    <div class="lista-turnos">
-        <table class="tabla">
-            <tr>
-                <th>Turno</th>
-                <th>Módulo</th>
-            </tr>
-            <?php foreach ($turnos as $t): ?>
-                <tr>
-                    <td><?= htmlspecialchars($t["codigo_turno"]) ?></td>
-                    <td><?= htmlspecialchars($t["tipo"]) ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-    </div>
+  <div class="circulo rojo"></div>
+  <div class="circulo azul"></div>
+  <div class="circulo verde"></div>
 
-    <!-- Panel turno actual -->
-    <div class="panel-actual">
-        <div class="datos">
-            <div><?= htmlspecialchars($turnoActual["codigo_turno"]) ?></div>
-            <div><?= htmlspecialchars($turnoActual["tipo"]) ?></div>
-        </div>
-    </div>
+  <!-- Botón CLIENTE -->
+  <?php if ($clienteLogueado): ?>
+      <button class="boton izquierda" onclick="abrirModalCliente()">CLIENTE</button>
+  <?php else: ?>
+      <button class="boton izquierda" onclick="window.location.href='/pantallas/login_Cliente.php'">CLIENTE</button>
+  <?php endif; ?>
+
+  <!-- Botón VISITANTE -->
+  <button class="boton derecha" onclick="abrirModalVisitante()">VISITANTE</button>
 </div>
+
+<!-- Modal -->
+<div class="overlay" id="modal">
+  <div class="modal">
+    <div class="turno-modal">
+      <button class="cerrar">✖</button>
+      <img src="/img/img.Logo_blanco-Photoroom.png" alt="Logo" class="imagen">
+      <div class="texto">ClickMatic</div>
+      <div class="rectangulo">Turno</div>
+      <div class="rectangulo1" id="turnoModal">...</div>
+      <div class="rectangulo4" id="nombreModal">...</div>
+      <div class="texto1">TOMA TURNO |</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const overlay = document.querySelector('.overlay');
+const modal = document.querySelector('.modal');
+const cerrar = document.querySelector('.cerrar');
+
+cerrar.addEventListener('click', cerrarModal);
+overlay.addEventListener('click', cerrarModal);
+
+// Generar turno visitante
+async function abrirModalVisitante() {
+    try {
+        const response = await fetch("generar_turno.php?tipo=visitante");
+        const turno = await response.text();
+        document.getElementById("turnoModal").textContent = turno;
+        document.getElementById("nombreModal").textContent = "Visitante";
+        overlay.classList.add('active');
+        modal.classList.add('active');
+    } catch (error) {
+        console.error("Error al generar turno visitante:", error);
+    }
+}
+
+// Generar turno cliente logueado
+async function abrirModalCliente() {
+    try {
+        const response = await fetch("generar_turno.php?tipo=cliente");
+        const turno = await response.text();
+        document.getElementById("turnoModal").textContent = turno;
+        document.getElementById("nombreModal").textContent = "<?php echo htmlspecialchars($nombreCliente); ?>";
+        overlay.classList.add('active');
+        modal.classList.add('active');
+
+        // 🔹 Destruir sesión al sacar el turno (para que otro cliente pueda iniciar)
+        await fetch("logout_cliente.php");
+    } catch (error) {
+        console.error("Error al generar turno cliente:", error);
+    }
+}
+
+function cerrarModal() {
+    modal.classList.add('closing');
+    overlay.classList.remove('active');
+    setTimeout(() => {
+        modal.classList.remove('active', 'closing');
+    }, 600);
+}
+</script>
 
     <div class="grupo">
         <div class="rectangulo">

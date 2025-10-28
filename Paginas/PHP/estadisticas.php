@@ -1,12 +1,26 @@
 <?php
-// Configurar zona horaria y obtener fecha/hora
-date_default_timezone_set("America/Mexico_City");
-$hora = date("h:i a");
-$fecha = date("d \d\e F Y");
-
-// Cargar el navbar
 require '../../Recursos/PHP/redirecciones.php';
-ob_start();
+$conn = loadConexion(); // ✅ Crea la conexión
+loadLogIn();
+
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Turnos</title>
+  <link rel="stylesheet" href="../CSS/estadisticas.css">
+</head>
+<body>
+  <?php
+  loadHeader();
+  ?>
+
+  <div class="container">
+<?php
+
 loadNavbar();
 $navbarHTML = ob_get_clean();
 

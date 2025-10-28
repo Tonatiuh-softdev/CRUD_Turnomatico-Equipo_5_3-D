@@ -4,39 +4,7 @@ body {
         background: #c5d4e7;
     }
 
-    /* Barra superior */
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #dbdbdb;
-        padding: 20px 20px;
-        border-bottom: 1px solid #ddd;
-    }
-
-    header .logo {
-        display: flex;
-        align-items: center;
-        font-weight: bold;
-    }
-
-    header .logo span {
-        margin-left: 10px;
-        font-size: 16px;
-    }
-
-    header .user {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        font-weight: bold;
-    }
-
-    header .time {
-        font-size: 12px;
-        color: #666;
-        text-align: right;
-    }
+   
 
 .rectangulo1 {
   width: 100%;       /* Ancho largo */

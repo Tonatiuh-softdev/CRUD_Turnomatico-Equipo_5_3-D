@@ -1,12 +1,12 @@
   aside {
-      width: 100px; /* tamaño inicial solo iconos */
+      width: 75px; /* tamaño inicial solo iconos */
       background: #9cb6d6ff;
       color: #fff;
-      padding: 10px 5px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      height: 100vh;
+      height: 100%;
       transition: width 0.3s;
       overflow: hidden;
   }
@@ -16,9 +16,9 @@
   }
 
   aside a {
-      display: flex;
+      display: flex;    
       align-items: center;
-      padding: 35px;
+      padding: 23px;
       border-radius: 5px;
       color: #000;
       text-decoration: none;

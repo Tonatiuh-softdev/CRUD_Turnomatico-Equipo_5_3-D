@@ -3,6 +3,34 @@ require '../../Recursos/PHP/redirecciones.php';
 $conn = loadConexion(); // ✅ Crea la conexión
 loadLogIn();
 
+
+date_default_timezone_set("America/Mexico_City");
+$hora = date("h:i a");
+setlocale(LC_TIME, "es_ES.UTF-8");
+$fecha = strftime("%d de %B %Y");
+
+// 🔹 Obtener turnos en espera
+$sql_turnos = "SELECT codigo_turno, tipo, estado FROM turnos WHERE estado = 'EN_ESPERA' ORDER BY id ASC";
+$res_turnos = $conn->query($sql_turnos);
+$turnos = [];
+while ($row = $res_turnos->fetch_assoc()) {
+    $turnos[] = $row;
+}
+
+// 🔹 Obtener turno actual
+$sql_actual = "SELECT codigo_turno, tipo, estado FROM turnos WHERE estado = 'ATENDIENDO' ORDER BY id DESC LIMIT 1";
+$res_actual = $conn->query($sql_actual);
+$turnoActual = $res_actual->fetch_assoc();
+
+// Si no hay turno en atención, mostrar el último generado
+if (!$turnoActual) {
+    $sql_actual = "SELECT codigo_turno, tipo, estado FROM turnos ORDER BY id DESC LIMIT 1";
+    $res_actual = $conn->query($sql_actual);
+    $turnoActual = $res_actual->fetch_assoc();
+}
+
+$conn->close();
+
 // ✅ Evitar notice si la sesión ya está iniciada
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -36,31 +64,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
     }
 
     // 🔄 Recargar página
-    header("Location: pantallaEmpleado.php");
+    header("Location: ./pantallaEmpleado.php");
     exit;
 }
 
-// 🔹 Obtener datos de turnos
-$sql_espera = "SELECT COUNT(*) AS total FROM turnos WHERE estado = 'EN_ESPERA'";
-$res_espera = $conn->query($sql_espera);
-$en_espera = $res_espera->fetch_assoc()['total'];
-
-$sql_turno = "SELECT codigo_turno, tipo, estado FROM turnos WHERE estado = 'ATENDIENDO' ORDER BY id DESC LIMIT 1";
-$res_turno = $conn->query($sql_turno);
-$turno_actual = $res_turno->fetch_assoc();
-
-if (!$turno_actual) {
-    $sql_turno = "SELECT codigo_turno, tipo, estado FROM turnos ORDER BY id DESC LIMIT 1";
-    $res_turno = $conn->query($sql_turno);
-    $turno_actual = $res_turno->fetch_assoc();
-}
-
-$sql_lista = "SELECT codigo_turno, tipo, estado FROM turnos WHERE estado = 'EN_ESPERA' ORDER BY id ASC";
-$res_lista = $conn->query($sql_lista);
-
-// Cerrar conexión antes de incluir la vista
-$conn->close();
-
-require __DIR__ . '/../HTML/pantallaEmpleado.html'; 
+require __DIR__ . '/../HTML/pantalla_espera.html';
 ?>
-

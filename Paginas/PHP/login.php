@@ -1,6 +1,17 @@
 <?php
-session_start();
-include __DIR__ . "/../../Recursos/PHP/conexion.php";
+require '../../Recursos/PHP/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+
+// Iniciar sesión sin verificación de rol
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Si ya hay sesión iniciada, redirigir al index
+if (isset($_SESSION["rol"]) && in_array($_SESSION["rol"], ['empleado','admin','superadmin'])) {
+    header("Location: ./index.php");
+    exit;
+}
 
 // Si no es POST, mostrar el formulario HTML
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
@@ -49,6 +60,6 @@ if ($result && $result->num_rows === 1) {
     header("Location: ../HTML/login.html?msg=" . urlencode($mensaje));
     exit;
 }
-
-$stmt->close();
+require __DIR__ . '/../HTML/login.html';
+?>
 

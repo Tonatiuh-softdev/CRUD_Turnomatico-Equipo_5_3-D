@@ -1,6 +1,7 @@
 <?php
-session_start();
-include __DIR__ . "/../../Recursos/PHP/conexion.php";
+require '../../Recursos/PHP/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+loadLogIn();
 
 $clienteLogueado = false;
 $nombreCliente = "";
@@ -10,7 +11,5 @@ if (isset($_SESSION["usuario"]) && $_SESSION["rol"] === "cliente") {
     $nombreCliente = $_SESSION["usuario"];
 }
 
-// Incluir la vista HTML (contiene fragmentos PHP y usará las variables definidas arriba)
-include __DIR__ . "/../HTML/pantallaTomarTurno.html";
-
+require __DIR__ . '/../HTML/pantallaTomarTurno.html';   
 ?>
