@@ -1,0 +1,89 @@
+ /* Estilo del botón de idioma */
+    .languages {
+        display: flex;
+        align-items: center;
+        margin: 0 10px;
+    }
+
+    .lang-switch {
+        position: relative;
+        width: 40px;
+        height: 40px;
+    }
+
+    .lang-checkbox {
+        display: none;
+    }
+
+    .lang-label {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width:      70%;
+        height:     70%;
+        border-radius: 50%;
+        background: #c43e46; 
+        cursor: pointer;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .lang-slider {
+        position: relative;
+        width: 80%;
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.3s ease;
+    }
+
+    .lang-img {
+        width: 24px;
+        height: 24px;
+        object-fit: cover;
+        position: absolute;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+
+    .lang-img.es {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .lang-img.en {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    /* Animación del botón */
+    .lang-checkbox:checked + .lang-label .lang-img.es {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    .lang-checkbox:checked + .lang-label .lang-img.en {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* Efectos hover y checked */
+    .lang-label:hover {
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        transform: translateY(-2px);
+    }
+
+    .lang-label:active {
+        transform: scale(0.95);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Cambio de color cuando está en inglés */
+    .lang-checkbox:checked + .lang-label {
+        background: #537ca7; /* Color rojo británico */
+       
+    }
