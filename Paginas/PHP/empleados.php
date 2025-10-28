@@ -1,7 +1,6 @@
 <?php
 require '../../Recursos/PHP/redirecciones.php';
 $conn = loadConexion(); // ✅ Crea la conexión
-loadLogIn();
 
 // Obtener los empleados (rol = 'empleado')
 $sql = "SELECT id, nombre, rol as puesto FROM usuarios WHERE rol='empleado'";
