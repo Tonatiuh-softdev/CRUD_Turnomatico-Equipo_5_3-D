@@ -92,27 +92,78 @@
         margin-top: 10px;
     }
 
-    .btn {
-        background: #c5d4e7;
-        color: #fff;
-        border: none;
-        border-radius: 25px;
-        padding: 35px;
-        font-size: 25px;
-        font-weight: bold;
-        cursor: pointer;
-        text-align: center;
-        min-width: 350px;
-        transition: 0.3s;
-        display: inline-flex;
-        align-items: center;   /* Centra verticalmente */
-        gap: 8px;      
-    }        
+.btn {
+    background: #c5d4e7;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 35px;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    min-width: 350px;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;   /* Centra verticalmente */
+    gap: 8px;      
+}        
 
-    .btn:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-    }
+.btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* Botón lista de espera con iconos */
+.btn-lista {
+    justify-content: center;
+    gap: 12px;
+}
+
+.btn-icon-lista {
+    width: clamp(30px, 5vw, 45px);
+    height: clamp(30px, 5vw, 45px);
+    color: #fff;
+    transition: transform 0.3s ease;
+}
+
+.btn-lista:hover .btn-icon-lista {
+    transform: scale(1.15);
+}
+
+/* Botón pausar atención con iconos */
+.btn-pausar {
+    justify-content: center;
+    gap: 12px;
+}
+
+.btn-icon-pausar {
+    width: clamp(30px, 5vw, 45px);
+    height: clamp(30px, 5vw, 45px);
+    color: #fff;
+    transition: transform 0.3s ease;
+}
+
+.btn-pausar:hover .btn-icon-pausar {
+    transform: scale(1.15);
+}
+
+/* Botón atender siguiente con iconos */
+.btn-atender {
+    justify-content: center;
+    gap: 12px;
+}
+
+.btn-icon-atender {
+    width: clamp(30px, 5vw, 45px);
+    height: clamp(30px, 5vw, 45px);
+    color: #fff;
+    transition: transform 0.3s ease;
+}
+
+.btn-atender:hover .btn-icon-atender {
+    transform: scale(1.15);
+}
 
     /* Botón registrar */
     .register {
@@ -158,6 +209,19 @@
     box-shadow: 0 6px 15px rgba(0,0,0,0.2);
     text-decoration: none;   /* ✅ evita subrayado en hover */
 }
+
+/* Icono del botón registrar */
+.register-icon {
+    width: clamp(30px, 5vw, 45px);
+    height: clamp(30px, 5vw, 45px);
+    color: #fff;
+    transition: transform 0.3s ease;
+}
+
+.register:hover .register-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
 /* Overlay con animación de fade */
 .overlay {
   display: none;

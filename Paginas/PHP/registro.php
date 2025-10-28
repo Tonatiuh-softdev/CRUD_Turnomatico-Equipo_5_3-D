@@ -44,9 +44,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         $check->close();
-    } else {
-        echo "<script>alert('⚠️ Completa todos los campos');</script>";
-    }
+        } else {
+                echo "<script>alert('⚠️ Completa todos los campos');</script>";
+        }
 }
 
 require __DIR__ . '/../HTML/registro.html';

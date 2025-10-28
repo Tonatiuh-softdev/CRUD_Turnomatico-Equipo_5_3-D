@@ -13,44 +13,52 @@ if (isset($_SESSION["rol"]) && in_array($_SESSION["rol"], ['empleado','admin','s
     exit;
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST["email"];
-    $password = $_POST["password"];
+// Si no es POST, mostrar el formulario HTML
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    header("Location: ../HTML/login.html");
+    exit;
+}
 
-    // Buscar usuario
-    $sql = "SELECT * FROM usuarios WHERE email = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+$email = trim($_POST["email"] ?? "");
+$password = $_POST["password"] ?? "";
 
-    if ($result->num_rows === 1) {
-        $user = $result->fetch_assoc();
+if (!$email || !$password) {
+    $mensaje = "⚠️ Completa todos los campos.";
+    header("Location: ../HTML/login.html?msg=" . urlencode($mensaje));
+    exit;
+}
 
-        // Comparar contraseñas (si usas password_hash cambia a password_verify)
-        if (password_verify($password, $user["password"])) {
-            $_SESSION["usuario"] = $user["nombre"];
-            $_SESSION["rol"] = $user["rol"];
+// Buscar usuario
+$sql = "SELECT * FROM usuarios WHERE email = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
 
-            // Redirecciones según el rol
-            switch ($user["rol"]) {
-                case "superadmin":
-                    header("Location: ./index.php");
-                    break;
-                case "admin":
-                    header("Location: ./index.php");
-                    break;
-                case "empleado":
-                    header("Location: ./index.php");
-                    break;
-            }
-            exit;
-        } else {
-            echo "⚠️ Contraseña incorrecta";
+if ($result && $result->num_rows === 1) {
+    $user = $result->fetch_assoc();
+
+    if (password_verify($password, $user["password"])) {
+        $_SESSION["usuario"] = $user["nombre"];
+        $_SESSION["rol"] = $user["rol"];
+
+        // Redirecciones según el rol
+        switch ($user["rol"]) {
+            case "superadmin":
+            case "admin":
+            case "empleado":
+                header("Location: ./index.php");
+                exit;
         }
     } else {
-        echo "⚠️ Usuario no encontrado";
+        $mensaje = "⚠️ Contraseña incorrecta";
+        header("Location: ../HTML/login.html?msg=" . urlencode($mensaje));
+        exit;
     }
+} else {
+    $mensaje = "⚠️ Usuario no encontrado";
+    header("Location: ../HTML/login.html?msg=" . urlencode($mensaje));
+    exit;
 }
 require __DIR__ . '/../HTML/login.html';
 ?>

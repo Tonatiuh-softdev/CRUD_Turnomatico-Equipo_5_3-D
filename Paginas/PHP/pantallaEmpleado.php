@@ -2,7 +2,6 @@
 require '../../Recursos/PHP/redirecciones.php';
 $conn = loadConexion(); // ✅ Crea la conexión
 
-
 // ✅ Evitar notice si la sesión ya está iniciada
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -58,6 +57,7 @@ if (!$turno_actual) {
 $sql_lista = "SELECT codigo_turno, tipo, estado FROM turnos WHERE estado = 'EN_ESPERA' ORDER BY id ASC";
 $res_lista = $conn->query($sql_lista);
 
+// Cerrar conexión antes de incluir la vista
 $conn->close();
 
 require __DIR__ . '/../HTML/pantallaEmpleado.html'; 

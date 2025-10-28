@@ -22,24 +22,16 @@ loadLogIn();
 <?php
 
 loadNavbar();
+$navbarHTML = ob_get_clean();
+
+// Incluir el archivo HTML
+include __DIR__ . "/../HTML/estadisticas.html";
 ?>
 
+<script>
+// Insertar la hora y fecha en el header
+document.getElementById('headerTime').innerHTML = '<?= $hora; ?><br><?= $fecha; ?>';
 
-
-    <main>
-      <div class="card">
-        <img src="https://img.icons8.com/ios-filled/50/000000/conference.png"/>
-        Pantalla de espera
-      </div>
-      <div class="card">
-        <img src="https://img.icons8.com/ios-filled/50/000000/return.png"/>
-        Pantalla de turno
-      </div>
-      <div class="card">
-        <img src="https://img.icons8.com/ios-filled/50/000000/conference-call.png"/>
-        Pantalla de empleado
-      </div>
-    </main>
-  </div>
-</body>
-</html>
+// Insertar el navbar
+document.getElementById('navbar').outerHTML = `<?= addslashes($navbarHTML); ?>`;
+</script>
