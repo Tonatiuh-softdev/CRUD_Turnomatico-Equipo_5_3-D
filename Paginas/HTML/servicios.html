@@ -26,8 +26,15 @@ loadNavbar();
     </svg >
     <h2 data-translate="Administrar Servicios"> Administrar Servicios</h2>
 
-<!-- Botón grande para abrir el modal -->
-<button class="btn-agregar" data-translate="Agregar servicio" onclick="abrirModal()">+ Agregar Servicio</button>
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: -10px;">
+        <!-- Barra de búsqueda -->
+        <div style="max-width: 300px;">
+            <?php include __DIR__ . '/../Componentes/HTML/BarraBusqueda.html'; ?>
+        </div>
+
+        <!-- Botón grande para abrir el modal -->
+        <button class="btn-agregar" onclick="abrirModal()">+ Agregar Servicio</button>
+    </div>
 
 <!-- Modal agregar -->
 <div id="modalServicio" class="modal">
@@ -67,85 +74,6 @@ loadNavbar();
 </table>
 </main>
 </div>
-
-<script>
-let servicios = [];
-let id = 1;
-const tabla = document.getElementById("tablaServicios");
-
-function mostrarServicios() {
-    tabla.innerHTML = "";
-    servicios.forEach(serv => {
-        const fila = document.createElement("tr");
-        fila.innerHTML = `
-            <td>${serv.id}</td>
-            <td>${serv.nombre}</td>
-            <td><button class="btn-configurar" onclick="configurarServicio(${serv.id})">Configurar</button></td>
-            <td><button class="btn-eliminar" onclick="eliminarServicio(${serv.id})">Eliminar</button></td>
-        `;
-        tabla.appendChild(fila);
-    });
-}
-
-function eliminarServicio(id) {
-    servicios = servicios.filter(serv => serv.id !== id);
-    mostrarServicios();
-}
-
-// Función para abrir modal de edición
-function configurarServicio(id) {
-    const servicio = servicios.find(serv => serv.id === id);
-    if(servicio){
-        abrirModalEditar(servicio);
-    }
-}
-
-// Modal agregar
-const modal = document.getElementById("modalServicio");
-const formModal = document.getElementById("formModal");
-
-function abrirModal() { modal.style.display = "flex"; }
-function cerrarModal() { modal.style.display = "none"; }
-
-formModal.addEventListener("submit", function(e){
-    e.preventDefault();
-    const nombre = document.getElementById("nombreModal").value;
-    servicios.push({ id: id++, nombre });
-    mostrarServicios();
-    formModal.reset();
-    cerrarModal();
-});
-
-// Modal editar
-const modalEditar = document.getElementById("modalEditar");
-const formEditar = document.getElementById("formEditar");
-let idEditar = null;
-
-function abrirModalEditar(servicio){
-    idEditar = servicio.id;
-    document.getElementById("nombreEditar").value = servicio.nombre;
-    modalEditar.style.display = "flex";
-}
-function cerrarModalEditar(){ modalEditar.style.display = "none"; }
-
-formEditar.addEventListener("submit", function(e){
-    e.preventDefault();
-    const nuevoNombre = document.getElementById("nombreEditar").value;
-    servicios = servicios.map(serv=>{
-        if(serv.id === idEditar){
-            serv.nombre = nuevoNombre;
-        }
-        return serv;
-    });
-    mostrarServicios();
-    cerrarModalEditar();
-});
-
-// Cerrar modal al hacer clic fuera del contenido
-window.addEventListener("click", function(e){
-    if(e.target === modal) cerrarModal();
-    if(e.target === modalEditar) cerrarModalEditar();
-});
-</script>
+<script src="../JS/servicios.js"></script>
 </body>
 </html>

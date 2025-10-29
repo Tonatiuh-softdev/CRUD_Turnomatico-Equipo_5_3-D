@@ -2,7 +2,6 @@
 require '../../Recursos/PHP/redirecciones.php';
 $conn = loadConexion(); // ✅ Crea la conexión
 loadLogIn();
-
 // 🔹 Cambiar status
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cambiar_status_id'])) {
     $id = intval($_POST['cambiar_status_id']);

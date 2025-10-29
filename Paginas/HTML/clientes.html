@@ -23,8 +23,15 @@ loadNavbar();
 <main>
     <h2 data-translate="Administrar Clientes">Administrar Clientes</h2>
 
-    <!-- Botón grande para abrir modal -->
-    <button class="btn-agregar" onclick="abrirModalCliente()">➕ Agregar Cliente</button>
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: -10px;">
+        <!-- Barra de búsqueda -->
+        <div style="max-width: 300px;">
+            <?php include __DIR__ . '/../Componentes/HTML/BarraBusqueda.html'; ?>
+        </div>
+
+        <!-- Botón grande para abrir modal -->
+        <button class="btn-agregar" onclick="abrirModalCliente()">➕ Agregar Cliente</button>
+    </div>
 
     <!-- Modal agregar cliente -->
     <div id="modalCliente" class="modal">
@@ -90,15 +97,6 @@ loadNavbar();
 </main>
 </div>
 
-<script>
-// Abrir y cerrar modal
-const modalCliente = document.getElementById("modalCliente");
-function abrirModalCliente(){ modalCliente.style.display = "flex"; }
-function cerrarModalCliente(){ modalCliente.style.display = "none"; }
-// Cerrar modal al hacer clic fuera del contenido
-window.addEventListener("click", function(e){
-    if(e.target === modalCliente) cerrarModalCliente();
-});
-</script>
+<script src="../JS/clientes.js"></script>
 </body>
 </html>
