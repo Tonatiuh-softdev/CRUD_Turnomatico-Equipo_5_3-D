@@ -93,3 +93,8 @@ function eliminarCaja(id){
     cajas = cajas.filter(c => c.id !== id);
     mostrarCajas();
 }
+const modal = document.getElementById("modalCaja");
+function abrirModal() { modal.style.display = "flex"; }
+function cerrarModal() { modal.style.display = "none"; }
+window.addEventListener("click", e => { if(e.target === modal) cerrarModal(); });
+
