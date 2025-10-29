@@ -1,99 +1,77 @@
-let servicios = [];
-let id = 1;
-const tabla = document.getElementById("tablaServicios");
+document.addEventListener("DOMContentLoaded", () => {
+  cargarServicios();
 
-function mostrarServicios() {
-    tabla.innerHTML = "";
-    servicios.forEach(serv => {
-        const fila = document.createElement("tr");
-        fila.innerHTML = `
-            <td>${serv.id}</td>
-            <td>${serv.nombre}</td>
-            <td><button class="btn-configurar" onclick="configurarServicio(${serv.id})">Configurar</button></td>
-            <td><button class="btn-eliminar" onclick="eliminarServicio(${serv.id})">Eliminar</button></td>
-        `;
-        tabla.appendChild(fila);
-    });
-}
+  const formModal = document.getElementById("formModal");
+  const formEditar = document.getElementById("formEditar");
 
-function eliminarServicio(id) {
-    servicios = servicios.filter(serv => serv.id !== id);
-    mostrarServicios();
-}
-
-// Función para abrir modal de edición
-function configurarServicio(id) {
-    const servicio = servicios.find(serv => serv.id === id);
-    if(servicio){
-        abrirModalEditar(servicio);
-    }
-}
-
-// Modal agregar
-const modal = document.getElementById("modalServicio");
-const formModal = document.getElementById("formModal");
-
-function abrirModal() { modal.style.display = "flex"; }
-function cerrarModal() { modal.style.display = "none"; }
-
-formModal.addEventListener("submit", function(e){
+  // Agregar servicio
+  formModal.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const nombre = document.getElementById("nombreModal").value;
-    servicios.push({ id: id++, nombre });
-    mostrarServicios();
-    formModal.reset();
+    const nombre = document.getElementById("nombreModal").value.trim();
+    const descripcion = document.getElementById("descripcionModal").value.trim();
+
+    await fetch("../PHP/servicios.php", {
+      method: "POST",
+      body: new URLSearchParams({ accion: "agregar", nombre, descripcion }),
+    });
     cerrarModal();
-});
+    cargarServicios();
+  });
 
-// Modal editar
-const modalEditar = document.getElementById("modalEditar");
-const formEditar = document.getElementById("formEditar");
-let idEditar = null;
-
-function abrirModalEditar(servicio){
-    idEditar = servicio.id;
-    document.getElementById("nombreEditar").value = servicio.nombre;
-    modalEditar.style.display = "flex";
-}
-function cerrarModalEditar(){ modalEditar.style.display = "none"; }
-
-formEditar.addEventListener("submit", function(e){
+  // Editar servicio
+  formEditar.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const nuevoNombre = document.getElementById("nombreEditar").value;
-    servicios = servicios.map(serv=>{
-        if(serv.id === idEditar){
-            serv.nombre = nuevoNombre;
-        }
-        return serv;
+    const id = document.getElementById("idEditar").value;
+    const nombre = document.getElementById("nombreEditar").value.trim();
+    const descripcion = document.getElementById("descripcionEditar").value.trim();
+
+    await fetch("../PHP/servicios.php", {
+      method: "POST",
+      body: new URLSearchParams({ accion: "editar", id, nombre, descripcion }),
     });
-    mostrarServicios();
     cerrarModalEditar();
+    cargarServicios();
+  });
 });
 
-// Cerrar modal al hacer clic fuera del contenido
-window.addEventListener("click", function(e){
-    if(e.target === modal) cerrarModal();
-    if(e.target === modalEditar) cerrarModalEditar();
-});
+// Cargar servicios
+async function cargarServicios() {
+  const res = await fetch("../PHP/servicios.php?listar=1");
+  const servicios = await res.json();
+  const tabla = document.getElementById("tablaServicios");
+  tabla.innerHTML = "";
 
-// Filtrar tabla de servicios en tiempo real
-document.addEventListener('DOMContentLoaded', function(){
-    const input = document.querySelector('.InputContainer .input');
-    const tabla = document.getElementById("tablaServicios");
-    
-    if(!input || !tabla) return;
-    
-    input.addEventListener('input', function(){
-        const searchTerm = this.value.toLowerCase().trim();
-        const filas = tabla.querySelectorAll('tr');
-        
-        filas.forEach(fila => {
-            const textoFila = fila.textContent.toLowerCase();
-            if(searchTerm === '' || textoFila.includes(searchTerm)){
-                fila.style.display = '';
-            } else {
-                fila.style.display = 'none';
-            }
-        });
-    });
-});
+  servicios.forEach((s) => {
+    const fila = document.createElement("tr");
+    fila.innerHTML = `
+      <td>${s.ID_Servicio}</td>
+      <td>${s.Nombre}</td>
+      <td>${s.Descripcion || "—"}</td>
+      <td><button onclick="abrirModalEditar(${s.ID_Servicio}, '${s.Nombre.replace(/'/g,"\\'")}', '${(s.Descripcion || "").replace(/'/g,"\\'")}')">Editar</button></td>
+      <td><button onclick="eliminarServicio(${s.ID_Servicio})">Eliminar</button></td>
+    `;
+    tabla.appendChild(fila);
+  });
+}
+
+// Eliminar servicio
+async function eliminarServicio(id) {
+  if (!confirm("¿Eliminar este servicio?")) return;
+  await fetch("../PHP/servicios.php", {
+    method: "POST",
+    body: new URLSearchParams({ accion: "eliminar", id }),
+  });
+  cargarServicios();
+}
+
+// Modales
+function abrirModal() { document.getElementById("modalServicio").style.display = "flex"; }
+function cerrarModal() { document.getElementById("modalServicio").style.display = "none"; }
+
+function abrirModalEditar(id, nombre, descripcion) {
+  document.getElementById("idEditar").value = id;
+  document.getElementById("nombreEditar").value = nombre;
+  document.getElementById("descripcionEditar").value = descripcion;
+  document.getElementById("modalEditar").style.display = "flex";
+}
+function cerrarModalEditar() { document.getElementById("modalEditar").style.display = "none"; }
