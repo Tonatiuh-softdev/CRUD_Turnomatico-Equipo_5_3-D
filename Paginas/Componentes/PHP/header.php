@@ -10,10 +10,12 @@ function renderHeader(){
     $fecha = (new DateTime())->format("d \ \e F \ \e Y");
   
     
-    include __DIR__ . '/../HTML/header.html';
+    include __DIR__ . '/../../Componentes/HTML/header.html';
         
     
     
 
 }
+
+renderHeader();
 ?>
