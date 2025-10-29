@@ -13,9 +13,9 @@ if (isset($_SESSION["rol"]) && in_array($_SESSION["rol"], ['empleado','admin','s
     exit;
 }
 
-// Si no es POST, mostrar el formulario HTML
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: ../HTML/login.html");
+// Si no es POST y no es un cierre de sesión, mostrar el formulario HTML
+if ($_SERVER["REQUEST_METHOD"] !== "POST" && !isset($_POST['cerrar_sesion'])) {
+    include '../HTML/login.html';
     exit;
 }
 
@@ -61,5 +61,7 @@ if ($result && $result->num_rows === 1) {
     exit;
 }
 $conn->close();
+
+
 ?>
 
