@@ -17,10 +17,10 @@ loadHeader();
 loadNavbar();
 ?>
 
-<div class='main-content'>
-    <h2  data-translate="Administrar Cajas">Administrar Cajas</h2>
+<main>
+    <h2 data-translate="Administrar Cajas">Administrar Cajas</h2>
 
-    <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: -10px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px; margin: 20px 0;">
         <!-- Barra de búsqueda -->
         <div style="max-width: 300px;">
             <?php include __DIR__ . '/../Componentes/HTML/BarraBusqueda.html'; ?>
@@ -56,7 +56,7 @@ loadNavbar();
         </thead>
         <tbody id="tablaCajas"></tbody>
     </table>
-</div>
+</main>
 
 <script src="../JS/cajas.js"></script>
 </body>
