@@ -8,11 +8,7 @@ date_default_timezone_set("America/Mexico_City");
 $hora = date("h:i a");
 $fecha = date("d \d\e F Y");
 
-// Solo permitir acceso si es empleado, admin o superadmin
-if (!isset($_SESSION["rol"]) || !in_array($_SESSION["rol"], ['empleado', 'admin', 'superadmin'])) {
-    header("Location: ./login.php");
-    exit;
-}
+
 
 // 🔹 Crear caja
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['numeroCaja'])) {
@@ -57,10 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editar_id'])) {
 }
 
 // Cargar navbar
-require_once '../../Recursos/PHP/redirecciones.php';
-ob_start();
-loadNavbar();
-$navbarHTML = ob_get_clean();
+
 
 // 🔹 Obtener todas las cajas
 $sql = "SELECT c.*, s.Nombre AS ServicioNombre 

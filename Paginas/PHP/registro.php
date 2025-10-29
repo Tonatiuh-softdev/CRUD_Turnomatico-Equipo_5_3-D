@@ -5,11 +5,6 @@ loadLogIn();
 
 require_once __DIR__ . "/enviar_correo.php"; // 📩 Archivo para enviar correos (usa PHPMailer)
 
-// Solo permitir si el usuario logueado es empleado
-if (!isset($_SESSION["rol"]) || $_SESSION["rol"] !== "empleado") {
-    header("Location: ./login.php");
-    exit;
-}
 
 $mensaje = "";
 
@@ -61,54 +56,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mensaje = "⚠️ Completa todos los campos";
     }
 }
+require __DIR__ . '/../HTML/registro.html';
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Registro Cliente</title>
-<link rel="stylesheet" href="/Paginas/CSS/registro.css">
-</head>
-<body>
-<img src="../../img/fondo_login.png" alt="Fondo" class="imagen">
-<img src="../../img/img.Logo_blanco-Photoroom.png" alt="Logo" class="imagen1">
-
-<header>
-    <div class="logo">
-        <img src="../../img/img.Logo_blanco-Photoroom.png" width="70"/>
-        <span>ClickMatic</span>
-    </div>
-</header>
-
-<div class="rectangulo1"></div>
-<div class="rectangulo2"></div>
-<div class="texto1">Welcome Back</div>
-<div class="texto2">Sign in to continue</div>
-<div class="texto3">REGISTER</div>
-
-<?php if ($mensaje): ?>
-    <div class="error-msg"><?php echo $mensaje; ?></div>
-<?php endif; ?>
-
-<button class="boton" onclick="window.history.back()">
-  <img src="../../img/flecha_regresar.png" alt="" class="icono">
-</button>
-
-<form action="registro.php" method="POST">
-    <div class="input-field email-field2">
-      <input type="text" class="email-input" name="nombre" placeholder="Name" required>
-    </div>
-    <div class="input-field email-field">
-      <input type="email" class="email-input" name="email" placeholder="Email" required>
-    </div>
-    <div class="input-field password-field">
-      <input type="password" class="password-input" name="password" placeholder="Password" required>
-    </div>
-    <button type="submit" class="login-button">Continue</button>
-</form>
-</body>
-</html>
 
 
