@@ -1,7 +1,7 @@
 <?php
-session_start();
-include __DIR__ . "/../../Recursos/PHP/conexion.php";
-$conn = conexion(); // ← inicializa la conexión
+require '../../Recursos/PHP/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+
 
 $mensaje = "";
 

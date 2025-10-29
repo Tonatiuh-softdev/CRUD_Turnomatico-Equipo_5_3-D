@@ -1,6 +1,7 @@
 <?php
-include __DIR__ . "/../../Recursos/PHP/conexion.php";
-session_start();
+require '../../Recursos/PHP/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+loadLogIn();
 
 // Control de acceso
 if (!isset($_SESSION["rol"]) || !in_array($_SESSION["rol"], ['empleado','admin','superadmin'])) {

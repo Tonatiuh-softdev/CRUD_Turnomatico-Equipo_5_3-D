@@ -1,8 +1,10 @@
 <?php
-include __DIR__ . "/../../Recursos/PHP/conexion.php"; // contiene la función conexion()
+require '../../Recursos/PHP/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+loadLogIn(); // contiene la función conexion()
+
 require_once __DIR__ . "/enviar_correo.php";
 
-$conn = conexion(); // Obtenemos la conexión a la base de datos
 
 $mensaje = "";
 

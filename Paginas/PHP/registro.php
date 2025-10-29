@@ -1,7 +1,8 @@
 <?php
-session_start();
-include __DIR__ . "/../../Recursos/PHP/conexion.php";
-$conn = conexion(); // ← Inicializa la conexión
+require '../../Recursos/PHP/redirecciones.php';
+$conn = loadConexion(); // ✅ Crea la conexión
+loadLogIn();
+
 require_once __DIR__ . "/enviar_correo.php"; // 📩 Archivo para enviar correos (usa PHPMailer)
 
 // Solo permitir si el usuario logueado es empleado
