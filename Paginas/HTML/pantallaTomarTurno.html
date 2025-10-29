@@ -27,18 +27,16 @@
     <div class="circulo verde"></div>
   </div>
 
-  <div class="botones-container" data-cliente-logueado="<?php echo $clienteLogueado ? 'true' : 'false'; ?>" data-nombre-cliente="<?php echo htmlspecialchars($nombreCliente); ?>">
+  <div class="botones-container">
     <!-- Botón CLIENTE -->
-    <button class="boton" onclick="handleClienteClick()">
-        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6m0 14c-2.03 0-4.43-.82-6.14-2.88C7.55 15.8 9.68 15 12 15s4.45.8 6.14 2.12C16.43 19.18 14.03 20 12 20"></path></svg>
-        CLIENTE
-    </button>
+    <?php if ($clienteLogueado): ?>
+        <button class="boton" onclick="abrirModalCliente()">CLIENTE</button>
+    <?php else: ?>
+        <button class="boton" onclick="window.location.href='/Paginas/PHP/login_Cliente.php'">CLIENTE</button>
+    <?php endif; ?>
 
     <!-- Botón VISITANTE -->
-    <button class="boton" onclick="abrirModalVisitante()">
-        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4m0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4"></path></svg>
-        VISITANTE
-    </button>
+    <button class="boton" onclick="abrirModalVisitante()">VISITANTE</button>
   </div>
 </main>
 
@@ -57,7 +55,54 @@
   </div>
 </div>
 
-<script src="../JS/pantallaTomarTurno.js"></script> 
+<script>
+const overlay = document.querySelector('.overlay');
+const modal = document.querySelector('.modal');
+const cerrar = document.querySelector('.cerrar');
+
+cerrar.addEventListener('click', cerrarModal);
+overlay.addEventListener('click', cerrarModal);
+
+// Generar turno visitante
+async function abrirModalVisitante() {
+    try {
+        const response = await fetch("../../Recursos/PHP/generar_turno.php?tipo=visitante");
+        const turno = await response.text();
+        document.getElementById("turnoModal").textContent = turno;
+        document.getElementById("nombreModal").textContent = "Visitante";
+        overlay.classList.add('active');
+        modal.classList.add('active');
+    } catch (error) {
+        console.error("Error al generar turno visitante:", error);
+    }
+}
+
+// Generar turno cliente logueado
+async function abrirModalCliente() {
+    try {
+        const response = await fetch("../../Recursos/PHP/generar_turno.php?tipo=cliente");
+        const turno = await response.text();
+        document.getElementById("turnoModal").textContent = turno;
+        document.getElementById("nombreModal").textContent = "<?php echo htmlspecialchars($nombreCliente); ?>";
+        overlay.classList.add('active');
+        modal.classList.add('active');
+
+        // 🔹 Destruir sesión al sacar el turno (para que otro cliente pueda iniciar)
+        await fetch("./logout_cliente.php");
+    } catch (error) {
+        console.error("Error al generar turno cliente:", error);
+    }
+}
+
+function cerrarModal() {
+    modal.classList.add('closing');
+    overlay.classList.remove('active');
+    setTimeout(() => {
+        modal.classList.remove('active', 'closing');
+    }, 600);
+}
+</script>
+
 </body>
 </html>
 
