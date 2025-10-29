@@ -22,8 +22,33 @@ const translations = {
         'siguiente_turno': 'Siguiente turno',
         'llamar_cliente': 'Llamar cliente',
 
+
+        // Palabras muy usadas
+        'Nombre': 'Nombre',
+        'Descripción': 'Descripción',
+        'Eliminar' : 'Eliminar',
+        'Configurar' : 'Configurar',
+        'Correo' : 'Correo',
+
+
+
+
         // Servicios
-        'Administrar Servicios': 'Administrar Servicios'
+        'Administrar Servicios': 'Administrar Servicios',
+        'Agregar Servicio': 'Agregar Servicio',
+        'Editar Servicio': 'Editar Servicio',
+        'Guardar Cambios': 'Guardar Cambios',
+        'Servicio' : 'Servicio',
+
+        // Cajas
+        'Administrar Cajas': 'Administrar Cajas',
+        
+        //Empleados
+        'Administrar Empleados': 'Administrar Empleados',
+
+        //Clientes
+        'Administrar Clientes': 'Administrar Clientes',
+       
     },
     'en': {
         // Shared/common texts
@@ -48,9 +73,29 @@ const translations = {
         'siguiente_turno': 'Next turn',
         'llamar_cliente': 'Call client',
 
+        // Frequently used words
+        'Nombre': 'Name',
+        'Descripción': 'Description',
+        'Eliminar' : 'Delete',
+        'Configurar' : 'Configure',
+        'Correo' : 'Email',
+
         // Services
-        'Administrar Servicios': 'Manage services'
-    }
+        'Administrar Servicios': 'Manage Services',
+        'Agregar Servicio': 'Add Service',
+        'Editar Servicio': 'Edit Service',
+        'Guardar Cambios': 'Save Changes',
+        'Servicio' : 'Service', 
+
+        // Boxes
+        'Administrar Cajas': 'Manage Boxes',
+
+        //Employees
+        'Administrar Empleados': 'Manage Employees',
+
+        //Clients
+        'Administrar Clientes': 'Manage Clients',
+       }
 };
 
 // Función para traducir toda la página

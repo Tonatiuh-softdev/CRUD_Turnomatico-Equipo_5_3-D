@@ -20,7 +20,7 @@ loadNavbar();
 ?>
 
 <main>
-    <h2>Administrar Empleados</h2>
+    <h2  data-translate="Administrar Empleados">Administrar Empleados</h2>
 
     <!-- Botón grande para abrir modal -->
     <button class="btn-agregar" onclick="abrirModalEmpleado()">➕ Agregar Empleado</button>
@@ -42,10 +42,11 @@ loadNavbar();
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Puesto</th>
-                <th>Acciones</th>
+                <th data-translate="">ID</th>
+                <th data-translate="Nombre">Nombre</th>
+                <th data-translate="Correo">Correo</th>
+                <th data-translate="Configurar">Configurar</th>
+                <th data-translate="Eliminar">Eliminar</th>
             </tr>
         </thead>
         <tbody id="tablaEmpleados"></tbody>
