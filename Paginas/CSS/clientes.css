@@ -5,8 +5,7 @@ h2 { margin-top: 0; display: flex; align-items: center; gap: 10px; }
 table { width: 100%; border-collapse: collapse; background: #fafafa; }
 table th, table td { padding: 10px; border: 1px solid #ddd; text-align: center; }
 table th { background: #747e8bff; color: white; }
-.btn-eliminar { background: red; color: white; border: none; padding: 5px 8px; cursor: pointer; border-radius: 4px; }
-.btn-eliminar:hover { background: darkred; }
+ 
 .btn-status { background: #2b3d57; color: white; border: none; padding: 5px 8px; cursor: pointer; border-radius: 4px; }
 .btn-status:hover { background: #3f5675; }
 
@@ -57,3 +56,65 @@ table th { background: #747e8bff; color: white; }
 .modal-contenido button:hover { background: #3f5675; }
 .cerrar { margin-top: 10px; background: red !important; }
 .cerrar:hover { background: darkred !important; }
+
+
+.btn-eliminar {
+  position: relative;
+  border-radius: 6px;
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 1px solid #cc0000;
+  background-color: #e50000;
+  overflow: hidden;
+}
+
+.btn-eliminar,
+.btn-eliminar__icon,
+.btn-eliminar__text {
+  transition: all 0.3s;
+}
+
+.btn-eliminar .btn-eliminar__text {
+  transform: translateX(35px);
+  color: #fff;
+  font-weight: 600;
+}
+
+.btn-eliminar .btn-eliminar__icon {
+  position: absolute;
+  transform: translateX(109px);
+  height: 100%;
+  width: 39px;
+  background-color: #cc0000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-eliminar .svg {
+  width: 20px;
+}
+
+.btn-eliminar:hover {
+  background: #cc0000;
+}
+
+.btn-eliminar:hover .btn-eliminar__text {
+  color: transparent;
+}
+
+.btn-eliminar:hover .btn-eliminar__icon {
+  width: 148px;
+  transform: translateX(0);
+}
+
+.btn-eliminar:active .btn-eliminar__icon {
+  background-color: #b20000;
+}
+
+.btn-eliminar:active {
+  border: 1px solid #b20000;
+}
