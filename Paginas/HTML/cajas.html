@@ -51,24 +51,27 @@
         <button class="cerrar" onclick="cerrarModal()">Cerrar</button>
       </div>
     </div>
+<!-- Modal Editar -->
+<div id="editarCajaModal" class="modal">
+  <div class="modal-contenido">
+    <h3>Editar Caja</h3>
+    <form id="formEditarCaja" method="POST">
+      <input type="hidden" name="editar_id" id="editar_id">
 
-    <!-- Modal Editar -->
-    <div id="editarCajaModal" class="modal">
-      <div class="modal-contenido">
-        <h3>Editar Caja</h3>
-        <form id="formEditarCaja" method="POST">
-          <input type="hidden" name="editar_id" id="editar_id">
+      <label for="editar_numero">Número de caja</label>
+      <input type="number" name="editar_numero" id="editar_numero" required>
 
-          <label for="editar_numero">Número de caja</label>
-          <input type="number" name="editar_numero" id="editar_numero" required>
-
+      <div class="grupo-opciones">
+        <div class="campo">
           <label for="editar_estado">Estado</label>
           <select name="editar_estado" id="editar_estado" required>
               <option value="Disponible">Disponible</option>
               <option value="Ocupada">Ocupada</option>
               <option value="Fuera de servicio">Fuera de servicio</option>
           </select>
+        </div>
 
+        <div class="campo">
           <label for="editar_servicio">Servicio</label>
           <select name="editar_servicio" id="editar_servicio">
               <option value="">Sin asignar</option>
@@ -78,12 +81,16 @@
               <option value="<?= $s['ID_Servicio'] ?>"><?= htmlspecialchars($s['Nombre']) ?></option>
               <?php endwhile; ?>
           </select>
-
-          <button type="submit">Guardar cambios</button>
-        </form>
-        <button class="cerrar" onclick="cerrarEditarModal()">Cerrar</button>
+        </div>
       </div>
-    </div>
+
+      <button type="submit" class="btn-guardar">Guardar cambios</button>
+    </form>
+
+    <button class="cerrar" onclick="cerrarEditarModal()">Cerrar</button>
+  </div>
+</div>
+
 
     <!-- Tabla cajas -->
     <table id="tablaCajas">
