@@ -1,100 +1,40 @@
-// Datos y contadores
-let cajas = [];
-let id = 1;
-
-// Elementos del DOM
-let tabla;
-let formModal;
-let modalCaja;
-
-// Inicializar elementos cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function(){
-    tabla = document.getElementById("tablaCajas");
-    formModal = document.getElementById("formCajaModal");
-    modalCaja = document.getElementById("modalCaja");
-    
-    // Abrir y cerrar modal
-    window.addEventListener("click", e => { if(e.target === modalCaja) cerrarModalCaja(); });
-    
-    // Agregar caja
-    formModal.addEventListener("submit", function(e){
-        e.preventDefault();
-        const numeroCaja = document.getElementById("numeroCaja").value;
-        const ubicacion = document.getElementById("ubicacion").value;
-        cajas.push({ id: id++, numeroCaja, ubicacion });
-        mostrarCajas();
-        formModal.reset();
-        cerrarModalCaja();
-    });
-    
-    // Filtrar tabla de cajas en tiempo real
-    const input = document.querySelector('.InputContainer .input');
-    
-    if(input && tabla){
-        input.addEventListener('input', function(){
-            const searchTerm = this.value.toLowerCase().trim();
-            const filas = tabla.querySelectorAll('tr');
-            
-            filas.forEach(fila => {
-                const textoFila = fila.textContent.toLowerCase();
-                if(searchTerm === '' || textoFila.includes(searchTerm)){
-                    fila.style.display = '';
-                } else {
-                    fila.style.display = 'none';
-                }
-            });
-        });
-    }
-    
-    // Inicializa la tabla al cargar
-    mostrarCajas();
-});
-
-// Abrir y cerrar modal
-function abrirModalCaja(){ 
-    modalCaja.style.display = "flex"; 
-}
-
-function cerrarModalCaja(){ 
-    modalCaja.style.display = "none"; 
-}
-
-// Mostrar tabla
-function mostrarCajas(){
-    tabla.innerHTML = "";
-    cajas.forEach(caja => {
-        const fila = document.createElement("tr");
-        fila.innerHTML = `
-            <td>${caja.id}</td>
-            <td>${caja.numeroCaja}</td>
-            <td>${caja.ubicacion}</td>
-            <td><button class="btn-configurar" onclick="configurarCaja(${caja.id})">Configurar</button></td>
-            <td><button class="btn-eliminar" onclick="eliminarCaja(${caja.id})">Eliminar</button></td>
-        `;
-        tabla.appendChild(fila);
-    });
-}
-
-// Configurar/editar caja
-function configurarCaja(id){
-    const caja = cajas.find(c => c.id === id);
-    if(!caja) return;
-    const nuevoNumero = prompt("Editar Nombre de la Caja:", caja.numeroCaja);
-    const nuevoUbicacion = prompt("Editar Servicio:", caja.ubicacion);
-    if(nuevoNumero !== null && nuevoUbicacion !== null){
-        caja.numeroCaja = nuevoNumero;
-        caja.ubicacion = nuevoUbicacion;
-        mostrarCajas();
-    }
-}
-
-// Eliminar caja
-function eliminarCaja(id){
-    cajas = cajas.filter(c => c.id !== id);
-    mostrarCajas();
-}
+// Modal agregar
 const modal = document.getElementById("modalCaja");
 function abrirModal() { modal.style.display = "flex"; }
 function cerrarModal() { modal.style.display = "none"; }
 window.addEventListener("click", e => { if(e.target === modal) cerrarModal(); });
 
+// Modal editar
+const modalEditar = document.getElementById("editarCajaModal");
+const formEditar = document.getElementById("formEditarCaja");
+function cerrarEditarModal() { modalEditar.style.display = "none"; }
+window.addEventListener("click", e => { if(e.target === modalEditar) cerrarEditarModal(); });
+
+// Botones editar con data-*
+document.querySelectorAll('.btn-editar').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const id = this.dataset.id;
+        const numero = this.dataset.numero;
+        const estado = this.dataset.estado;
+        const servicio = this.dataset.servicio;
+
+        // Asignar valores al modal
+        document.getElementById('editar_id').value = id;
+        document.getElementById('editar_numero').value = numero;
+        document.getElementById('editar_estado').value = estado;
+
+        const selectServicio = document.getElementById('editar_servicio');
+        let found = false;
+        for (const opt of selectServicio.options) {
+            if (opt.text.trim() === servicio.trim()) {
+                opt.selected = true;
+                found = true;
+                break;
+            }
+        }
+        if (!found) selectServicio.value = "";
+
+        // Mostrar modal
+        modalEditar.style.display = 'flex';
+    });
+});

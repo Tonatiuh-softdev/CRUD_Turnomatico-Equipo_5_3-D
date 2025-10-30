@@ -59,3 +59,62 @@ table th { background: #747e8bff; color: white; }
 .modal-contenido button:hover { background: #3f5675; }
 .cerrar { margin-top: 10px; background: red !important; }
 .cerrar:hover { background: darkred !important; }
+
+/* === Ajustes específicos para el modal Editar Caja === */
+#editarCajaModal .modal-contenido form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#editarCajaModal label {
+  align-self: flex-start;
+  margin-left: 5%;
+  font-weight: bold;
+}
+
+#editarCajaModal input,
+#editarCajaModal select {
+  width: 90%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Agrupa Estado y Servicio en una misma línea */
+#editarCajaModal .grupo-opciones {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  gap: 10px;
+}
+
+/* Cada campo se organiza verticalmente */
+#editarCajaModal .grupo-opciones .campo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#editarCajaModal .btn-guardar {
+  background: #2b3d57;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#editarCajaModal .btn-guardar:hover {
+  background: #3f5675;
+}
+
+/* 📱 Responsivo: si la pantalla es pequeña, apila los selects */
+@media (max-width: 500px) {
+  #editarCajaModal .grupo-opciones {
+    flex-direction: column;
+  }
+}
