@@ -8,6 +8,11 @@ date_default_timezone_set("America/Mexico_City");
 $hora = date("h:i a");
 $fecha = date("d \d\e F Y");
 
+// Roles permitidos
+if (!isset($_SESSION["rol"]) || !in_array($_SESSION["rol"], ['empleado', 'admin', 'superadmin'])) {
+    header("Location: ./login.php");
+    exit;
+}
 
 
 // 🔹 Crear caja

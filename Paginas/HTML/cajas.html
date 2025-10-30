@@ -23,12 +23,10 @@
         </div>
     </div>
 
-    
-
     <!-- Botón para abrir modal agregar -->
     <button class="btn-agregar" onclick="abrirModal()">+ Agregar Caja</button>
 
-    <!-- Modal -->
+    <!-- Modal Agregar -->
     <div id="modalCaja" class="modal">
       <div class="modal-contenido">
         <h3>Agregar Caja</h3>
@@ -41,7 +39,7 @@
               <option value="Fuera de servicio">Fuera de servicio</option>
           </select>
 
-          <select name="servicioCaja">
+          <select name="idServicio">
               <option value="">Sin servicio asignado</option>
               <?php while($s = $servicios->fetch_assoc()): ?>
               <option value="<?= $s['ID_Servicio'] ?>"><?= htmlspecialchars($s['Nombre']) ?></option>
@@ -54,8 +52,41 @@
       </div>
     </div>
 
+    <!-- Modal Editar -->
+    <div id="editarCajaModal" class="modal">
+      <div class="modal-contenido">
+        <h3>Editar Caja</h3>
+        <form id="formEditarCaja" method="POST">
+          <input type="hidden" name="editar_id" id="editar_id">
+
+          <label for="editar_numero">Número de caja</label>
+          <input type="number" name="editar_numero" id="editar_numero" required>
+
+          <label for="editar_estado">Estado</label>
+          <select name="editar_estado" id="editar_estado" required>
+              <option value="Disponible">Disponible</option>
+              <option value="Ocupada">Ocupada</option>
+              <option value="Fuera de servicio">Fuera de servicio</option>
+          </select>
+
+          <label for="editar_servicio">Servicio</label>
+          <select name="editar_servicio" id="editar_servicio">
+              <option value="">Sin asignar</option>
+              <?php 
+              $serviciosEdit = $conn->query("SELECT ID_Servicio, Nombre FROM Servicio ORDER BY Nombre ASC");
+              while($s = $serviciosEdit->fetch_assoc()): ?>
+              <option value="<?= $s['ID_Servicio'] ?>"><?= htmlspecialchars($s['Nombre']) ?></option>
+              <?php endwhile; ?>
+          </select>
+
+          <button type="submit">Guardar cambios</button>
+        </form>
+        <button class="cerrar" onclick="cerrarEditarModal()">Cerrar</button>
+      </div>
+    </div>
+
     <!-- Tabla cajas -->
-    <table>
+    <table id="tablaCajas">
         <thead>
             <tr>
                 <th>ID</th>
@@ -66,40 +97,22 @@
                 <th>Eliminar</th>
             </tr>
         </thead>
-
         <tbody>
             <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
                 <td><?= $row['ID_Caja'] ?></td>
                 <td><?= $row['Numero_Caja'] ?></td>
                 <td><?= $row['Estado'] ?></td>
-                <td><?= htmlspecialchars($row['NombreServ'] ?? 'Sin asignar') ?></td>
+                <td><?= htmlspecialchars($row['ServicioNombre'] ?? 'Sin asignar') ?></td>
 
                 <td>
-                    <form method="POST">
-                        <input type="hidden" name="editar_id" value="<?= $row['ID_Caja'] ?>">
-
-                        <input type="number" name="editar_numero" value="<?= $row['Numero_Caja'] ?>" required>
-
-                        <select name="editar_estado">
-                            <option <?= ($row['Estado']=="Disponible"?"selected":"") ?>>Disponible</option>
-                            <option <?= ($row['Estado']=="Ocupada"?"selected":"") ?>>Ocupada</option>
-                            <option <?= ($row['Estado']=="Fuera de servicio"?"selected":"") ?>>Fuera de servicio</option>
-                        </select>
-
-                        <select name="editar_servicio">
-                            <option value="">Sin asignar</option>
-                            <?php $servicios2 = $conn->query("SELECT * FROM Servicio");
-                            while($s2 = $servicios2->fetch_assoc()): ?>
-                                <option value="<?= $s2['ID_Servicio'] ?>" 
-                                    <?= ($row['ID_Servicio']==$s2['ID_Servicio']?"selected":"") ?>>
-                                    <?= htmlspecialchars($s2['Nombre']) ?>
-                                </option>
-                            <?php endwhile; ?>
-                        </select>
-
-                        <button type="submit">Guardar</button>
-                    </form>
+                    <button class="btn-editar"
+                        data-id="<?= $row['ID_Caja'] ?>"
+                        data-numero="<?= htmlspecialchars($row['Numero_Caja'], ENT_QUOTES) ?>"
+                        data-estado="<?= htmlspecialchars($row['Estado'], ENT_QUOTES) ?>"
+                        data-servicio="<?= htmlspecialchars($row['ServicioNombre'] ?? '', ENT_QUOTES) ?>">
+                        Editar
+                    </button>
                 </td>
 
                 <td>
@@ -108,7 +121,6 @@
                         <button type="submit">Eliminar</button>
                     </form>
                 </td>
-
             </tr>
             <?php endwhile; ?>
         </tbody>
