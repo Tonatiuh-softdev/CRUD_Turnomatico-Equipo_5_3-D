@@ -7,8 +7,8 @@ const translations = {
         
         // Index page
         'pantalla_espera': 'Pantalla de espera',
-        'pantalla_turno': 'Pantalla de turno',
-        'pantalla_empleado': 'Pantalla de empleado',
+        'Tomar Turno': 'Tomar Turno',
+        'Interfaz De Empleado': 'Pantalla de empleado',
         
         // Pantalla de espera
         'esperando_turno': 'Esperando turno',
@@ -29,6 +29,9 @@ const translations = {
         'Eliminar' : 'Eliminar',
         'Configurar' : 'Configurar',
         'Correo' : 'Correo',
+        'Editar' : 'Editar',
+        'Estado' : 'Estado',
+        'Numero' : 'Numero',
 
 
 
@@ -58,8 +61,8 @@ const translations = {
         
         // Index page
         'pantalla_espera': 'Waiting Screen',
-        'pantalla_turno': 'Turn Screen',
-        'pantalla_empleado': 'Employee Screen',
+        'Tomar Turno': 'Get Turn',
+        'Interfaz De Empleado': 'Employee Interface',
         
         // Waiting screen
         'esperando_turno': 'Waiting for turn',
@@ -86,6 +89,9 @@ const translations = {
         'Editar Servicio': 'Edit Service',
         'Guardar Cambios': 'Save Changes',
         'Servicio' : 'Service', 
+        'Editar' : 'Edit',
+        'Estado' : 'State',
+        'Numero' : 'Number',
 
         // Boxes
         'Administrar Cajas': 'Manage Boxes',
