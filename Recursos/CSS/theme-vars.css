@@ -1,9 +1,10 @@
 /* Variables y reglas base para soporte claro/oscuro
-   Incluir este archivo en <head> de páginas que NO usan el header para aplicar tema pronto */
+   Incluir este archivo en <head> de páginas que NO 
+   usan el header para aplicar tema pronto */
 :root{
   --bg: #ffffff;
   --text: #111827;
-  --header-bg: #ffffff;
+  --header-bg: #c9a8a8;
   --panel-bg: rgba(255,255,255,0.6);
 }
 html, body{ background: var(--bg); color: var(--text); transition: background .2s, color .2s; }
