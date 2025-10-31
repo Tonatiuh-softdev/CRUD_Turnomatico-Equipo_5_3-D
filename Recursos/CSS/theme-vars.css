@@ -1,0 +1,25 @@
+/* Variables y reglas base para soporte claro/oscuro
+   Incluir este archivo en <head> de páginas que NO usan el header para aplicar tema pronto */
+:root{
+  --bg: #ffffff;
+  --text: #111827;
+  --header-bg: #ffffff;
+  --panel-bg: rgba(255,255,255,0.6);
+}
+html, body{ background: var(--bg); color: var(--text); transition: background .2s, color .2s; }
+header{ background: var(--header-bg); color: var(--text); }
+.card, .container, main{ background: var(--panel-bg); color: var(--text); }
+a, button, .btn-regresar, .btn-cerrar{ color: var(--text); }
+input, textarea, select{ background: transparent; color: var(--text); }
+
+/* Dark theme overrides */
+body.dark-theme, .dark-theme{
+  --bg: #0b1220;
+  --text: #e6eef8;
+  --header-bg: #07101a;
+  --panel-bg: rgba(10,14,20,0.6);
+}
+
+/* Algunas reglas específicas para componentes usados en header/pantallas */
+.dark-theme header .logo img{ filter: none; }
+.dark-theme footer{ color: var(--text); }
