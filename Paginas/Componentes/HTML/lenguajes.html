@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="../Componentes/CSS/lenguajes.css">
+<div class="languages">
+    <div class="lang-switch">
+        <input type="checkbox" id="langToggle" class="lang-checkbox" onchange="toggleLanguage(this)">
+        <label for="langToggle" class="lang-label">
+            <div class="lang-slider">
+                <img src="/img/ES.jpg" alt="Español" class="lang-img es">
+                <img src="/img/UK.jpg" alt="English" class="lang-img en">
+            </div>
+        </label>
+    </div>
+</div>
+<script>
+                function toggleLanguage(checkbox) {
+                    const lang = checkbox.checked ? 'en' : 'es';
+                    translatePage(lang);
+                }
+
+                // Inicializar el switch según el idioma guardado
+                document.addEventListener('DOMContentLoaded', function() {
+                    const savedLang = localStorage.getItem('selectedLanguage') || 'es';
+                    document.getElementById('langToggle').checked = savedLang === 'en';
+                });
+            </script>

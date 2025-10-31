@@ -11,11 +11,5 @@ function renderHeader(){
   
     
     include __DIR__ . '/../../Componentes/HTML/header.html';
-        
-    
-    
 
 }
-
-renderHeader();
-?>

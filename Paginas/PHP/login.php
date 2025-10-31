@@ -60,6 +60,6 @@ if ($result && $result->num_rows === 1) {
     header("Location: ../HTML/login.html?msg=" . urlencode($mensaje));
     exit;
 }
-require __DIR__ . '/../HTML/login.html';
+$conn->close();
 ?>
 
