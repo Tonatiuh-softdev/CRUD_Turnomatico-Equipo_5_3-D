@@ -258,5 +258,40 @@ body {
 .login-button {
   transition: background 0.3s ease, transform 0.3s ease;
 }
+/* ===== SECCIÓN DE REGISTRO ===== */
+.register-section {
+  position: absolute;
+  top: 720px; /* justo debajo del botón Continue */
+  left: 72%;
+  transform: translate(-50%, 0);
+  text-align: center;
+  z-index: 1;
+  color: #838283;
+  font-weight: bold;
+  animation: fadeIn 1.8s ease forwards;
+}
+
+.register-section p {
+  margin: 0;
+  font-size: 18px;
+}
+
+.register-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 25px;
+  background-color: #c6d7ef;
+  color: #555;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.register-button:hover {
+  background-color: #aebfda;
+  transform: scale(1.05);
+}
 
 
