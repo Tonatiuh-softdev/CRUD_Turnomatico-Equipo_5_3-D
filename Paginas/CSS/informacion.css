@@ -1,0 +1,107 @@
+body { margin: 0; font-family: Arial, sans-serif; background: #f5f5f5; }
+.container { display: flex; height: calc(100vh - 50px); }
+main { flex: 1; padding: 20px; background: #fff; overflow-y: auto; }
+h2 { margin-top: 0; display: flex; align-items: center; gap: 10px; }
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #eceae7ff;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
+    header .logo {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+       
+    }
+    header .logo span {
+        margin-left: 10px;
+        font-size: 14px;
+        
+    }
+
+.descripcion {
+    max-width: 600px;
+    margin-top: 20px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+    background: none;
+}
+
+/* Hero image with overlay */
+.hero {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+}
+.hero img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    
+}
+.hero .overlay {
+    position: absolute;
+    inset: 0; /* top:0; right:0; bottom:0; left:0 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+    color: #fff;
+    background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)); /* subtle darken for readability */
+}
+.hero .descripcion {
+    max-width: 500px;
+    margin-top: 0;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+    background: none;
+}
+.hero .cta {
+    margin-top: 1rem;
+    padding: 0.6rem 1rem;
+    background: #5f47d8;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+.hero .cta:hover {
+    filter: brightness(0.95);
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    .hero .overlay { padding: 1rem; }
+    .hero .descripcion { font-size: 1rem; }
+}
+
+.card {
+      background: #dce6f3;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      font-weight: bold;
+      flex-direction: column;
+      color: #333;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .card:nth-child(1) { background: rgb(171, 89, 37); }
+    .card:nth-child(2) { background: #bfd4eaff; }
+    .card:nth-child(3) { background: #e1ebf6; grid-column: span 2; }
+    
+    .card img { width: 40px; margin-bottom: 10px; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
