@@ -111,8 +111,8 @@ Componente reutilizable para búsqueda en tiempo real en todas las tablas.
 
 |  Nombre |  Rol |  Email |  Contribución |
 |-----------|--------|---------|-----------------|
-| **Pablo Alcalá**  |  Dev Full Stack | pablo.alcala@colima.edu.mx |  Barra búsqueda, Filtros, Iconos  |
-| **Tonatiuh Softdev**  |  Arquitecto | tonatiuh@softdev.com |  Backend, Estructura, Organización |
+| **Alcala Juan ()**  |  Dev Full Stack | jalcala5@ucol.mx  |  Barra búsqueda, Filtros, Iconos  |
+| **Preciado Roberto(Tonatiuh-Softdev)**  |  Arquitecto | rpreciado9@ucol.mx  |  Backend, Estructura, Organización |
 | **Equipo 5-3D**  |  Equipo Dev | equipo5@colima.edu.mx |  Desarrollo, Testing, Integración |
 | **TBD**  |  UI/UX Designer | diseño@project.com |  Interfaz, Estilos, Layout |
 
@@ -152,7 +152,7 @@ Licencia MIT © 2025
 
 ---
 
-**Hecho con  y mucho  por el Equipo NEXORA**
+**Hecho con y mucho amor por el Equipo NEXORA**
 
 * ¡Porque cada turno cuenta! *
 
