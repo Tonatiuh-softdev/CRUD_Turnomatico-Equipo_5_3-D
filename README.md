@@ -114,8 +114,8 @@ Componente reutilizable para búsqueda en tiempo real en todas las tablas.
 | **Alcala Juan (AlkaDev1)**  |  Dev Full Stack | jalcala5@ucol.mx  |  Barra búsqueda, Filtros, Iconos, Base de datos |
 | **Preciado Roberto (Tonatiuh-Softdev)**  |  Arquitecto | rpreciado9@ucol.mx  | Planificacion y analisis, Organizacion, Base de datos, Debugging, Estructuracion y Diseño de pantallas, Cambio de idioma |
 | **Orozco Roxana (roxana7code)**  |  Dev Full Stack | rorozco8@ucol.mx  |  Registros, Correos, Botones , Base de datos , Diseño de pantallas|
-| **Martinez Alison (Abyy-boop)**  |  Dev Full Stack | rorozco8@ucol.mx  |  Documentacion , Base de datos , Diseño de pantallas | 
-| **De la rosa Richie (RicheDeLaRosa)**  |  Frontend Developer | rorozco8@ucol.mx  |  Temas claro/oscuro , Diseño de pantallas  |
+| **Martinez Alison (Abyy-boop)**  |  Dev Full Stack | amartinez127@ucol.mx  |  Documentacion , Base de datos , Diseño de pantallas | 
+| **De la rosa Richie (RicheDeLaRosa)**  |  Frontend Developer | rdelarosa1@ucol.mx   |  Temas claro/oscuro , Diseño de pantallas  |
 
 | **Equipo 5-3D**  |  Equipo Dev | equipo5@colima.edu.mx |  Desarrollo, Testing, Integración |
 | **TBD**  |  UI/UX Designer | diseño@project.com |  Interfaz, Estilos, Layout |
