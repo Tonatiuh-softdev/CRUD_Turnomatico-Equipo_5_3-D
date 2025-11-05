@@ -111,8 +111,10 @@ Componente reutilizable para búsqueda en tiempo real en todas las tablas.
 
 |  Nombre |  Rol |  Email |  Contribución |
 |-----------|--------|---------|-----------------|
-| **Alcala Juan ()**  |  Dev Full Stack | jalcala5@ucol.mx  |  Barra búsqueda, Filtros, Iconos  |
-| **Preciado Roberto(Tonatiuh-Softdev)**  |  Arquitecto | rpreciado9@ucol.mx  |  Backend, Estructura, Organización |
+| **Alcala Juan 
+(AlkaDev1)**  |  Dev Full Stack | jalcala5@ucol.mx  |  Barra búsqueda, Filtros, Iconos  |
+| **Preciado Roberto
+(Tonatiuh-Softdev)**  |  Arquitecto | rpreciado9@ucol.mx  |  Backend, Estructura, Organización |
 | **Equipo 5-3D**  |  Equipo Dev | equipo5@colima.edu.mx |  Desarrollo, Testing, Integración |
 | **TBD**  |  UI/UX Designer | diseño@project.com |  Interfaz, Estilos, Layout |
 
