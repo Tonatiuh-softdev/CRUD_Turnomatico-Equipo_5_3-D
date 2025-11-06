@@ -258,4 +258,26 @@ body {
 .login-button {
   transition: background 0.3s ease, transform 0.3s ease;
 }
+/* 🔽 Enlace de "¿Olvidaste tu contraseña?" */
+.forgot-password {
+  position: absolute;
+  top: 720px;  /* 🔹 justo debajo del botón "Continue" (ajusta si lo quieres más cerca o más lejos) */
+  left: 72%;   /* 🔹 mismo centrado que el botón */
+  transform: translate(-50%, 0);
+  text-align: center;
+  z-index: 2;
+}
 
+.forgot-password a {
+  color: #243f71;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.forgot-password a:hover {
+  color: #18305c;
+  text-decoration: underline;
+  transform: scale(1.05);
+}
