@@ -87,9 +87,9 @@ header {
 }
 
 .card {
-      background: #dce6f3;
-      border-radius: 8px;
-      display: flex;
+      background: none;
+      
+      margin-top: 20px;
       justify-content: center;
       align-items: center;
       font-size: 20px;
@@ -98,10 +98,12 @@ header {
       color: #333;
       transition: transform 0.2s, box-shadow 0.2s;
       text-decoration: none;
+      height: 50%;
+      width: auto;
     }
-    .card:nth-child(1) { background: rgb(171, 89, 37); }
+    .card:nth-child(1) { border-radius: 2%; }
     .card:nth-child(2) { background: #bfd4eaff; }
     .card:nth-child(3) { background: #e1ebf6; grid-column: span 2; }
     
-    .card img { width: 40px; margin-bottom: 10px; }
+    .card img {   margin-bottom: 10px; }
     .card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
