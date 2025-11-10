@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </form>
 
 <p style="color:red; text-align:center;"><?php echo $mensaje; ?></p>
-<p style="text-align:center;"><a href="/Paginas/HTML/login.html">← Volver al login</a></p>
+<p style="text-align:center;"><a href="/Paginas/PHP/empleados.php">← Volver</a></p>
 
 </body>
 </html>
