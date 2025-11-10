@@ -20,21 +20,10 @@
             <?php include __DIR__ . '/../Componentes/HTML/BarraBusqueda.html'; ?>
         </div>
 
-        <button class="btn-agregar" onclick="abrirModalEmpleado()">➕ Agregar Empleado</button>
+        <a href="/Paginas/PHP/registro_empleado.php" class="btn-agregar">+ Agregar Empleado</a>
+
     </div>
 
-    <!-- Modal agregar -->
-    <div id="modalEmpleado" class="modal">
-        <div class="modal-contenido">
-            <h3>Agregar Empleado</h3>
-            <form id="formEmpleadoModal">
-                <input type="text" id="nombre" placeholder="Nombre" required>
-                <input type="email" id="correo" placeholder="Correo" required>
-                <button type="submit">Agregar</button>
-            </form>
-            <button class="cerrar" onclick="cerrarModalEmpleado()">Cerrar</button>
-        </div>
-    </div>
 
     <!-- 🟢 Modal editar -->
     <div id="modalEditar" class="modal">
