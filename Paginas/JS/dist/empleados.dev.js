@@ -63,7 +63,7 @@ function mostrarEmpleados() {
   tabla.innerHTML = "";
   empleados.forEach(function (emp) {
     var fila = document.createElement("tr");
-    fila.innerHTML = "\n            <td>".concat(emp.id, "</td>\n            <td>").concat(emp.nombre, "</td>\n            <td>").concat(emp.puesto, "</td>\n            <td>\n                <button class=\"btn-eliminar\" onclick=\"eliminarEmpleado(").concat(emp.id, ")\">Eliminar</button>\n            </td>\n        ");
+    fila.innerHTML = "\n            <td>".concat(emp.id, "</td>\n            <td>").concat(emp.nombre, "</td>\n            <td>").concat(emp.puesto, "</td>\n            <td>\n                <button class=\"btn-eliminar\" onclick=\"eliminarEmpleado(").concat(emp.id, ")\">\n                    <span class=\"btn-eliminar__icon\">\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\">\n                            <path d=\"M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6\"></path>\n                        </svg>\n                    </span>\n                </button>\n            </td>\n        ");
     tabla.appendChild(fila);
   });
 }

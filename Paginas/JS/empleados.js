@@ -58,7 +58,7 @@ formModal.addEventListener("submit", function(e){
     cerrarModalEmpleado();
 });
 
-function mostrarEmpleados(){
+function mostrarEmpleados() {
     tabla.innerHTML = "";
     empleados.forEach(emp => {
         const fila = document.createElement("tr");
@@ -67,14 +67,21 @@ function mostrarEmpleados(){
             <td>${emp.nombre}</td>
             <td>${emp.puesto}</td>
             <td>
-                <button class="btn-eliminar" onclick="eliminarEmpleado(${emp.id})">Eliminar</button>
+                <button class="btn-eliminar" onclick="eliminarEmpleado(${emp.id})">
+                    <span class="btn-eliminar__icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6"></path>
+                        </svg>
+                    </span>
+                </button>
             </td>
         `;
         tabla.appendChild(fila);
     });
 }
 
-function eliminarEmpleado(idEmpleado){
+function eliminarEmpleado(idEmpleado) {
     empleados = empleados.filter(emp => emp.id !== idEmpleado);
     mostrarEmpleados();
 }
+
