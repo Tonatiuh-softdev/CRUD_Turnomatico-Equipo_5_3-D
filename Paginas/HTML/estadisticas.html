@@ -9,17 +9,12 @@
 </head>
 <body>
 
-<?php
-
-loadHeader();
-?>
+<?php loadHeader(); ?>
 <div class="container">
-<?php
+<?php loadNavbar(); ?>
 
-loadNavbar();
-?>
 <main>
-    <h2> Estadísticas de Turnos</h2>
+    <h2>Estadísticas de Turnos</h2>
 
     <div class="container-grafica">
         <div class="chart-container">
@@ -29,18 +24,13 @@ loadNavbar();
         <div class="info">
             <div class="info-item">
                 <span class="serv1"></span>
-                <b>Servicio 1</b><br>
-                Al mes se atienden xxx turnos del servicio 1
+                <b>CLIENTE</b><br>
+                <span id="infoCliente">Cargando...</span>
             </div>
             <div class="info-item">
                 <span class="serv2"></span>
-                <b>Servicio 2</b><br>
-                Al mes se atienden xxx turnos del servicio 2
-            </div>
-            <div class="info-item">
-                <span class="serv3"></span>
-                <b>Servicio 3</b><br>
-                Al mes se atienden xxx turnos del servicio 3
+                <b>VISITANTE</b><br>
+                <span id="infoVisitante">Cargando...</span>
             </div>
         </div>
     </div>
