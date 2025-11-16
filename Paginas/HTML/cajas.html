@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NEXORA - Cajas</title>
-<link rel="stylesheet" href="../CSS/servicios.css">
+<link rel="stylesheet" href="../CSS/cajas.css">
 </head>
 <body>
 
@@ -107,12 +107,12 @@
         <tbody>
             <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
-                <td><?= $row['ID_Caja'] ?></td>
-                <td><?= $row['Numero_Caja'] ?></td>
-                <td><?= $row['Estado'] ?></td>
-                <td><?= htmlspecialchars($row['ServicioNombre'] ?? 'Sin asignar') ?></td>
-
-<td>
+                <td data-label="ID"><?= $row['ID_Caja'] ?></td>
+                <td data-label="Número"><?= $row['Numero_Caja'] ?></td>
+                <td data-label="Estado" data-estado="<?= $row['Estado'] ?>"><?= $row['Estado'] ?></td>
+                <td data-label="Servicio"><?= htmlspecialchars($row['ServicioNombre'] ?? 'Sin asignar') ?></td>
+                <td data-label="Editar">
+                    
     <button class="btn-editar"
         data-id="<?= $row['ID_Caja'] ?>"
         data-numero="<?= htmlspecialchars($row['Numero_Caja'], ENT_QUOTES) ?>"
@@ -126,6 +126,7 @@
         </span>
     </button>
 </td>
+
 
 
                 <td>

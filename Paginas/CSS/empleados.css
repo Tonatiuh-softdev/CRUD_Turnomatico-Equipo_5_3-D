@@ -185,3 +185,97 @@ table th { background: #747e8bff; color: white; }
 .btn-agregar:hover {
     background-color: #45a049;
 }
+/* =========================================
+   TABLAS (Diseño unificado para todos)
+========================================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+table th {
+    background: #4a5568;
+    color: white;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+table td {
+    padding: 14px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
+
+table tr:hover {
+    background: #f0f4f8;
+}
+
+/* =========================================
+   BOTÓN AGREGAR
+========================================= */
+.btn-agregar {
+    display: block;
+    margin: 25px auto;
+    padding: 14px 40px;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    border-radius: 40px;
+    background: linear-gradient(135deg, #2b3d57, #3f5675);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 6px 15px rgba(43, 61, 87, 0.4);
+    letter-spacing: 0.5px;
+}
+
+.btn-agregar:hover {
+    background: linear-gradient(135deg, #3f5675, #5b79a0);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(43, 61, 87, 0.5);
+}
+
+
+/* =========================================
+   MODALES
+========================================= */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-contenido {
+    background: #fff;
+    padding: 35px 30px;
+    border-radius: 20px;
+    width: 340px;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+
+.modal-contenido h2 {
+    margin-bottom: 20px;
+}
+
+.modal-contenido input {
+    width: 90%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+}

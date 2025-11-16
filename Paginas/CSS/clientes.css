@@ -151,4 +151,169 @@ table th { background: #747e8bff; color: white; }
     height: 20px;
     fill: #fff;
 }
+/* =========================================
+   ESTILO TABLA
+========================================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
 
+table th {
+    background: #4a5568;
+    color: white;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+table td {
+    padding: 14px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+table tr:hover {
+    background: #f0f4f8;
+}
+
+/* =========================================
+   BOTÓN AGREGAR
+========================================= */
+.btn-agregar {
+    margin: 20px;
+    padding: 12px 28px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #2b3d57, #3f5675);
+    color: white;
+    transition: 0.25s;
+}
+
+.btn-agregar:hover {
+    background: linear-gradient(135deg, #3f5675, #5b79a0);
+}
+/* CAMBIAR ESTADO */
+.btn-status {
+    background: #2b3d57;
+}
+.btn-status:hover {
+    background: #3f5675;
+}
+/* ESTADOS */
+.btn-status {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    transition: 0.25s ease-in-out;
+}
+
+/* Verde cuando está activo */
+.status-activo {
+    background-color: #1b327c !important;
+}
+
+/* Rojo cuando está inactivo */
+.status-inactivo {
+    background-color: #c0392b !important;
+}
+
+/* =========================================
+   MODAL
+========================================= */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-contenido {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    width: 350px;
+    text-align: center;
+}
+
+.modal-contenido input {
+    width: 90%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+}
+/* === 📱 RESPONSIVE EXACTO COMO CAJAS === */
+@media (max-width: 768px) {
+
+    table thead {
+        display: none;
+    }
+
+    table, table tbody, table tr, table td {
+        display: block;
+        width: 100%;
+    }
+
+    table tr {
+        background: #fff;
+        margin-bottom: 15px;
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        border: 1px solid #e5e5e5;
+    }
+
+    table td {
+        text-align: left !important;
+        padding: 10px 10px;
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+    }
+
+    table td:last-child {
+        border-bottom: none;
+    }
+
+    /* etiqueta antes del texto */
+    table td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 4px;
+        display: block;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* === Botones SIN agrandarse === */
+    td form {
+        display: inline-block;
+        margin-top: 6px;
+    }
+
+    .btn-status,
+    .btn-eliminar {
+        width: auto !important;
+        padding: 7px 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

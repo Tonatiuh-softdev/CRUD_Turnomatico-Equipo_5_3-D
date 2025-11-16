@@ -48,6 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['listar'])) {
     echo json_encode($data);
     exit;
 }
+// CONSULTA PARA LA VISTA PRINCIPAL
+$result = $conn->query("SELECT * FROM Servicio ORDER BY ID_Servicio ASC");
 
 require __DIR__ . '/../HTML/servicios.html';
 ?>

@@ -63,29 +63,40 @@ loadNavbar();
             if ($result && $result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     echo "<tr>
-                        <td>{$row['id']}</td>
-                        <td>{$row['nombre']}</td>
-                        <td>{$row['email']}</td>
-                        <td>
-                            <form method='POST'>
-                                <input type='hidden' name='cambiar_status_id' value='{$row['id']}'>
-                                <input type='hidden' name='nuevo_status' value='{$row['status']}'>
-                                <button type='submit' class='btn-status'>{$row['status']}</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form method='POST' style='display:inline'>
-                                <input type='hidden' name='eliminar_id' value='{$row['id']}'>
-                                <button class='btn-eliminar' type='submit' name='eliminar' value='1'>
-                                    <span class='btn-eliminar__icon'>
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor'>
-                                            <path d='M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6'></path>
-                                        </svg>
-                                    </span>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>";
+        <td data-label='ID'>{$row['id']}</td>
+        <td data-label='Nombre'>{$row['nombre']}</td>
+        <td data-label='Correo'>{$row['email']}</td>
+
+        <td data-label='Status'>
+            <form method='POST'>
+                <input type='hidden' name='cambiar_status_id' value='{$row['id']}'>
+                <input type='hidden' name='nuevo_status' value='{$row['status']}'>
+                
+                <button 
+                    type='submit' 
+                    class='btn-status " . 
+                        ($row['status'] == 'Activo' ? 'status-activo' : 'status-inactivo') . 
+                    "'>
+                    {$row['status']}
+                </button>
+            </form>
+        </td>
+
+        <td data-label='Eliminar'>
+            <form method='POST' style='display:inline'>
+                <input type='hidden' name='eliminar_id' value='{$row['id']}'>
+                <button class='btn-eliminar' type='submit' name='eliminar' value='1'>
+                    <span class='btn-eliminar__icon'>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' 
+                            viewBox='0 0 24 24' fill='none' stroke='currentColor'>
+                            <path d='M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6'></path>
+                        </svg>
+                    </span>
+                </button>
+            </form>
+        </td>
+    </tr>";
+
                 }
             } else {
                 echo "<tr><td colspan='5'>No hay clientes registrados</td></tr>";

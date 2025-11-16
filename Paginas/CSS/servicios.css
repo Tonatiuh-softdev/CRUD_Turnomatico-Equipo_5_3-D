@@ -53,7 +53,7 @@
         background: darkred;
     }
 
-    .btn-configurar {
+    .btn-editar {
         background: #2b3d57;
         color: white;
         border: none;
@@ -62,7 +62,7 @@
         border-radius: 4px;
     }
 
-    .btn-configurar:hover {
+    .btn-editar:hover {
         background: #3f5675;
     }
 
@@ -210,4 +210,113 @@
 
 .btn-editar:hover svg {
     transform: rotate(-10deg);
+}
+
+#tablaServicios {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  font-family: 'Poppins', sans-serif;
+}
+
+#tablaServicios thead {
+  background-color: #4a5568;
+  color: white;
+  text-align: center;
+  font-weight: 600;
+}
+
+#tablaServicios th, #tablaServicios td {
+  padding: 12px 16px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#tablaServicios tbody tr {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+#tablaServicios tbody tr:hover {
+  background-color: #f4f6fb;
+}
+/* Responsivo */
+@media (max-width: 768px) {
+  #tablaServicios thead {
+    display: none;
+  }
+
+  #tablaServicios, #tablaServicios tbody, #tablaServicios tr, #tablaServicios td {
+    display: block;
+    width: 100%;
+  }
+
+  #tablaServicios tr {
+    margin-bottom: 15px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 10px;
+  }
+
+  #tablaServicios td {
+    text-align: left;
+    padding: 10px 15px;
+    border: none;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+  }
+
+  #tablaServicios td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #2b3d57;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  #tablaServicios td:last-child {
+    border-bottom: none;
+  }
+}
+/* === Responsivo === */
+@media (max-width: 768px) {
+  table thead {
+    display: none;
+  }
+
+  table, table tbody, table tr, table td {
+    display: block;
+    width: 100%;
+  }
+
+  table tr {
+    margin-bottom: 15px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 10px;
+  }
+
+  table td {
+    text-align: left;
+    padding: 10px 15px;
+    border: none;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+  }
+
+  table td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #2b3d57;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  table td:last-child {
+    border-bottom: none;
+  }
 }

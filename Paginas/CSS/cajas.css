@@ -198,4 +198,105 @@ table th { background: #747e8bff; color: white; }
 .btn-editar:hover svg {
     transform: rotate(-10deg);
 }
+/* ==== ESTILOS GENERALES DE LA TABLA ==== */
+#tablaCajas {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  font-family: 'Poppins', sans-serif;
+}
 
+#tablaCajas thead {
+  background-color: #2f446b;
+  color: white;
+  text-align: center;
+  font-weight: 600;
+}
+
+#tablaCajas th, #tablaCajas td {
+  padding: 12px 16px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#tablaCajas tbody tr {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+#tablaCajas tbody tr:hover {
+  background-color: #f4f6fb;
+}
+
+/* Alinear los iconos SVG */
+#tablaCajas button svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+}
+
+/* Centrar las celdas de los botones */
+#tablaCajas td:nth-last-child(-n+2) {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Asegurar que el formulario no desajuste */
+#tablaCajas td form {
+  display: inline-block;
+  margin: 0;
+}
+/* Colores de estado */
+td[data-estado="Disponible"] {
+  color: #2e7d32;
+  font-weight: 600;
+}
+td[data-estado="Ocupada"] {
+  color: #ef6c00;
+  font-weight: 600;
+}
+td[data-estado="Fuera de servicio"] {
+  color: #c62828;
+  font-weight: 600;
+}
+/* === Responsivo === */
+@media (max-width: 768px) {
+  table thead {
+    display: none;
+  }
+
+  table, table tbody, table tr, table td {
+    display: block;
+    width: 100%;
+  }
+
+  table tr {
+    margin-bottom: 15px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 10px;
+  }
+
+  table td {
+    text-align: left;
+    padding: 10px 15px;
+    border: none;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+  }
+
+  table td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #2b3d57;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  table td:last-child {
+    border-bottom: none;
+  }
+}
