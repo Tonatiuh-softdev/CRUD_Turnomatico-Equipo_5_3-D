@@ -60,7 +60,6 @@ main {
 .texto {
   font-size: clamp(2.5rem, 8vw, 70px);
   font-weight: bold;
-  color: #000000;
   margin: 0;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
   pointer-events: none;
@@ -140,11 +139,9 @@ main {
   height: clamp(150px, 25vw, 180px);
   border: none;
   border-radius: 30px;
-  color: #000000;
   font-size: clamp(1.5rem, 4vw, 30px);
   font-weight: bold;
   cursor: pointer;
-  background-color: #B0C4DE;
   display: flex;
   flex-direction: column;
   justify-content: center;
