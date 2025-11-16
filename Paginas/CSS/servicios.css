@@ -36,7 +36,7 @@
     }
 
     table th {
-        background: #747e8bff;
+        background: #2b3d57;
         color: white;
     }
 
@@ -131,7 +131,7 @@
     .cerrar:hover {
         background: darkred !important;
     }
-    .btn-eliminar {
+.btn-eliminar {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -242,45 +242,25 @@
 #tablaServicios tbody tr:hover {
   background-color: #f4f6fb;
 }
-/* Responsivo */
-@media (max-width: 768px) {
-  #tablaServicios thead {
-    display: none;
-  }
-
-  #tablaServicios, #tablaServicios tbody, #tablaServicios tr, #tablaServicios td {
-    display: block;
-    width: 100%;
-  }
-
-  #tablaServicios tr {
-    margin-bottom: 15px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    padding: 10px;
-  }
-
-  #tablaServicios td {
-    text-align: left;
-    padding: 10px 15px;
-    border: none;
-    border-bottom: 1px solid #f0f0f0;
-    position: relative;
-  }
-
-  #tablaServicios td::before {
-    content: attr(data-label);
-    font-weight: bold;
-    color: #2b3d57;
-    display: block;
-    margin-bottom: 4px;
-  }
-
-  #tablaServicios td:last-child {
-    border-bottom: none;
-  }
+/* Alinear los iconos SVG */
+#tablaServicios button svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
 }
+
+/* Centrar las celdas de los botones */
+#tablaServicios td:nth-last-child(-n+2) {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Asegurar que el formulario no desajuste */
+#tablaServicios td form {
+  display: inline-block;
+  margin: 0;
+}
+
 /* === Responsivo === */
 @media (max-width: 768px) {
   table thead {
