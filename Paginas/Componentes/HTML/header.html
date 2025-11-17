@@ -88,27 +88,26 @@
         </li>
 
         <li>
-          <label for="">
-          <input id="input" type="checkbox" checked="darkTheme" />
-          <button>
-          <svg 
-            xmlns="http://www.w3.org/2000/svg"
-            width="24" 
-            height="24" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            stroke-width="2" 
-            stroke-linecap="round" 
-            stroke-linejoin="round" 
-            class="lucide lucide-sun-moon-icon lucide-sun-moon">
-            <path d="M12 2v2"/>
-            <path d="M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715"/>
-            <path d="M16 12a4 4 0 0 0-4-4"/>
-            <path d="m19 5-1.256 1.256"/>
-            <path d="M20 12h2"/>
-          </svg>
-          </button>
+          <input id="input" type="checkbox" style="display:none;" />
+          <label for="input" style="display:flex; align-items:center; gap:5px; cursor:pointer; padding:0.375em 1rem;">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg"
+              width="20" 
+              height="20" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              stroke-width="2" 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+              class="lucide lucide-sun-moon-icon lucide-sun-moon">
+              <path d="M12 2v2"/>
+              <path d="M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715"/>
+              <path d="M16 12a4 4 0 0 0-4-4"/>
+              <path d="m19 5-1.256 1.256"/>
+              <path d="M20 12h2"/>
+            </svg>
+            <span>Tema</span>
           </label>
         </li>
       </ul>
@@ -143,28 +142,30 @@
   </script>
 
   <script>
-    const toggleSwitch = document.getElementById("input");
-    const body = document.body;
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleSwitch = document.getElementById("input");
+      const htmlElement = document.documentElement;
 
-    // Verificar si el usuario tenía guardado un tema
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      body.classList.add("dark-theme");
-      toggleSwitch.checked = true;
-    } else {
-      body.classList.remove("dark-theme");
-      toggleSwitch.checked = false;
-    }
-
-    // Detectar cambio del interruptor
-    toggleSwitch.addEventListener("change", () => {
-      if (toggleSwitch.checked) {
-        body.classList.add("dark-theme");
-        localStorage.setItem("theme", "dark");
+      // Verificar si el usuario tenía guardado un tema
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") {
+        htmlElement.classList.add("dark-theme");
+        toggleSwitch.checked = true;
       } else {
-        body.classList.remove("dark-theme");
-        localStorage.setItem("theme", "light");
+        htmlElement.classList.remove("dark-theme");
+        toggleSwitch.checked = false;
       }
+
+      // Detectar cambio del interruptor
+      toggleSwitch.addEventListener("change", () => {
+        if (toggleSwitch.checked) {
+          htmlElement.classList.add("dark-theme");
+          localStorage.setItem("theme", "dark");
+        } else {
+          htmlElement.classList.remove("dark-theme");
+          localStorage.setItem("theme", "light");
+        }
+      });
     });
   </script>
 

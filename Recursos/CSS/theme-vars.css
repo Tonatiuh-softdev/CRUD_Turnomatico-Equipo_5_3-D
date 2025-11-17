@@ -13,7 +13,7 @@ a, button, .btn-regresar, .btn-cerrar{ color: var(--text); }
 input, textarea, select{ background: transparent; color: var(--text); }
 
 /* Dark theme overrides */
-body.dark-theme, .dark-theme{
+html.dark-theme, html.dark-theme body, body.dark-theme, .dark-theme{
   --bg: #0b1220;
   --text: #e6eef8;
   --header-bg: #07101a;
@@ -21,5 +21,7 @@ body.dark-theme, .dark-theme{
 }
 
 /* Algunas reglas específicas para componentes usados en header/pantallas */
+html.dark-theme header .logo img,
 .dark-theme header .logo img{ filter: none; }
+html.dark-theme footer,
 .dark-theme footer{ color: var(--text); }

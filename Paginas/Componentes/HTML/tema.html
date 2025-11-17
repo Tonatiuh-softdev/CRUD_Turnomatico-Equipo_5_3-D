@@ -67,30 +67,3 @@
     </div>
   </div>
 </label>
-<script>
-  const toggleSwitch = document.getElementById("input");
-  const body = document.body;
-
-  // Verificar si el usuario tenía guardado un tema
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme === "dark") {
-    body.classList.add("dark-theme");
-    toggleSwitch.checked = true;
-  } else {
-    body.classList.remove("dark-theme");
-    toggleSwitch.checked = false;
-  }
-
-  // Detectar cambio del interruptor
-  toggleSwitch.addEventListener("change", () => {
-    if (toggleSwitch.checked) {
-      body.classList.add("dark-theme");
-      localStorage.setItem("theme", "dark");
-    } else {
-      body.classList.remove("dark-theme");
-      localStorage.setItem("theme", "light");
-    }
-  });
-</script>
-
-
