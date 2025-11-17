@@ -3,6 +3,9 @@ require '../../Recursos/PHP/redirecciones.php';
 $conn = loadConexion();
 loadLogIn();
 
+// ============================================================
+// 🔹 AGREGAR SERVICIO (desde fetch AJAX)
+// ============================================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['accion'] === 'agregar') {
     $nombre = trim($_POST['nombre']);
     $descripcion = trim($_POST['descripcion']);
@@ -16,6 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['
     exit;
 }
 
+// ============================================================
+// 🔹 EDITAR SERVICIO
+// ============================================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['accion'] === 'editar') {
     $id = intval($_POST['id']);
     $nombre = trim($_POST['nombre']);
@@ -30,6 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['
     exit;
 }
 
+// ============================================================
+// 🔹 ELIMINAR SERVICIO
+// ============================================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['accion'] === 'eliminar') {
     $id = intval($_POST['id']);
     $stmt = $conn->prepare("DELETE FROM Servicio WHERE ID_Servicio=?");
@@ -39,6 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['
     exit;
 }
 
+// ============================================================
+// 🔹 OBTENER SERVICIOS (para la tabla vía AJAX)
+// ============================================================
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['listar'])) {
     $result = $conn->query("SELECT * FROM Servicio ORDER BY ID_Servicio ASC");
     $data = [];
@@ -49,7 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['listar'])) {
     exit;
 }
 
+// ============================================================
+// 🔹 CARGAR VISTA HTML PRINCIPAL
+// ============================================================
 require __DIR__ . '/../HTML/servicios.html';
 ?>
-
-

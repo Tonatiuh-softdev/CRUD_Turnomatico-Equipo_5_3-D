@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const formModal = document.getElementById("formModal");
   const formEditar = document.getElementById("formEditar");
 
+  // Agregar servicio
   formModal.addEventListener("submit", async (e) => {
     e.preventDefault();
     const nombre = document.getElementById("nombreModal").value.trim();
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarServicios();
   });
 
+  // Editar servicio
   formEditar.addEventListener("submit", async (e) => {
     e.preventDefault();
     const id = document.getElementById("idEditar").value;
@@ -32,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// Cargar servicios
 async function cargarServicios() {
   const res = await fetch("../PHP/servicios.php?listar=1");
   const servicios = await res.json();
@@ -44,36 +47,14 @@ async function cargarServicios() {
       <td>${s.ID_Servicio}</td>
       <td>${s.Nombre}</td>
       <td>${s.Descripcion || "—"}</td>
-      <td>
-        <button class="btn-editar" 
-          onclick="abrirModalEditar(${s.ID_Servicio}, '${s.Nombre.replace(/'/g,"\\'")}', '${(s.Descripcion || "").replace(/'/g,"\\'")}')">
-          <span class="btn-editar__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                 viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M12 20h9" />
-              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 
-                       1-4 12.5-12.5z" />
-            </svg>
-          </span>
-        </button>
-      </td>
-      <td>
-        <button class="btn-eliminar" onclick="eliminarServicio(${s.ID_Servicio})">
-          <span class="btn-eliminar__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                 viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 
-                       0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 
-                       0 012 2v2M10 11v6M14 11v6"></path>
-            </svg>
-          </span>
-        </button>
-      </td>
+      <td><button onclick="abrirModalEditar(${s.ID_Servicio}, '${s.Nombre.replace(/'/g,"\\'")}', '${(s.Descripcion || "").replace(/'/g,"\\'")}')">Editar</button></td>
+      <td><button onclick="eliminarServicio(${s.ID_Servicio})">Eliminar</button></td>
     `;
     tabla.appendChild(fila);
   });
 }
 
+// Eliminar servicio
 async function eliminarServicio(id) {
   if (!confirm("¿Eliminar este servicio?")) return;
   await fetch("../PHP/servicios.php", {
@@ -83,6 +64,7 @@ async function eliminarServicio(id) {
   cargarServicios();
 }
 
+// Modales
 function abrirModal() { document.getElementById("modalServicio").style.display = "flex"; }
 function cerrarModal() { document.getElementById("modalServicio").style.display = "none"; }
 
