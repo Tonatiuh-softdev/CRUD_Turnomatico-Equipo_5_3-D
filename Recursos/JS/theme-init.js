@@ -1,4 +1,5 @@
-// Aplica la clase `dark-theme` al <html> o <body> según el valor guardado en localStorage
+// Aplica la clase `dark-theme` al <html> o <body> según el valor guardado en 
+// localStorage
 // Ejecutar lo antes posible (inclúyelo en <head> para evitar flash de color)
 (function(){
   try{

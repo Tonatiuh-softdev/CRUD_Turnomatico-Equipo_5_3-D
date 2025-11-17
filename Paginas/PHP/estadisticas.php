@@ -1,12 +1,56 @@
 <?php
 require '../../Recursos/PHP/redirecciones.php';
-$conn = loadConexion(); // ✅ Crea la conexión
-loadLogIn();
-
-
-
-
-require __DIR__ . '/../HTML/estadisticas.html';
-
+$conn = loadConexion(); // Conecta a la base de datos
+loadLogIn(); // Verifica sesión si aplica
 ?>
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Turnos - Estadísticas</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="/Paginas/CSS/estadisticas.css">
+</head>
+<body>
+
+<?php loadHeader(); ?>
+<div class="container">
+<?php loadNavbar(); ?>
+
+<main>
+    <h2>Estadísticas de Turnos</h2>
+
+    <div class="container-grafica">
+        <div class="chart-container">
+            <canvas id="grafica"></canvas>
+        </div>
+
+        <div class="info">
+            <div class="info-item">
+                <span class="serv1"></span>
+                <b>CLIENTE</b><br>
+                <span id="infoCliente">Cargando...</span>
+            </div>
+            <div class="info-item">
+                <span class="serv2"></span>
+                <b>VISITANTE</b><br>
+                <span id="infoVisitante">Cargando...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="botones">
+        <button onclick="actualizarGrafica('dia')">DÍA</button>
+        <button onclick="actualizarGrafica('mes')">MES</button>
+        <button onclick="actualizarGrafica('año')">AÑO</button>
+    </div>
+</main>
+</div>
+
+<script src="../JS/estadisticas.js"></script>
+</body>
+</html>
 
