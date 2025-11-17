@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 
                 // Guardar usuario como NO verificado con la referencia a la tienda
                 $sql = "INSERT INTO usuarios (nombre, email, password, rol, ID_Tienda, verificado, token_verificacion) 
-                        VALUES (?, ?, ?, 'superadmin', ?, 0, ?)";
+                        VALUES (?, ?, ?, 'admins', ?, 0, ?)";
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("ssisi", $nombre, $email, $hashed_password, $tienda_id, $token);
 
