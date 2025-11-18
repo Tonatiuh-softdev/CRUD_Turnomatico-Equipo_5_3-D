@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['numeroCaja'])) {
     $servicio = !empty($_POST['idServicio']) ? intval($_POST['idServicio']) : null;
 
     if ($numero > 0) {
-        $stmt = $conn->prepare("INSERT INTO Caja (Numero_Caja, Estado, ID_Servicio) VALUES (?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO Caja (Numero_Caja, Estado, ID_Servicio, ID_Tienda) VALUES (?, ?, ?,?)");
         $stmt->bind_param("isi", $numero, $estado, $servicio);
         $stmt->execute();
         $stmt->close();
@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editar_id'])) {
 $sql = "SELECT c.*, s.Nombre AS ServicioNombre 
         FROM Caja c 
         LEFT JOIN Servicio s ON c.ID_Servicio = s.ID_Servicio
+        WHERE ID_Tienda=?
         ORDER BY c.ID_Caja ASC";
 $result = $conn->query(query: $sql);
 
