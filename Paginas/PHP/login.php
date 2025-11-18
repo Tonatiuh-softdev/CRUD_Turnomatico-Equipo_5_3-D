@@ -29,7 +29,10 @@ if (!$email || !$password) {
 }
 
 // Buscar usuario
-$sql = "SELECT * FROM usuarios WHERE email = ?";
+$sql = "SELECT u.*, t.nombre as nombre_tienda FROM usuarios u 
+        LEFT JOIN tienda t ON u.ID_Tienda = t.ID_Tienda
+        WHERE u.email = ?";
+
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $email);
 $stmt->execute();
@@ -41,10 +44,15 @@ if ($result && $result->num_rows === 1) {
     if (password_verify($password, $user["password"])) {
         $_SESSION["usuario"] = $user["nombre"];
         $_SESSION["rol"] = $user["rol"];
-
+        $_SESSION["id_tienda"] = $user["ID_Tienda"]; // Guardar ID de tienda
+        $_SESSION["nombre_tienda"] = $user["nombre_tienda"]; // Guardar nombre de tienda
+        
         // Redirecciones según el rol
         switch ($user["rol"]) {
+            //aqui redirigir al nuevo interfaz de superadmin ----------------------------------------------------------------------
             case "superadmin":
+                header("Location: ./admin_dashboard.php");
+                exit;
             case "admin":
             case "empleado":
                 header("Location: ./index.php");

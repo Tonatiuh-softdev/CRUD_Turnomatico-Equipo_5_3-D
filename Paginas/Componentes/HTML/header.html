@@ -9,6 +9,7 @@
     <a href="/../Paginas/PHP/index.php">
       <img src="../../img/img.Logo_blanco-Photoroom.png" width="70"/>
     </a>
+    <h1> <?= $_SESSION["nombre_tienda"] ?? '' ?></h1>
   </div>
   
       <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] === 'empleado'): ?>

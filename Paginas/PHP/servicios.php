@@ -3,6 +3,9 @@ require '../../Recursos/PHP/redirecciones.php';
 $conn = loadConexion();
 loadLogIn();
 
+// El id_tienda ya está disponible desde ctrl_sesion.php
+$id_tienda = $_SESSION["id_tienda"];
+
 // ============================================================
 // 🔹 AGREGAR SERVICIO (desde fetch AJAX)
 // ============================================================
@@ -11,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['
     $descripcion = trim($_POST['descripcion']);
 
     if (!empty($nombre)) {
-        $stmt = $conn->prepare("INSERT INTO Servicio (Nombre, Descripcion) VALUES (?, ?)");
-        $stmt->bind_param("ss", $nombre, $descripcion);
+        $stmt = $conn->prepare("INSERT INTO servicio (Nombre, Descripcion, ID_Tienda) VALUES (?, ?, ?)");
+        $stmt->bind_param("ssi", $nombre, $descripcion, $id_tienda);
         $stmt->execute();
         $stmt->close();
     }
@@ -28,8 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['
     $descripcion = trim($_POST['descripcion']);
 
     if (!empty($nombre)) {
-        $stmt = $conn->prepare("UPDATE Servicio SET Nombre=?, Descripcion=? WHERE ID_Servicio=?");
-        $stmt->bind_param("ssi", $nombre, $descripcion, $id);
+        $stmt = $conn->prepare("UPDATE servicio SET Nombre=?, Descripcion=? WHERE ID_Servicio=? AND ID_Tienda=?");
+        $stmt->bind_param("ssii", $nombre, $descripcion, $id, $id_tienda);
         $stmt->execute();
         $stmt->close();
     }
@@ -41,8 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['
 // ============================================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['accion'] === 'eliminar') {
     $id = intval($_POST['id']);
-    $stmt = $conn->prepare("DELETE FROM Servicio WHERE ID_Servicio=?");
-    $stmt->bind_param("i", $id);
+    $stmt = $conn->prepare("DELETE FROM servicio WHERE ID_Servicio=? AND ID_Tienda=?");
+    $stmt->bind_param("ii", $id, $id_tienda);
     $stmt->execute();
     $stmt->close();
     exit;
@@ -52,16 +55,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['
 // 🔹 OBTENER SERVICIOS (para la tabla vía AJAX)
 // ============================================================
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['listar'])) {
-    $result = $conn->query("SELECT * FROM Servicio ORDER BY ID_Servicio ASC");
+    $sql = "SELECT * FROM servicio WHERE ID_Tienda=? ORDER BY ID_Servicio ASC";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id_tienda);
+    $stmt->execute();
+    $result = $stmt->get_result();
     $data = [];
     while ($row = $result->fetch_assoc()) {
         $data[] = $row;
     }
+    $stmt->close();
     echo json_encode($data);
     exit;
 }
-// CONSULTA PARA LA VISTA PRINCIPAL
-$result = $conn->query("SELECT * FROM Servicio ORDER BY ID_Servicio ASC");
+
+// ============================================================
+// 🔹 OBTENER SERVICIOS PARA LA VISTA PRINCIPAL
+// ============================================================
+$sql = "SELECT ID_Servicio, Nombre, Descripcion FROM servicio WHERE ID_Tienda=? ORDER BY ID_Servicio ASC";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id_tienda);
+$stmt->execute();
+$result = $stmt->get_result();
+$servicios = [];
+
+if ($result && $result->num_rows > 0) {
+    while($row = $result->fetch_assoc()){
+        $servicios[] = $row;
+    }
+}
+
+$stmt->close();
+
+
+
+
 
 // ============================================================
 // 🔹 CARGAR VISTA HTML PRINCIPAL

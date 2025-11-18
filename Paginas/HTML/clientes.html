@@ -58,10 +58,8 @@ loadNavbar();
         </thead>
         <tbody>
         <?php
-            $sql = "SELECT id, nombre, email, status FROM usuarios WHERE rol='cliente' ORDER BY id ASC";
-            $result = $conn->query($sql);
-            if ($result && $result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
+            if (!empty($clientes)) {
+                foreach($clientes as $row) {
                     echo "<tr>
         <td data-label='ID'>{$row['id']}</td>
         <td data-label='Nombre'>{$row['nombre']}</td>
@@ -96,7 +94,6 @@ loadNavbar();
             </form>
         </td>
     </tr>";
-
                 }
             } else {
                 echo "<tr><td colspan='5'>No hay clientes registrados</td></tr>";

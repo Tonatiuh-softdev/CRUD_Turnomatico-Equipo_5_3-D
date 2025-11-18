@@ -3,6 +3,14 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Verificar que el usuario tiene una tienda asignada
+if (!isset($_SESSION["id_tienda"])) {
+    die("Error: No tienes una tienda asignada");
+}
+
+$id_tienda = $_SESSION["id_tienda"];
+
+
 function renderLogIn(){
     // Solo permitir acceso si es empleado o admin
     if (!isset($_SESSION["rol"]) || !in_array($_SESSION["rol"], ['empleado','admin','superadmin'])) {
