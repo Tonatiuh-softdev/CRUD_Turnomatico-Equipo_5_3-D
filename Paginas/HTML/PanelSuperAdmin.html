@@ -3,15 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXORA - Servicios</title>
+<title>NEXORA - Panel SuperAdmin</title>
 <link rel="stylesheet" href="../CSS/PanelSuperAdmin.css">
 </head>
 <body>
 <div class="container">
    <?php renderNavbarSuperAdmin(); ?>
    <main>
-       <h1>Panel de Super Administrador</h1>
-       <p>Bienvenido al panel de control del super administrador.</p>
+       <div class="welcome-section">
+           <div class="welcome-card">
+               <div class="welcome-header">
+                   <h1>Bienvenido, SuperAdmin</h1>
+                   <p class="subtitle">Panel de Control y Administración</p>
+               </div>
+               
+               <div class="welcome-content">
+                   <p class="welcome-text">
+                       Tienes acceso completo al sistema de gestión NEXORA. Desde aquí puedes 
+                       administrar tiendas, servicios y toda la configuración del sistema.
+                   </p>
+               </div>
+
+               <div class="quick-stats">
+                   <div class="stat-card">
+                       <div class="stat-icon">🏪</div>
+                       <h3>Tiendas</h3>
+                       <p>Gestionar sucursales</p>
+                   </div>
+                   <div class="stat-card">
+                       <div class="stat-icon">⚙️</div>
+                       <h3>Servicios</h3>
+                       <p>Administrar servicios</p>
+                   </div>
+                   <div class="stat-card">
+                       <div class="stat-icon">👥</div>
+                       <h3>Usuarios</h3>
+                       <p>Gestionar permisos</p>
+                   </div>
+               </div>
+
+               <div class="quick-links">
+                   <h3>Acciones rápidas</h3>
+                   <div class="links-grid">
+                       <a href="../PHP/index.php" class="quick-link">
+                           <span class="link-icon">🏠</span>
+                           <span class="link-text">Ir al Inicio</span>
+                       </a>
+                       <a href="#tiendas" class="quick-link">
+                           <span class="link-icon">🏢</span>
+                           <span class="link-text">Tiendas</span>
+                       </a>
+                       <a href="#servicios" class="quick-link">
+                           <span class="link-icon">📋</span>
+                           <span class="link-text">Servicios</span>
+                       </a>
+                   </div>
+               </div>
+           </div>
+       </div>
    </main>
 </div>
 <script src="../JS/PanelSuperAdmin.js"></script>
