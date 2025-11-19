@@ -15,17 +15,29 @@ if (isset($_GET['token'])) {
         $usuario = $res->fetch_assoc();
 
         if ($usuario['verificado'] == 0) {
-            // Marcar como verificado
-            $update = $conn->prepare("UPDATE usuarios SET verificado = 1, token_verificacion = NULL WHERE id = ?");
+
+            $update = $conn->prepare(
+                "UPDATE usuarios SET verificado = 1, token_verificacion = NULL WHERE id = ?"
+            );
             $update->bind_param("i", $usuario['id']);
             $update->execute();
 
-            echo "<script>alert('✅ Tu cuenta ha sido verificada exitosamente.'); window.location='login.php';</script>";
+            echo "<script>
+                    alert('✅ Tu cuenta ha sido verificada exitosamente.');
+                    window.location='login.php';   
+                  </script>";
         } else {
-            echo "<script>alert('⚠️ Esta cuenta ya fue verificada.'); window.location='login.php';</script>";
+            echo "<script>
+                    alert('⚠️ Esta cuenta ya fue verificada.');
+                    window.location='login.php';
+                  </script>";
         }
+
     } else {
-        echo "<script>alert('❌ Token inválido o expirado.'); window.location='login.php';</script>";
+        echo "<script>
+                alert('❌ Token inválido o expirado.');
+                window.location='login.php';
+              </script>";
     }
 }
 ?>

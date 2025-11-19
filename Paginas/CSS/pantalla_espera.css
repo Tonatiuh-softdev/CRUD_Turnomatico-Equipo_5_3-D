@@ -69,7 +69,6 @@ header .logo img {
 
 /* Lista de turnos */
 .lista-turnos {
-    background: #7e93a9;
     padding: 10px;
     border-radius: 10px;
     overflow-x: auto;
@@ -82,7 +81,6 @@ header .logo img {
 }
 
 .tabla th {
-    background: #6e8ca3;
     color: #fff;
     padding: 15px;
     text-align: center;
@@ -93,6 +91,7 @@ header .logo img {
     padding: 10px;
     text-align: center;
     background: #fff;
+    color: #000000;
     font-size: 16px;
 }
 
@@ -130,7 +129,6 @@ header .logo img {
     align-items: center;
     width: 80%;
     flex-wrap: wrap;
-    background: #6e8ca3;
     color: white;
     padding: 160px 30px;
     font-size: 2.5rem;
@@ -174,7 +172,6 @@ header .logo img {
     width: 90%;
     max-width: 740px;
     height: 140px;
-    background-color: #7da1ba;
     border-radius: 10px;
     display: flex;
     justify-content: center;

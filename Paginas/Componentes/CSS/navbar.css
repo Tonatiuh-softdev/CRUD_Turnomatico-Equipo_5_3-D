@@ -1,11 +1,13 @@
+  .container { display: flex; height: calc(100vh - 50px); }
+
   aside {
-      width: 95px; /* tamaño inicial solo iconos */
-      background: #9cb6d6ff;
+      width: 75px; /* tamaño inicial solo iconos */
       color: #fff;
       padding: 20px;
       display: flex;
       flex-direction: column;
-      height: 100%;
+      align-items: flex-start;
+      
       transition: width 0.3s;
       overflow: hidden;
       flex-shrink: 0;
@@ -18,7 +20,7 @@
   aside a {
       display: flex;    
       align-items: center;
-      padding: 23px;
+      padding: 22px;
       border-radius: 5px;
       color: #000;
       text-decoration: none;

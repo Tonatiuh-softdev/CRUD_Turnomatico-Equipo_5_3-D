@@ -29,9 +29,7 @@
       text-decoration: none;
     }
     .card:link, .card:visited { text-decoration: none; color: inherit; }
-    .card:nth-child(1) { background: #92aecbff; }
-    .card:nth-child(2) { background: #bfd4eaff; }
-    .card:nth-child(3) { background: #e1ebf6; grid-column: span 2; }
+    .card:nth-child(3) { grid-column: span 2; }
     .card img { width: 40px; margin-bottom: 10px; }
     .card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
 

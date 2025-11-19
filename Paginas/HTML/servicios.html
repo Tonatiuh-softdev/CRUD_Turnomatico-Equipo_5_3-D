@@ -55,17 +55,52 @@ loadHeader();
 </div>
 
 <!-- Tabla servicios -->
-<table>
+<!-- Tabla servicios (ESTILO IGUAL QUE TABLA DE CAJAS) -->
+<table id="tablaServicios">
     <thead>
         <tr>
             <th>ID</th>
-            <th data-translate="Servicio">Servicio</th>
-            <th data-translate="Descripción">Descripción</th>
-            <th data-translate="Editar">Editar</th>
-            <th data-translate="Eliminar">Eliminar</th>
+            <th>Servicio</th>
+            <th>Descripción</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
         </tr>
     </thead>
-    <tbody id="tablaServicios"></tbody>
+
+    <tbody>
+        <?php while ($row = $result->fetch_assoc()): ?>
+        <tr>
+            <td data-label="ID"><?= $row['ID_Servicio'] ?></td>
+            <td data-label="Servicio"><?= htmlspecialchars($row['Nombre']) ?></td>
+            <td data-label="Descripción"><?= htmlspecialchars($row['Descripcion']) ?></td>
+
+            <!-- Botón editar -->
+            <td data-label="Editar">
+                <button class="btn-editar"
+                    data-id="<?= $row['ID_Servicio'] ?>"
+                    data-nombre="<?= htmlspecialchars($row['Nombre'], ENT_QUOTES) ?>"
+                    data-descripcion="<?= htmlspecialchars($row['Descripcion'], ENT_QUOTES) ?>">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M12 20h9" />
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+            </svg>
+                </button>
+            </td>
+
+            <!-- Botón eliminar -->
+            <td data-label="Eliminar">
+                <form method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar este servicio?');">
+                    <input type="hidden" name="eliminar_id" value="<?= $row['ID_Servicio'] ?>">
+                    <button class="btn-eliminar" type="submit">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6"></path>
+            </svg>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        <?php endwhile; ?>
+    </tbody>
 </table>
 </main>
 </div>

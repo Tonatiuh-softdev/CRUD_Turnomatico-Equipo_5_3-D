@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de clientes</title>
+    <link rel="stylesheet" href="../CSS/registroTienda.css">
+</head>
+<body>
+<img src="../../img/fondo_login.png" alt="Mi Imagen" class="imagen">
+<img src="../../img/img.Logo_blanco-Photoroom.png" alt="Mi Imagen" class="imagen1">
+<header>
+  <div class="logo">
+    <img src="../../img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
+    <span>ClickMatic</span>
+    <?php include __DIR__ . '/../Componentes/HTML/lenguajes.html'; ?>
+  </div>
+  
+</header>
+<div class="rectangulo1"></div>
+<div class="rectangulo2"></div>
+<div class="texto1">Welcome Back</div>
+<div class="texto2">Sign in  to contunue</div>
+<div class="texto3">REGISTER</div>
+
+<button class="boton" onclick="window.history.back()">
+  <img src="../../img/flecha_regresar.png" alt="" class="icono">
+</button>
+
+<!-- ✅ Aquí empieza el formulario (sin mover nada visual) -->
+<form action="registroTienda.php" method="POST">
+
+<div class="input-field email-field">
+  <input type="email" class="email-input" name="email" placeholder="Email" required>
+</div>
+<div class="input-field email-field2">
+  <input type="text" class="email-input" name="nombre" placeholder="Name" required>
+</div>
+<div class="input-field email-field3">
+  <input type="text1" class="email-input" name="nombreTienda" placeholder="Tienda" required>
+</div>
+<div class="input-field password-field">
+  <input type="password" class="password-input" name="password" placeholder="Password" required>
+</div>
+
+<!-- El botón ya existente envía el formulario -->
+<button type="submit" class="login-button">Continue</button>
+
+</form>
+<!-- ✅ Aquí termina el formulario -->
+
+</body>
+</html>

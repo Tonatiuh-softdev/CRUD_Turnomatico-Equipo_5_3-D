@@ -39,3 +39,57 @@ h2 { margin-top: 0; display: flex; align-items: center; gap: 10px; color: #333; 
 }
 .botones button:hover { transform: scale(1.05); background-color: #00bde0; }
 .botones button:focus { background-color: #fff; border: 2px solid #000; }
+.container-grafica {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.chart-container {
+  width: 350px;
+  height: 350px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.info-item {
+  font-size: 16px;
+  color: #333;
+}
+
+.info-item span {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.botones {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.botones button {
+  background: #a595f9;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.botones button:hover {
+  background: #8c80f6;
+  transform: scale(1.05);
+}

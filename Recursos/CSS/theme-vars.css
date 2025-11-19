@@ -4,23 +4,115 @@
 :root{
   --bg: #ffffff;
   --text: #111827;
-  --header-bg: #c9a8a8;
+  --header-bg: #dbdbdb;
   --panel-bg: rgba(255,255,255,0.6);
+  --blanco1: #FFFFFF;
+  --blanco2: #FFFFFF;
+  --blanco3: #fafafa;
+  --negro1: #000000;
+  --negro2: #000000;
+  --negro3: #000000;
+  --azul1: #92aecbff;
+  --azul2: #bfd4eaff;
+  --azul3: #e1ebf6;
+  --azul4: #7e93a9;
+  --azul5: #6e8ca3;
+  --azul55: #6e8ca3;
+  --azul6: #7da1ba;
+  --azul66: #7da1ba;
+  --azul7: #B0C4DE;
+  --azul8: #c5d4e7;
+  --azul9: #a8bfd5;
+  --azul10: #9cb6d6ff;
 }
+
+
+
+
+
+
 html, body{ background: var(--bg); color: var(--text); transition: background .2s, color .2s; }
 header{ background: var(--header-bg); color: var(--text); }
 .card, .container, main{ background: var(--panel-bg); color: var(--text); }
 a, button, .btn-regresar, .btn-cerrar{ color: var(--text); }
 input, textarea, select{ background: transparent; color: var(--text); }
+/*PANTALLA EMPLEADO*/
+.card:nth-child(1) { background: var(--azul1)}
+.card:nth-child(2) { background: var(--azul2)}
+.card:nth-child(3) { background: var(--azul3)}
+.btn { background: var(--azul8)};
+.register { background: var(--azul9)};
+.InputContainer { background: var(--blanco1)}
+/*LISTA DE ESPERA*/
+.lista-turnos { background: var(--azul4)}
+.rectangulo { background-color: var(--azul5)}
+.rectanguloR { background-color: var(--azul6) }
+.datos { background: var(--azul5)}
+.rectangulo3 { background-color: var(--azul66) }
+.tabla th {background: var(--azul55);}
+.tabla th { color: var(--blanco2); }
+.tabla td { color: var(--negro3); }
+/*PANTALLA TOMAR TURNO*/
+.texto { color: var(--negro1); }
+.boton { background-color: var(--azul7); }
+.boton { color: var(--negro2);}
+/*EMPLEADOS*/
+.container table { background: var(--blanco3); }
+/*NAVBAR*/
+aside { background: var(--azul10); }
+
+
+
+
+
 
 /* Dark theme overrides */
-body.dark-theme, .dark-theme{
+html.dark-theme, html.dark-theme body, body.dark-theme, .dark-theme{
   --bg: #0b1220;
   --text: #e6eef8;
   --header-bg: #07101a;
   --panel-bg: rgba(10,14,20,0.6);
+  --blanco1: #A7A7A7;
+  --blanco2: #000000;
+  --blanco3:#bdbdbd;
+  --negro1: #FFFFFF;
+  --negro2: #FFFFFF;
+  --negro3: #000000;
+  --azul1: #4a4a57;
+  --azul2: #565664;
+  --azul3: #646477;
+  --azul4: #4a4a57;
+  --azul5: #4a4a57;
+  --azul55: #A7A7A7;
+  --azul6: #4a4a57;
+  --azul66: #4a4a57;
+  --azul7: #3f3f4b;
+  --azul8: #82829b;
+  --azul9: #82829b;
+  --azul10: #565664;;
 }
 
 /* Algunas reglas específicas para componentes usados en header/pantallas */
+html.dark-theme header .logo img,
 .dark-theme header .logo img{ filter: none; }
+html.dark-theme footer,
 .dark-theme footer{ color: var(--text); }
+.dark-theme .card:nth-child(1) { background: var(--azul1)}
+.dark-theme .card:nth-child(2) { background: var(--azul2)}
+.dark-theme .card:nth-child(3) { background: var(--azul3)}
+.dark-theme .InputContainer { background: var(--blanco1)}
+.dark-theme .lista-turnos { background: var(--azul4);}
+.dark-theme .rectangulo { background-color: var(--azul5)}
+.dark-theme .rectanguloR { background-color: var(--azul6)}  
+.dark-theme .datos { background: var(--azul5)}  
+.dark-theme .rectangulo3 { background-color: var(--azul66) } 
+.dark-theme .tabla th {background: var(--azul55);}
+.dark-theme .texto { color: var(--negro1); }
+.dark-theme .boton { background-color: var(--azul7); }  
+.dark-theme .boton { color: var(--negro2);}
+.dark-theme .register { background: var(--azul9)};
+.dark-theme.tabla th { color: var(--blanco2); }
+.dark-theme.tabla td { color: var(--negro3); }
+.dark-theme .container table { background: var(--blanco3); }
+.dark-theme aside { background: var(--azul10); }
+
