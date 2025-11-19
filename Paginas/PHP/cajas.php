@@ -63,13 +63,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editar_id'])) {
 // 🔹 Obtener todas las cajas
 $sql = "SELECT c.*, s.Nombre AS ServicioNombre 
         FROM Caja c 
-        LEFT JOIN Servicio s ON c.ID_Servicio = s.ID_Servicio
-        WHERE ID_Tienda=?
+        INNER JOIN Servicio s ON c.ID_Servicio = s.ID_Servicio
+        
         ORDER BY c.ID_Caja ASC";
 $result = $conn->query(query: $sql);
 
 // 🔹 Obtener servicios para el select
-$servicios = $conn->query("SELECT ID_Servicio, Nombre FROM Servicio ORDER BY Nombre ASC");
+$servicios = $conn->query("SELECT ID_Servicio, Nombre FROM Servicio WHERE ID_Tienda=? ORDER BY Nombre ASC");
 
 require __DIR__ . '/../HTML/cajas.html';    
 ?>
