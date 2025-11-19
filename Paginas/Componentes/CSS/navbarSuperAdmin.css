@@ -18,7 +18,7 @@
   aside a {
       display: flex;    
       align-items: center;
-      padding: 23px;
+      padding: 23px 10px;
       border-radius: 5px;
       color: #000;
       text-decoration: none;
