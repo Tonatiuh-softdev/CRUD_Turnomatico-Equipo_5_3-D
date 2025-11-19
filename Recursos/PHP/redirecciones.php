@@ -28,6 +28,12 @@ if (!function_exists('loadHeader')) {
     }
 }
 
+if (!function_exists('loadNavbarSuperAdmin')) {
+    function loadNavbarSuperAdmin() {
+        require_once __DIR__ . "/../../Paginas/Componentes/PHP/navbarSuperAdmin.php";
+        renderNavbarSuperAdmin();
+    }
+}
 
 
 ?>
