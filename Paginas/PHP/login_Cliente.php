@@ -37,54 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mensaje = "⚠️ Completa todos los campos.";
     }
 }
+
+require __DIR__ . '/../HTML/login_Cliente.html';
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login Cliente</title>
-<link rel="stylesheet" href="../CSS/login_Cliente.css">
-</head>
-<body>
-<img src="../../img/fondo_login.png" alt="Fondo" class="imagen">
-<img src="../../img/img.Logo_blanco-Photoroom.png" alt="Mi Imagen" class="imagen1">
-
-<header>
-  <div class="logo">
-    <img src="../../img/img.Logo_blanco-Photoroom.png" width="70"/>
-    <span>ClickMatic</span>
-  </div>
-</header>
-
-<div class="texto1">Welcome Back</div>
-<div class="texto2">Sign in to continue</div>
-<div class="texto3">LOG IN</div>
-
-<?php if ($mensaje): ?>
-    <div class="error-msg"><?php echo $mensaje; ?></div>
-<?php endif; ?>
-
-<!-- Botón de regreso -->
-<a href="pantalla_espera.php" class="boton">
-    <img src="../../img/flecha_regresar.png" alt="Regresar" class="icono">
-</a>
-
-<form action="" method="POST">
-  <div class="input-field email-field">
-    <input type="email" name="email" placeholder="Email" required>
-  </div>
-  <div class="input-field password-field">
-    <input type="password" name="password" placeholder="Password" required>
-  </div>
-  <button type="submit" class="login-button">Continue</button>
-
-  <!-- esto es para recuperar la contrasenia :)-->
-  <div class="forgot-password">
-    <a href="recuperar_contrasena.php">¿Olvidaste tu contraseña?</a>
-  </div>
-</form>
-
-</body>
-</html>

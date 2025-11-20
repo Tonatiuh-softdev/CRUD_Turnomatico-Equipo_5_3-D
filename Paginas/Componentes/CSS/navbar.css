@@ -11,6 +11,8 @@
       transition: width 0.3s;
       overflow: hidden;
       flex-shrink: 0;
+   
+      position: relative;
   }
 
   aside:hover {
@@ -26,20 +28,80 @@
       text-decoration: none;
       font-size: 14px;
       margin: 8px 0;
-      transition: background 0.3s, color 0.3s;
+      transition: background 0.3s, color 0.3s, transform 0.3s;
       width: 100%;
       box-sizing: border-box;
+      position: relative;
   }
 
   aside a:hover {
       background: #88a1c3ff;
       color: #fff;
+      transform: translateX(5px);
+  }
+
+  /* Estilo para el enlace activo (página actual) */
+  aside a.active {
+      background: #88a1c3ff;
+      color: #fff;
+  }
+
+  aside a.active::before {
+      /* La línea es horizontal cuando está activo */
+      width: 80%;
+      height: 4px;
+      left: 50%;
+      top: auto;
+      bottom: 0;
+      transform: translateX(-50%);
+      border-radius: 2px;
+  }
+
+  aside a.active svg {
+      /* No rota cuando está activo */
+      transform: scale(1.15);
+  }
+
+  /* Marca indicadora cuando está activo o en hover */
+  aside a::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 0;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+  }
+
+  aside a:hover::before {
+      height: 80%;
+      width: 4px;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+  }
+
+  aside a.active::before {
+      width: 80%;
+      height: 4px;
+      left: 50%;
+      top: auto;
+      bottom: 0;
+      transform: translateX(-50%);
   }
 
   aside a svg {
       flex-shrink: 0;
       width: 28px;
       height: 28px;
+      transition: transform 0.3s ease;
+  }
+
+  aside a:hover svg {
+      transform: scale(1.15) rotate(-5deg);
   }
 
   aside a span {

@@ -225,6 +225,30 @@ header .logo img {
     .login-button:hover {
       background: #cddbef;
     }
+
+    .login-link {
+      position: absolute;
+      top: 560px;
+      left: 65%;
+      transform: translate(-50%, 0);
+      z-index: 1;
+      margin: 0;
+      font-size: 14px;
+      opacity: 0;
+      animation: fadeIn 1.5s ease forwards;
+      animation-delay: 1.45s;
+    }
+
+    .login-link a {
+      color: #838283;
+      text-decoration: none;
+    }
+
+    .login-link a:hover {
+      color: rgb(31, 71, 107);
+      text-decoration: underline;
+    }
+
     /* Animaciones de entrada */
 @keyframes fadeIn {
   0% { opacity: 0; }
@@ -260,6 +284,7 @@ header .logo img {
 .email-field2 { animation-delay: 1.3s; }
 .email-field3 { animation-delay: 1.3s; }
 .password-field { animation-delay: 1.4s; }
+.login-link { animation-delay: 1.45s; }
 .login-button { animation-delay: 1.5s; }
 .boton { animation-delay: 1.6s; }
 

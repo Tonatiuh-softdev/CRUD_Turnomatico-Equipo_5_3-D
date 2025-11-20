@@ -38,6 +38,35 @@ body {
         text-align: right;
     }
 
+    .link_recuperacion  {
+      position: absolute;
+      top: 560px;
+      left: 61%;
+      transform: translate(-50%, 0);
+      z-index: 1;
+      margin: 0;
+      font-size: 14px;
+      opacity: 0;
+      animation: fadeIn 1.5s ease forwards;
+      animation-delay: 1.45s;
+    }
+
+    .link_recuperacion h6 {
+      margin: 0;
+      padding: 0;
+      font-size: 14px;
+    }
+
+    .link_recuperacion a {
+      color: #838283;
+      text-decoration: none;
+    }
+
+    .link_recuperacion a:hover {
+      color: rgb(31, 71, 107);
+      text-decoration: underline;
+    }
+
 .rectangulo1 {
   width: 100%;       /* Ancho largo */
   height: 760px;      /* Alto */
@@ -250,6 +279,7 @@ body {
 .texto3 { animation-delay: 1.1s; }
 .email-field { animation-delay: 1.3s; }
 .password-field { animation-delay: 1.4s; }
+.link_recuperacion { animation-delay: 1.45s; }
 .login-button { animation-delay: 1.5s; }
 .boton { animation-delay: 1.6s; }
 

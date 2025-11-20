@@ -38,10 +38,10 @@ body {
         text-align: right;
     }
 
-     .register-link {
+    .link_recuperacion  {
       position: absolute;
-      top: 560px;
-      left: 60%;
+      top: 480px;
+      left: 59%;
       transform: translate(-50%, 0);
       z-index: 1;
       margin: 0;
@@ -51,12 +51,18 @@ body {
       animation-delay: 1.45s;
     }
 
-    .register-link a {
+    .link_recuperacion h6 {
+      margin: 0;
+      padding: 0;
+      font-size: 14px;
+    }
+
+    .link_recuperacion a {
       color: #838283;
       text-decoration: none;
     }
 
-    .register-link a:hover {
+    .link_recuperacion a:hover {
       color: rgb(31, 71, 107);
       text-decoration: underline;
     }
@@ -273,8 +279,8 @@ body {
 .texto3 { animation-delay: 1.1s; }
 .email-field { animation-delay: 1.3s; }
 .password-field { animation-delay: 1.4s; }
+.link_recuperacion { animation-delay: 1.45s; }
 .login-button { animation-delay: 1.5s; }
-.register-link { animation-delay: 1.45s; }
 .boton { animation-delay: 1.6s; }
 
 /* Botones: transición suave al pasar el mouse */
@@ -282,232 +288,26 @@ body {
 .login-button {
   transition: background 0.3s ease, transform 0.3s ease;
 }
-/* ===== SECCIÓN DE REGISTRO ===== */
-.register-section {
+/* 🔽 Enlace de "¿Olvidaste tu contraseña?" */
+.forgot-password {
   position: absolute;
-  top: 720px; /* justo debajo del botón Continue */
-  left: 72%;
+  top: 720px;  /* 🔹 justo debajo del botón "Continue" (ajusta si lo quieres más cerca o más lejos) */
+  left: 72%;   /* 🔹 mismo centrado que el botón */
   transform: translate(-50%, 0);
   text-align: center;
-  z-index: 1;
-  color: #838283;
-  font-weight: bold;
-  animation: fadeIn 1.8s ease forwards;
+  z-index: 2;
 }
 
-.register-section p {
-  margin: 0;
-  font-size: 18px;
-}
-
-.register-button {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 25px;
-  background-color: #c6d7ef;
-  color: #555;
-  border-radius: 25px;
+.forgot-password a {
+  color: #243f71;
   text-decoration: none;
   font-size: 18px;
-  transition: all 0.3s ease;
   font-weight: bold;
+  transition: color 0.3s, transform 0.3s;
 }
 
-.register-button:hover {
-  background-color: #aebfda;
+.forgot-password a:hover {
+  color: #18305c;
+  text-decoration: underline;
   transform: scale(1.05);
 }
-
-/* ===== RESPONSIVE: PANTALLAS PEQUEÑAS (hasta 768px) ===== */
-@media screen and (max-width: 768px) {
-  .rectangulo1 {
-    height: auto;
-    min-height: 100vh;
-    position: static;
-  }
-
-  .rectangulo2 {
-    display: none;
-  }
-
-  .imagen {
-    width: 100%;
-    height: auto;
-    position: static;
-    top: auto;
-    left: auto;
-  }
-
-  .texto1 {
-    position: static;
-    font-size: 2rem;
-    margin-top: 40px;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-
-  .texto2 {
-    position: static;
-    font-size: 1rem;
-    text-align: center;
-    margin-bottom: 30px;
-  }
-
-  .texto3 {
-    position: static;
-    font-size: 2rem;
-    text-align: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
-  }
-
-  .email-field {
-    position: static;
-    width: 90%;
-    margin: 0 auto 20px;
-    transform: none;
-  }
-
-  .password-field {
-    position: static;
-    width: 90%;
-    margin: 0 auto 20px;
-    transform: none;
-  }
-
-  input {
-    width: 100%;
-    font-size: 1rem;
-  }
-
-  .login-button {
-    position: static;
-    width: 90%;
-    height: auto;
-    padding: 15px;
-    margin: 20px auto;
-    font-size: 1.1rem;
-    display: block;
-    transform: none;
-  }
-
-  .boton {
-    position: static;
-    width: 100%;
-    height: auto;
-    margin: 20px auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .icono {
-    width: 100px;
-    height: 100px;
-  }
-
-  .register-section {
-    position: static;
-    width: 90%;
-    margin: 20px auto;
-    transform: none;
-  }
-
-  .register-section p {
-    font-size: 0.9rem;
-  }
-
-  .register-button {
-    font-size: 0.9rem;
-    padding: 8px 20px;
-  }
-
-  header .logo span {
-    font-size: 1rem;
-  }
-
-  header .time {
-    font-size: 0.7rem;
-  }
-}
-
-/* ===== RESPONSIVE: PANTALLAS MEDIANAS (768px - 1024px) ===== */
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-  .rectangulo1 {
-    height: 600px;
-  }
-
-  .rectangulo2 {
-    width: 50%;
-    height: 80%;
-    top: 100px;
-  }
-
-  .imagen {
-    height: 80%;
-    top: 100px;
-  }
-
-  .texto1 {
-    font-size: 35px;
-    top: 280px;
-  }
-
-  .texto2 {
-    font-size: 16px;
-    top: 330px;
-  }
-
-  .texto3 {
-    font-size: 40px;
-    top: 180px;
-  }
-
-  .email-field {
-    top: 360px;
-    left: 65%;
-    width: 28vw;
-  }
-
-  .password-field {
-    top: 440px;
-    left: 65%;
-    width: 28vw;
-  }
-
-  input {
-    font-size: 1rem;
-  }
-
-  .login-button {
-    width: 28vw;
-    height: 80px;
-    top: 540px;
-    left: 65%;
-    font-size: 1.2rem;
-  }
-
-  .boton {
-    width: 320px;
-    height: 150px;
-    top: 420px;
-  }
-
-  .register-section {
-    top: 650px;
-  }
-
-  .register-section p {
-    font-size: 0.95rem;
-  }
-
-  .register-button {
-    font-size: 0.95rem;
-  }
-}
-
-/* ===== RESPONSIVE: PANTALLAS GRANDES (1025px+) ===== */
-@media screen and (min-width: 1025px) {
-  /* Los estilos base se mantienen sin cambios */
-}
-
