@@ -3,33 +3,73 @@ require '../../Recursos/PHP/redirecciones.php';
 $conn = loadConexion(); // ✅ Crea la conexión
 loadLogIn();
 
-
 date_default_timezone_set("America/Mexico_City");
 $hora = date("h:i a");
 setlocale(LC_TIME, "es_ES.UTF-8");
 $fecha = strftime("%d de %B %Y");
 
+// 🔹 Obtener ID_Tienda de la sesión
+$id_tienda = $_SESSION["id_tienda"];
+
+// 🔹 Si se selecciona una tienda diferente, cambiar la sesión
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cambiar_tienda'])) {
+    $nueva_tienda = intval($_POST['id_tienda_select']);
+    $id_tienda = $nueva_tienda;
+    $_SESSION["id_tienda"] = $id_tienda;
+}
+
+// 🔹 Obtener todas las tiendas
+$tiendas = [];
+$sql_tiendas = "SELECT ID_Tienda, Nombre FROM tienda ORDER BY Nombre ASC";
+$res_tiendas = $conn->query($sql_tiendas);
+while ($row = $res_tiendas->fetch_assoc()) {
+    $tiendas[] = $row;
+}
+
 // 🔹 Obtener turnos en espera
-$sql_turnos = "SELECT codigo_turno, tipo, estado FROM turnos WHERE estado = 'EN_ESPERA' ORDER BY id ASC";
-$res_turnos = $conn->query($sql_turnos);
+$sql_turnos = "SELECT codigo_turno, tipo, estado, nombre_cliente FROM turnos WHERE estado = 'EN_ESPERA' AND ID_Tienda = ? ORDER BY id ASC";
+$stmt_turnos = $conn->prepare($sql_turnos);
+$stmt_turnos->bind_param("i", $id_tienda);
+$stmt_turnos->execute();
+$res_turnos = $stmt_turnos->get_result();
 $turnos = [];
 while ($row = $res_turnos->fetch_assoc()) {
     $turnos[] = $row;
 }
+$stmt_turnos->close();
+
+// Debug: Si no hay turnos, obtener todos para verificar
+if (empty($turnos)) {
+    $sql_debug = "SELECT codigo_turno, tipo, estado, nombre_cliente FROM turnos WHERE ID_Tienda = ? ORDER BY id ASC LIMIT 10";
+    $stmt_debug = $conn->prepare($sql_debug);
+    $stmt_debug->bind_param("i", $id_tienda);
+    $stmt_debug->execute();
+    $res_debug = $stmt_debug->get_result();
+    while ($row = $res_debug->fetch_assoc()) {
+        $turnos[] = $row;
+    }
+    $stmt_debug->close();
+}
 
 // 🔹 Obtener turno actual
-$sql_actual = "SELECT codigo_turno, tipo, estado FROM turnos WHERE estado = 'ATENDIENDO' ORDER BY id DESC LIMIT 1";
-$res_actual = $conn->query($sql_actual);
+$sql_actual = "SELECT codigo_turno, tipo, estado, nombre_cliente FROM turnos WHERE estado = 'ATENDIENDO' AND ID_Tienda = ? ORDER BY id DESC LIMIT 1";
+$stmt_actual = $conn->prepare($sql_actual);
+$stmt_actual->bind_param("i", $id_tienda);
+$stmt_actual->execute();
+$res_actual = $stmt_actual->get_result();
 $turnoActual = $res_actual->fetch_assoc();
+$stmt_actual->close();
 
 // Si no hay turno en atención, mostrar el último generado
 if (!$turnoActual) {
-    $sql_actual = "SELECT codigo_turno, tipo, estado FROM turnos ORDER BY id DESC LIMIT 1";
-    $res_actual = $conn->query($sql_actual);
-    $turnoActual = $res_actual->fetch_assoc();
+    $sql_last = "SELECT codigo_turno, tipo, estado, nombre_cliente FROM turnos WHERE ID_Tienda = ? ORDER BY id DESC LIMIT 1";
+    $stmt_last = $conn->prepare($sql_last);
+    $stmt_last->bind_param("i", $id_tienda);
+    $stmt_last->execute();
+    $res_last = $stmt_last->get_result();
+    $turnoActual = $res_last->fetch_assoc();
+    $stmt_last->close();
 }
-
-$conn->close();
 
 // ✅ Evitar notice si la sesión ya está iniciada
 if (session_status() === PHP_SESSION_NONE) {
@@ -49,24 +89,46 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
     $accion = $_POST["accion"];
 
     if ($accion === "atender") {
-        $sql_siguiente = "SELECT id FROM turnos WHERE estado = 'EN_ESPERA' ORDER BY id ASC LIMIT 1";
-        $res_siguiente = $conn->query($sql_siguiente);
+        $sql_siguiente = "SELECT id FROM turnos WHERE estado = 'EN_ESPERA' AND ID_Tienda = ? ORDER BY id ASC LIMIT 1";
+        $stmt_sig = $conn->prepare($sql_siguiente);
+        $stmt_sig->bind_param("i", $id_tienda);
+        $stmt_sig->execute();
+        $res_siguiente = $stmt_sig->get_result();
 
         if ($res_siguiente->num_rows > 0) {
             $siguiente = $res_siguiente->fetch_assoc()['id'];
-            $conn->query("UPDATE turnos SET estado = 'ATENDIDO' WHERE estado = 'ATENDIENDO'");
-            $conn->query("UPDATE turnos SET estado = 'ATENDIENDO' WHERE id = $siguiente");
+            
+            // Marcar como atendido el turno actual
+            $sql_actualizar = "UPDATE turnos SET estado = 'ATENDIDO' WHERE estado = 'ATENDIENDO' AND ID_Tienda = ?";
+            $stmt_up1 = $conn->prepare($sql_actualizar);
+            $stmt_up1->bind_param("i", $id_tienda);
+            $stmt_up1->execute();
+            $stmt_up1->close();
+            
+            // Atender el siguiente
+            $sql_atender = "UPDATE turnos SET estado = 'ATENDIENDO' WHERE id = ? AND ID_Tienda = ?";
+            $stmt_up2 = $conn->prepare($sql_atender);
+            $stmt_up2->bind_param("ii", $siguiente, $id_tienda);
+            $stmt_up2->execute();
+            $stmt_up2->close();
         }
+        $stmt_sig->close();
     }
 
     if ($accion === "pausar") {
-        $conn->query("UPDATE turnos SET estado = 'PAUSADO' WHERE estado = 'ATENDIENDO'");
+        $sql_pausar = "UPDATE turnos SET estado = 'PAUSADO' WHERE estado = 'ATENDIENDO' AND ID_Tienda = ?";
+        $stmt_pausa = $conn->prepare($sql_pausar);
+        $stmt_pausa->bind_param("i", $id_tienda);
+        $stmt_pausa->execute();
+        $stmt_pausa->close();
     }
 
     // 🔄 Recargar página
     header("Location: ./pantallaEmpleado.php");
     exit;
 }
+
+$conn->close();
 
 require __DIR__ . '/../HTML/pantalla_espera.html';
 ?>

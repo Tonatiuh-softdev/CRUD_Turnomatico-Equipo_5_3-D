@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recuperar Contraseña</title>
+<link rel="stylesheet" href="../CSS/recuperar_contrasena.css">
+</head>
+<body>
+<img src="../../img/fondo_login.png" alt="Fondo" class="imagen">
+<img src="../../img/img.Logo_blanco-Photoroom.png" alt="Logo" class="imagen1">
+
+<header>
+  <div class="logo">
+    <img src="../../img/img.Logo_blanco-Photoroom.png" width="70"/>
+    <span>ClickMatic</span>
+  </div>
+</header>
+
+<div class="texto1">Recuperar Contraseña</div>
+<div class="texto2">Ingresa tu correo para recibir un enlace</div>
+
+<?php if (!empty($mensaje)): ?>
+  <div class="error-msg"><?php echo $mensaje; ?></div>
+<?php endif; ?>
+
+<form action="" method="POST">
+  <div class="input-field email-field">
+    <input type="email" name="email" placeholder="Email" required>
+  </div>
+  <button type="submit" class="login-button">Enviar enlace</button>
+</form>
+
+<div class="link_recuperacion">
+  <a href="login_cliente.php">inicio de sesión</a>
+</div>
+</body>
+</html>
+

@@ -37,14 +37,20 @@ Mejoras pendientes:
             <table class="tabla">
                 <tr>
                     <th>Turno</th>
-                    <th>Módulo</th>
+                    <th>Cliente</th>
                 </tr>
-                <?php foreach ($turnos as $t): ?>
+                <?php if (!empty($turnos)): ?>
+                    <?php foreach ($turnos as $t): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($t["codigo_turno"]) ?></td>
+                            <td><?= htmlspecialchars($t["nombre_cliente"] ?? "Visitante") ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
                     <tr>
-                        <td><?= htmlspecialchars($t["codigo_turno"]) ?></td>
-                        <td><?= htmlspecialchars($t["tipo"]) ?></td>
+                        <td colspan="2" style="text-align: center; color: #999;">Sin turnos en espera</td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endif; ?>
             </table>
         </div>
     </div>
@@ -57,11 +63,13 @@ Mejoras pendientes:
         </div>
 
         <div class="datos">
-            <div><?= htmlspecialchars($turnoActual["codigo_turno"]) ?></div>
-            <div><?= htmlspecialchars($turnoActual["tipo"]) ?></div>
+            <div><?= htmlspecialchars($turnoActual["codigo_turno"] ?? "") ?></div>
+            <div><?= htmlspecialchars($turnoActual["tipo"] ?? "") ?></div>
         </div>
 
-        <div class="rectangulo3">Camila Perez</div>
+        <div class="rectangulo3">
+            <?= htmlspecialchars($t["nombre_cliente"] ?? "Visitante") ?>
+        </div>
     </div>
 </div>
 
