@@ -51,8 +51,9 @@ if ($result && $result->num_rows === 1) {
         switch ($user["rol"]) {
             //aqui redirigir al nuevo interfaz de superadmin ----------------------------------------------------------------------
             case "superadmin":
-                header("Location: ./admin_dashboard.php");
+                header("Location: ./PanelSuperAdmin.php");
                 exit;
+
             case "admin":
             case "empleado":
                 header("Location: ./index.php");
@@ -68,8 +69,7 @@ if ($result && $result->num_rows === 1) {
     header("Location: ../HTML/login.html?msg=" . urlencode($mensaje));
     exit;
 }
+
 $conn->close();
-
-
 ?>
 
