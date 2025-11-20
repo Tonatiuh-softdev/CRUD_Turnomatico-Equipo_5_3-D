@@ -2,7 +2,7 @@
 require '../../Recursos/PHP/redirecciones.php';
 $conn = loadConexion(); // ✅ Crea la conexión
 
-
+# Que el login sea en base a la idtienda
 $mensaje = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -10,7 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"] ?? "";
 
     if ($email && $password) {
-        $sql = "SELECT * FROM usuarios WHERE email = ?";
+        $sql = "SELECT u.*, t.nombre as nombre_tienda FROM usuarios u 
+        LEFT JOIN tienda t ON u.ID_Tienda = t.ID_Tienda WHERE email = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -24,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } elseif (password_verify($password, $user["password"])) {
                 $_SESSION["usuario"] = $user["nombre"];
                 $_SESSION["rol"] = "cliente";
-                header("Location: pantalla_espera.php");
+                header("Location: pantallaTomarTurno.php");
                 exit;
             } else {
                 $mensaje = "⚠️ Contraseña incorrecta.";
