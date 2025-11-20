@@ -77,16 +77,22 @@ loadHeader();
     <table id="tablaLista" class="lista-espera">
         <tr>
             <th>Código de turno</th>
-            <th>Módulo (tipo)</th>
+            <th>Cliente</th>
             <th>Estado</th>
         </tr>
-        <?php while ($fila = $res_lista->fetch_assoc()): ?>
+        <?php if (!empty($lista_turnos)): ?>
+            <?php foreach ($lista_turnos as $fila): ?>
+                <tr>
+                    <td><?= htmlspecialchars($fila['codigo_turno']) ?></td>
+                    <td><?= htmlspecialchars($fila['nombre_cliente'] ?? 'Visitante') ?></td>
+                    <td><?= htmlspecialchars($fila['estado']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
             <tr>
-                <td><?= htmlspecialchars($fila['codigo_turno']) ?></td>
-                <td><?= htmlspecialchars($fila['tipo']) ?></td>
-                <td><?= htmlspecialchars($fila['estado']) ?></td>
+                <td colspan="3" style="text-align: center; color: #999;">Sin turnos en espera</td>
             </tr>
-        <?php endwhile; ?>
+        <?php endif; ?>
     </table>
 
     <a href="./registro.php" class="register">

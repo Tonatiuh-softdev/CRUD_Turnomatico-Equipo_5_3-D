@@ -12,8 +12,8 @@ $id_tienda = $_SESSION["id_tienda"];
 
 
 function renderLogIn(){
-    // Solo permitir acceso si es empleado o admin
-    if (!isset($_SESSION["rol"]) || !in_array($_SESSION["rol"], ['empleado','admin','superadmin'])) {
+    // Permitir acceso si es empleado, admin, superadmin o cliente
+    if (!isset($_SESSION["rol"]) || !in_array($_SESSION["rol"], ['empleado','admin','superadmin','cliente'])) {
         header("Location: ../../Paginas/PHP/login.php");
         exit;
     }
