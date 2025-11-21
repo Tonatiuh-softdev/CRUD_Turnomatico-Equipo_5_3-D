@@ -46,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="UTF-8">
   <title>Registro de Empleados</title>
   <link rel="stylesheet" href="/Paginas/CSS/registro_empleado.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -77,9 +78,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="input-field">
         <input type="email" name="email" placeholder="Correo electrónico" required>
       </div>
-      <div class="input-field">
-        <input type="password" name="password" placeholder="Contraseña" required>
-      </div>
+       <div class="input-field password-field">
+    <input type="password" id="password" name="password" placeholder="Password" required>
+    <i class="fa-solid fa-eye-slash toggle-eye" id="togglePassword"></i>
+</div>
       <button type="submit" class="registro-button">Registrar empleado</button>
     </form>
 
@@ -92,6 +94,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 </div>
 
+<script>
+const toggle = document.getElementById('togglePassword');
+const password = document.getElementById('password');
 
+toggle.addEventListener('click', () => {
+    const isPassword = password.type === "password";
+    password.type = isPassword ? "text" : "password";
+
+    toggle.classList.toggle("fa-eye");
+    toggle.classList.toggle("fa-eye-slash");
+});
+</script>
 </body>
 </html>
