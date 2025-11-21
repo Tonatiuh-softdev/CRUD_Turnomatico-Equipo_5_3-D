@@ -1,14 +1,55 @@
 "use strict";
 
-var ctx = document.getElementById('grafica').getContext('2d');
-var colores = ['#a595f9', '#ff5959']; // CLIENTE - VISITANTE
+// ===========================
+//  CONFIGURACIÓN INICIAL
+// ===========================
+var canvas = document.getElementById('grafica');
+var ctx = canvas.getContext('2d');
+var grafica; // Paletas de colores por periodo
 
-var grafica; // 🔹 Obtener datos del servidor según el periodo
+var paletas = {
+  año: ['#7d6df6', '#ff7070'],
+  mes: ['#6dc8f6', '#ff9b9b'],
+  dia: ['#ffd766', '#ff8a8a']
+}; // ===================================
+//  PLUGIN: TEXTO EN EL CENTRO
+// ===================================
+
+Chart.register({
+  id: 'centerText',
+  afterDraw: function afterDraw(chart) {
+    var ctx = chart.ctx,
+        _chart$chartArea = chart.chartArea,
+        width = _chart$chartArea.width,
+        height = _chart$chartArea.height;
+    var total = chart.config.data.datasets[0].data.reduce(function (a, b) {
+      return a + b;
+    }, 0);
+    ctx.save();
+    ctx.font = "bold 22px Poppins";
+    ctx.fillStyle = "#444";
+    ctx.textAlign = "center";
+    ctx.fillText("".concat(total, " Turnos"), chart.width / 2, chart.height / 2 + 8);
+    ctx.restore();
+  }
+}); // ===================================
+//  MINI-LOADER MIENTRAS CARGA DATOS
+// ===================================
+
+function mostrarLoader() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.font = "16px Poppins";
+  ctx.fillStyle = "#999";
+  ctx.textAlign = "center";
+  ctx.fillText("Cargando...", canvas.width / 2, canvas.height / 2);
+} // ===================================
+//  FUNCIÓN PARA OBTENER DATOS
+// ===================================
+
 
 function obtenerDatos() {
   var periodo,
       response,
-      datos,
       _args = arguments;
   return regeneratorRuntime.async(function obtenerDatos$(_context) {
     while (1) {
@@ -34,22 +75,23 @@ function obtenerDatos() {
           return regeneratorRuntime.awrap(response.json());
 
         case 9:
-          datos = _context.sent;
-          return _context.abrupt("return", datos);
+          return _context.abrupt("return", _context.sent);
 
-        case 13:
-          _context.prev = 13;
+        case 12:
+          _context.prev = 12;
           _context.t0 = _context["catch"](1);
           console.error("Error en obtenerDatos():", _context.t0);
           return _context.abrupt("return", []);
 
-        case 17:
+        case 16:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[1, 13]]);
-} // 🔹 Crear o actualizar la gráfica
+  }, null, null, [[1, 12]]);
+} // ===================================
+//  CREAR / ACTUALIZAR GRÁFICA
+// ===================================
 
 
 function crearGrafica() {
@@ -59,18 +101,24 @@ function crearGrafica() {
       visitante,
       etiquetas,
       valores,
+      colores,
       _args2 = arguments;
   return regeneratorRuntime.async(function crearGrafica$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
           periodo = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : 'año';
-          _context2.next = 3;
+          // Fade-in bonito
+          canvas.style.opacity = 0;
+          setTimeout(function () {
+            return canvas.style.opacity = 1;
+          }, 300);
+          mostrarLoader();
+          _context2.next = 6;
           return regeneratorRuntime.awrap(obtenerDatos(periodo));
 
-        case 3:
+        case 6:
           datos = _context2.sent;
-          // Si no hay datos, asignar ceros
           cliente = datos.find(function (d) {
             return d.tipo === 'CLIENTE';
           }) || {
@@ -82,13 +130,27 @@ function crearGrafica() {
             total: 0
           };
           etiquetas = ['CLIENTE', 'VISITANTE'];
-          valores = [parseInt(cliente.total), parseInt(visitante.total)]; // Actualizar texto informativo
+          valores = [parseInt(cliente.total), parseInt(visitante.total)]; // Actualizar textos informativos
 
           document.getElementById('infoCliente').textContent = "".concat(cliente.total, " turnos");
-          document.getElementById('infoVisitante').textContent = "".concat(visitante.total, " turnos"); // Destruir la gráfica anterior (si existe)
+          document.getElementById('infoVisitante').textContent = "".concat(visitante.total, " turnos"); // Si no hay datos, mostrar mensaje y no crear gráfica
 
-          if (grafica) grafica.destroy(); // Crear nueva gráfica
+          if (!(valores[0] === 0 && valores[1] === 0)) {
+            _context2.next = 20;
+            break;
+          }
 
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.font = "18px Poppins";
+          ctx.fillStyle = "#555";
+          ctx.textAlign = "center";
+          ctx.fillText("Sin datos disponibles", canvas.width / 2, canvas.height / 2);
+          return _context2.abrupt("return");
+
+        case 20:
+          // Elegir paleta según el periodo
+          colores = paletas[periodo] || paletas['año'];
+          if (grafica) grafica.destroy();
           grafica = new Chart(ctx, {
             type: 'doughnut',
             data: {
@@ -104,7 +166,8 @@ function crearGrafica() {
               animation: {
                 animateScale: true,
                 animateRotate: true,
-                duration: 1000
+                duration: 1200,
+                easing: 'easeOutQuart'
               },
               plugins: {
                 legend: {
@@ -121,18 +184,22 @@ function crearGrafica() {
             }
           });
 
-        case 12:
+        case 23:
         case "end":
           return _context2.stop();
       }
     }
   });
-} // 🔹 Botones para cambiar el periodo
+} // ===================================
+//  CAMBIAR PERIODO (BOTONES)
+// ===================================
 
 
 function actualizarGrafica(periodo) {
   crearGrafica(periodo);
-} // 🔹 Cargar gráfica inicial (por año)
+} // ===================================
+//  CARGAR GRÁFICA INICIAL
+// ===================================
 
 
 document.addEventListener('DOMContentLoaded', function () {
