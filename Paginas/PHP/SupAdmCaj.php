@@ -1,6 +1,81 @@
 <?php
 require '../../Recursos/PHP/redirecciones.php';
+require '../../Recursos/PHP/conexion.php';
 require __DIR__ . '/../Componentes/PHP/navbarSuperAdmin.php';
+
+// Manejo de acciones AJAX - DEBE ESTAR ANTES DE CUALQUIER SALIDA HTML
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'])) {
+    header('Content-Type: application/json');
+    $conn = conexion();
+    $action = $_GET['action'];
+
+    if ($action == 'obtenerCajas') {
+        $query = "SELECT ID_Caja as id, Numero_Caja as nombre, Estado as descripcion FROM caja ORDER BY ID_Caja DESC";
+        $result = $conn->query($query);
+        $cajas = [];
+        
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $cajas[] = $row;
+            }
+        }
+        echo json_encode($cajas);
+        exit;
+    }
+}
+
+// Manejo de POST para agregar, editar y eliminar
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])) {
+    header('Content-Type: application/json');
+    $conn = conexion();
+    $action = $_GET['action'];
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if ($action == 'agregarCaja') {
+        $nombre = $conn->real_escape_string($data['nombre']);
+        $descripcion = $conn->real_escape_string($data['descripcion']);
+        
+        $query = "INSERT INTO caja (Numero_Caja, Estado) VALUES ('$nombre', '$descripcion')";
+        
+        if ($conn->query($query)) {
+            echo json_encode(['success' => true, 'message' => 'Caja agregada exitosamente']);
+        } else {
+            echo json_encode(['success' => false, 'error' => $conn->error]);
+        }
+        exit;
+    }
+
+    if ($action == 'editarCaja') {
+        $id = (int)$data['id'];
+        $nombre = $conn->real_escape_string($data['nombre']);
+        $descripcion = $conn->real_escape_string($data['descripcion']);
+        
+        $query = "UPDATE caja SET Numero_Caja='$nombre', Estado='$descripcion' WHERE ID_Caja=$id";
+        
+        if ($conn->query($query)) {
+            echo json_encode(['success' => true, 'message' => 'Caja actualizada exitosamente']);
+        } else {
+            echo json_encode(['success' => false, 'error' => $conn->error]);
+        }
+        exit;
+    }
+
+    if ($action == 'eliminarCaja') {
+        $id = (int)$data['id'];
+        $query = "DELETE FROM caja WHERE ID_Caja=$id";
+        
+        if ($conn->query($query)) {
+            echo json_encode(['success' => true, 'message' => 'Caja eliminada exitosamente']);
+        } else {
+            echo json_encode(['success' => false, 'error' => $conn->error]);
+        }
+        exit;
+    }
+
+    $conn->close();
+}
+
+// Cargar header solo para peticiones de página (no AJAX)
 loadHeader();
 ?>
 <!DOCTYPE html>

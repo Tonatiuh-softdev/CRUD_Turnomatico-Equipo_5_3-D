@@ -1,6 +1,81 @@
 <?php
 require '../../Recursos/PHP/redirecciones.php';
+require '../../Recursos/PHP/conexion.php';
 require __DIR__ . '/../Componentes/PHP/navbarSuperAdmin.php';
+
+// Manejo de acciones AJAX - DEBE ESTAR ANTES DE CUALQUIER SALIDA HTML
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'])) {
+    header('Content-Type: application/json');
+    $conn = conexion();
+    $action = $_GET['action'];
+
+    if ($action == 'obtenerServicios') {
+        $query = "SELECT ID_Servicio as id, Nombre as nombre, Descripcion as descripcion FROM servicio ORDER BY ID_Servicio DESC";
+        $result = $conn->query($query);
+        $servicios = [];
+        
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $servicios[] = $row;
+            }
+        }
+        echo json_encode($servicios);
+        exit;
+    }
+}
+
+// Manejo de POST para agregar, editar y eliminar
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])) {
+    header('Content-Type: application/json');
+    $conn = conexion();
+    $action = $_GET['action'];
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if ($action == 'agregarServicio') {
+        $nombre = $conn->real_escape_string($data['nombre']);
+        $descripcion = $conn->real_escape_string($data['descripcion']);
+        
+        $query = "INSERT INTO servicio (Nombre, Descripcion) VALUES ('$nombre', '$descripcion')";
+        
+        if ($conn->query($query)) {
+            echo json_encode(['success' => true, 'message' => 'Servicio agregado exitosamente']);
+        } else {
+            echo json_encode(['success' => false, 'error' => $conn->error]);
+        }
+        exit;
+    }
+
+    if ($action == 'editarServicio') {
+        $id = (int)$data['id'];
+        $nombre = $conn->real_escape_string($data['nombre']);
+        $descripcion = $conn->real_escape_string($data['descripcion']);
+        
+        $query = "UPDATE servicio SET Nombre='$nombre', Descripcion='$descripcion' WHERE ID_Servicio=$id";
+        
+        if ($conn->query($query)) {
+            echo json_encode(['success' => true, 'message' => 'Servicio actualizado exitosamente']);
+        } else {
+            echo json_encode(['success' => false, 'error' => $conn->error]);
+        }
+        exit;
+    }
+
+    if ($action == 'eliminarServicio') {
+        $id = (int)$data['id'];
+        $query = "DELETE FROM servicio WHERE ID_Servicio=$id";
+        
+        if ($conn->query($query)) {
+            echo json_encode(['success' => true, 'message' => 'Servicio eliminado exitosamente']);
+        } else {
+            echo json_encode(['success' => false, 'error' => $conn->error]);
+        }
+        exit;
+    }
+
+    $conn->close();
+}
+
+// Cargar header solo para peticiones de página (no AJAX)
 loadHeader();
 ?>
 <!DOCTYPE html>

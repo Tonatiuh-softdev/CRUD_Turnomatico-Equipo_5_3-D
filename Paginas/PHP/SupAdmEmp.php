@@ -1,6 +1,73 @@
 <?php
 require '../../Recursos/PHP/redirecciones.php';
+require '../../Recursos/PHP/conexion.php';
 require __DIR__ . '/../Componentes/PHP/navbarSuperAdmin.php';
+
+// Manejo de acciones AJAX - DEBE ESTAR ANTES DE CUALQUIER SALIDA HTML
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'])) {
+    header('Content-Type: application/json');
+    $conn = conexion();
+    $action = $_GET['action'];
+
+    if ($action == 'obtenerEmpleados') {
+        // Por ahora retornamos array vacío ya que la tabla empleados no existe en la BD
+        echo json_encode([]);
+        exit;
+    }
+}
+
+// Manejo de POST para agregar, editar y eliminar
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])) {
+    header('Content-Type: application/json');
+    $conn = conexion();
+    $action = $_GET['action'];
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if ($action == 'agregarEmpleado') {
+        $nombre = $conn->real_escape_string($data['nombre']);
+        $descripcion = $conn->real_escape_string($data['descripcion']);
+        
+        $query = "INSERT INTO empleados (nombre, descripcion) VALUES ('$nombre', '$descripcion')";
+        
+        if ($conn->query($query)) {
+            echo json_encode(['success' => true, 'message' => 'Empleado agregado exitosamente']);
+        } else {
+            echo json_encode(['success' => false, 'error' => $conn->error]);
+        }
+        exit;
+    }
+
+    if ($action == 'editarEmpleado') {
+        $id = (int)$data['id'];
+        $nombre = $conn->real_escape_string($data['nombre']);
+        $descripcion = $conn->real_escape_string($data['descripcion']);
+        
+        $query = "UPDATE empleados SET nombre='$nombre', descripcion='$descripcion' WHERE id=$id";
+        
+        if ($conn->query($query)) {
+            echo json_encode(['success' => true, 'message' => 'Empleado actualizado exitosamente']);
+        } else {
+            echo json_encode(['success' => false, 'error' => $conn->error]);
+        }
+        exit;
+    }
+
+    if ($action == 'eliminarEmpleado') {
+        $id = (int)$data['id'];
+        $query = "DELETE FROM empleados WHERE id=$id";
+        
+        if ($conn->query($query)) {
+            echo json_encode(['success' => true, 'message' => 'Empleado eliminado exitosamente']);
+        } else {
+            echo json_encode(['success' => false, 'error' => $conn->error]);
+        }
+        exit;
+    }
+
+    $conn->close();
+}
+
+// Cargar header solo para peticiones de página (no AJAX)
 loadHeader();
 ?>
 <!DOCTYPE html>

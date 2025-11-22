@@ -6,8 +6,15 @@ document.addEventListener('DOMContentLoaded', function() {
 // Cargar tiendas desde la base de datos
 function cargarTiendas() {
     fetch('../PHP/PanelSuperAdmin.php?action=obtenerTiendas')
-        .then(response => response.json())
-        .then(data => {
+        .then(response => {
+            console.log('Response status:', response.status);
+            return response.text();
+        })
+        .then(text => {
+            console.log('Response text:', text);
+            const data = JSON.parse(text);
+            console.log('Parsed data:', data);
+            
             const tabla = document.getElementById('tablaTiendas');
             tabla.innerHTML = '';
             
@@ -19,10 +26,18 @@ function cargarTiendas() {
                         <td>${tienda.nombre}</td>
                         <td>${tienda.descripcion || 'N/A'}</td>
                         <td>
-                            <button class="btn-editar" onclick="editarTienda(${tienda.id}, '${tienda.nombre}', '${tienda.descripcion}')">Editar</button>
+                            <button class="btn-editar" onclick="editarTienda(${tienda.id}, '${tienda.nombre}', '${tienda.descripcion}')" title="Editar">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-7-4l8.5-8.5a2.121 2.121 0 013 3L14 10.5M16 3l3 3"></path>
+                                </svg>
+                            </button>
                         </td>
                         <td>
-                            <button class="btn-eliminar" onclick="eliminarTienda(${tienda.id})">Eliminar</button>
+                            <button class="btn-eliminar" onclick="eliminarTienda(${tienda.id})" title="Eliminar">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                            </button>
                         </td>
                     `;
                     tabla.appendChild(fila);
@@ -31,7 +46,11 @@ function cargarTiendas() {
                 tabla.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">No hay tiendas registradas</td></tr>';
             }
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error completo:', error);
+            const tabla = document.getElementById('tablaTiendas');
+            tabla.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px; color: red;">Error al cargar datos</td></tr>';
+        });
 }
 
 // Abrir modal para agregar tienda
