@@ -45,6 +45,8 @@ if ($result && $result->num_rows === 1) {
         // Redirecciones según el rol
         switch ($user["rol"]) {
             case "superadmin":
+                header("Location: ./PanelSuperAdmin.php");
+                exit;
             case "admin":
             case "empleado":
                 header("Location: ./index.php");
