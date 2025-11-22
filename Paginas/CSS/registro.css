@@ -33,7 +33,6 @@ header .logo img {
 .rectangulo1 {
   width: 100%;       /* Ancho largo */
   height: 760px;      /* Alto */
-  background-color: #c5d4e7;  /* Color azul */
   color: white;       /* Texto en blanco */
   display: flex;      /* Centrar el texto */
   align-items: center;

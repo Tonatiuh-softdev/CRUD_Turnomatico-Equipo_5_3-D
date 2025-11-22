@@ -4,14 +4,18 @@
 :root{
   --bg: #ffffff;
   --text: #111827;
-  --header-bg: #dbdbdb;
+  --header-bg: #c9a8a8;
   --panel-bg: rgba(255,255,255,0.6);
   --blanco1: #FFFFFF;
   --blanco2: #FFFFFF;
   --blanco3: #fafafa;
+  --blanco4:#ffffff;
+  --blanco5: #c5d4e7;
   --negro1: #000000;
   --negro2: #000000;
   --negro3: #000000;
+  --negro4: #000000;
+  --negro5: #333;
   --azul1: #92aecbff;
   --azul2: #bfd4eaff;
   --azul3: #e1ebf6;
@@ -58,8 +62,21 @@ input, textarea, select{ background: transparent; color: var(--text); }
 .boton { color: var(--negro2);}
 /*EMPLEADOS*/
 .container table { background: var(--blanco3); }
+table tbody tr { background-color: var(--blanco4);}
+table tbody tr { color: var(--negro4);}
+/*SERVICIOS*/
+#tablaServicios tbody tr {background-color: var(--blanco4);}
+#tablaServicios tbody tr {color: var(--negro4);}
+/*CAJAS*/
+#tablaCajas tbody tr { background-color: var(--blanco4);}
+#tablaCajas tbody tr { color: var(--negro4);}
+/*ESTADISTICAS*/
+h2 { color: var(--negro5);}
+.info-item {color: var(--negro5);}
 /*NAVBAR*/
 aside { background: var(--azul10); }
+/*REGISTRO*/
+.rectangulo1 {background-color: var(--blanco5);}  /* Color azul */
 
 
 
@@ -67,17 +84,21 @@ aside { background: var(--azul10); }
 
 
 /* Dark theme overrides */
-html.dark-theme, html.dark-theme body, body.dark-theme, .dark-theme{
+body.dark-theme, .dark-theme{
   --bg: #0b1220;
   --text: #e6eef8;
-  --header-bg: #07101a;
+  --header-bg: #969da5;
   --panel-bg: rgba(10,14,20,0.6);
   --blanco1: #A7A7A7;
   --blanco2: #000000;
   --blanco3:#bdbdbd;
+  --blanco4:#bdbdbd;
+  --blanco5: #000000;
   --negro1: #FFFFFF;
   --negro2: #FFFFFF;
   --negro3: #000000;
+  --negro4: #000000;
+  --negro5: #f1e1e1;
   --azul1: #4a4a57;
   --azul2: #565664;
   --azul3: #646477;
@@ -93,9 +114,7 @@ html.dark-theme, html.dark-theme body, body.dark-theme, .dark-theme{
 }
 
 /* Algunas reglas específicas para componentes usados en header/pantallas */
-html.dark-theme header .logo img,
 .dark-theme header .logo img{ filter: none; }
-html.dark-theme footer,
 .dark-theme footer{ color: var(--text); }
 .dark-theme .card:nth-child(1) { background: var(--azul1)}
 .dark-theme .card:nth-child(2) { background: var(--azul2)}
@@ -115,4 +134,13 @@ html.dark-theme footer,
 .dark-theme.tabla td { color: var(--negro3); }
 .dark-theme .container table { background: var(--blanco3); }
 .dark-theme aside { background: var(--azul10); }
+.dark-theme #tablaServicios tbody tr {background-color: var(--blanco4);}
+.dark-theme #tablaServicios tbody tr {color: var(--negro4);}
+.dark-theme #tablaCajas tbody tr { background-color: var(--blanco4);}
+.dark-theme #tablaCajas tbody tr { color: var(--negro4);}
+.dark-theme table tbody tr { background-color: var(--blanco4)}
+.dark-theme table tbody tr { color: var(--negro4);}
+.dark-theme h2 { color: var(--negro5);}
+.dark-theme .info-item {color: var(--negro5);}
+.dark-theme .rectangulo1 {background-color: var(--blanco5);}  /* Color azul */
 
