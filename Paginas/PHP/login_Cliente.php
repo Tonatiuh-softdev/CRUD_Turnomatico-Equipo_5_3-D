@@ -46,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login Cliente</title>
 <link rel="stylesheet" href="../CSS/login_Cliente.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 <img src="../../img/fondo_login.png" alt="Fondo" class="imagen">
@@ -76,8 +77,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <input type="email" name="email" placeholder="Email" required>
   </div>
   <div class="input-field password-field">
-    <input type="password" name="password" placeholder="Password" required>
-  </div>
+    <input type="password" id="password" name="password" placeholder="Password" required>
+    <i class="fa-solid fa-eye-slash toggle-eye" id="togglePassword"></i>
+</div>
+
+
   <button type="submit" class="login-button">Continue</button>
 
   <!-- esto es para recuperar la contrasenia :)-->
@@ -85,6 +89,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <a href="recuperar_contrasena.php">¿Olvidaste tu contraseña?</a>
   </div>
 </form>
+<script>
+const toggle = document.getElementById('togglePassword');
+const password = document.getElementById('password');
+
+toggle.addEventListener('click', () => {
+    const isPassword = password.type === "password";
+    password.type = isPassword ? "text" : "password";
+
+    toggle.classList.toggle("fa-eye");
+    toggle.classList.toggle("fa-eye-slash");
+});
+</script>
+
 
 </body>
 </html>

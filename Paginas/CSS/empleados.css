@@ -98,36 +98,6 @@ table th { background: #2b3d57; color: white; }
 .btn-eliminar:hover svg {
     transform: rotate(-10deg);
 }
-
-.btn-agregar {
-    display: inline-block;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.btn-agregar {
-    display: block;
-    margin: 25px auto;
-    padding: 14px 40px;
-    font-size: 18px;
-    font-weight: 600;
-    border: none;
-    border-radius: 40px;
-    background: linear-gradient(135deg, #2b3d57, #3f5675);
-    color: #fff;
-    cursor: pointer;
-    transition: all 0.4s ease;
-    box-shadow: 0 6px 15px rgba(43, 61, 87, 0.4);
-    letter-spacing: 0.5px;
-}
-.btn-agregar:hover {
-    background-color: #45a049;
-}
 /* =========================================
    TABLAS (Diseño unificado para todos)
 ========================================= */
@@ -214,3 +184,87 @@ table td form {
     border: 1px solid #ccc;
 }
 
+/* === Responsivo === */
+@media (max-width: 768px) {
+  table thead {
+    display: none;
+  }
+
+  table, table tbody, table tr, table td {
+    display: block;
+    width: 100%;
+  }
+
+  table tr {
+    margin-bottom: 15px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 10px;
+  }
+
+  table td {
+    text-align: left;
+    padding: 10px 15px;
+    border: none;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+  }
+
+  table td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #2b3d57;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  table td:last-child {
+    border-bottom: none;
+  }
+}
+@media (max-width: 500px) {
+  #editarCajaModal .grupo-opciones {
+    flex-direction: column;
+  }
+}
+.btn-eliminar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #c62828, #8e0000);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 22px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    margin: 0 auto; /* Centrado */
+}
+
+.btn-eliminar:hover {
+    background: linear-gradient(135deg, #934343, #7d0c0c);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+.btn-eliminar:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-eliminar svg {
+    width: 20px;
+    height: 20px;
+    stroke: #fff;
+    fill: none;
+    transition: transform 0.2s ease;
+}
+
+.btn-eliminar:hover svg {
+    transform: rotate(-10deg);
+}

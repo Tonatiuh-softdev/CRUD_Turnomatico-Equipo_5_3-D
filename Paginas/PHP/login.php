@@ -47,6 +47,7 @@ if ($result && $result->num_rows === 1) {
             case "superadmin":
                 header("Location: ./PanelSuperAdmin.php");
                 exit;
+
             case "admin":
             case "empleado":
                 header("Location: ./index.php");
@@ -62,8 +63,7 @@ if ($result && $result->num_rows === 1) {
     header("Location: ../HTML/login.html?msg=" . urlencode($mensaje));
     exit;
 }
+
 $conn->close();
-
-
 ?>
 
