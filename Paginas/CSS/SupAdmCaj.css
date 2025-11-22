@@ -1,0 +1,215 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #F5EFEB 0%, #CBD9E6 50%, #FFFFFF 100%);
+    font-family: 'Segoe UI', 'Helvetica Neue', Verdana, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    gap: 0;
+    height: 100vh;
+}
+
+main {
+    flex: 1;
+    padding: 50px;
+    overflow-y: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(245, 239, 235, 0.9) 0%, rgba(203, 217, 230, 0.9) 100%);
+}
+
+/* Scrollbar personalizado */
+main::-webkit-scrollbar {
+    width: 8px;
+}
+
+main::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+main::-webkit-scrollbar-thumb {
+    background: #CBD9E6;
+    border-radius: 4px;
+}
+
+main::-webkit-scrollbar-thumb:hover {
+    background: #567C8B;
+}
+
+/* Estilos para la sección de cajas */
+.cajas-section {
+    width: 100%;
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(47, 65, 86, 0.1);
+    border: 1px solid rgba(203, 217, 230, 0.4);
+}
+
+.cajas-section h2 {
+    font-size: 28px;
+    color: #2F4156;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+.cajas-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.cajas-section table thead {
+    background: linear-gradient(135deg, #2F4156 0%, #567C8B 100%);
+    color: #FFFFFF;
+}
+
+.cajas-section table th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.cajas-section table td {
+    padding: 15px;
+    border-bottom: 1px solid rgba(203, 217, 230, 0.3);
+    color: #2F4156;
+}
+
+.cajas-section table tbody tr:hover {
+    background: rgba(203, 217, 230, 0.2);
+}
+
+.btn-agregar {
+    background: linear-gradient(135deg, #567C8B 0%, #2F4156 100%);
+    color: #FFFFFF;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.btn-agregar:hover {
+    box-shadow: 0 10px 25px rgba(86, 124, 139, 0.3);
+    transform: translateY(-2px);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-contenido {
+    background-color: #FFFFFF;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 20px 60px rgba(47, 65, 86, 0.2);
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-contenido h3 {
+    color: #2F4156;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.modal-contenido form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-contenido input,
+.modal-contenido textarea {
+    padding: 12px;
+    border: 1px solid #CBD9E6;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #2F4156;
+    transition: all 0.3s ease;
+}
+
+.modal-contenido input:focus,
+.modal-contenido textarea:focus {
+    outline: none;
+    border-color: #567C8B;
+    box-shadow: 0 0 0 3px rgba(86, 124, 139, 0.1);
+}
+
+.modal-contenido button[type="submit"] {
+    background: linear-gradient(135deg, #567C8B 0%, #2F4156 100%);
+    color: #FFFFFF;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.modal-contenido button[type="submit"]:hover {
+    box-shadow: 0 10px 25px rgba(86, 124, 139, 0.3);
+    transform: translateY(-2px);
+}
+
+.cerrar {
+    background: #CBD9E6;
+    color: #2F4156;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.cerrar:hover {
+    background: #567C8B;
+    color: #FFFFFF;
+}
