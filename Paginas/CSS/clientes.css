@@ -11,21 +11,38 @@ table th { background: #2b3d57; color: white; }
 .btn-status { background: #2b3d57; color: white; border: none; padding: 5px 8px; cursor: pointer; border-radius: 4px; }
 .btn-status:hover { background: #3f5675; }
 
+
 /* Botón Agregar */
 .btn-agregar {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-agregar {
     display: block;
-    margin: 20px auto;
-    padding: 15px 30px;
+    margin: 25px auto;
+    padding: 14px 40px;
     font-size: 18px;
     font-weight: bold;
+    font-weight: 600;
     border: none;
-    border-radius: 30px;
-    background: #2b3d57;
+    border-radius: 40px;
+    background: linear-gradient(135deg, #2b3d57, #3f5675);
     color: #fff;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.4s ease;
+    box-shadow: 0 6px 15px rgba(43, 61, 87, 0.4);
+    letter-spacing: 0.5px;
 }
-.btn-agregar:hover { background: #3f5675; }
+.btn-agregar:hover {
+    background: #45a049;
+}
 
 /* Modal general */
 .modal {
@@ -113,6 +130,46 @@ table th { background: #2b3d57; color: white; }
 }
 
 .btn-eliminar:hover svg {
+    transform: rotate(-10deg);
+}
+.btn-editar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #1976d2, #0d47a1);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 22px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    margin: 0 auto;
+}
+
+.btn-editar:hover {
+    background: linear-gradient(135deg, #1565c0, #083b7a);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+.btn-editar:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-editar svg {
+    width: 20px;
+    height: 20px;
+    stroke: #fff;
+    fill: none;
+    transition: transform 0.2s ease;
+}
+
+.btn-editar:hover svg {
     transform: rotate(-10deg);
 }
 /* =========================================

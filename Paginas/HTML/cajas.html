@@ -19,13 +19,18 @@
     <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px; margin: 20px 0;">
         <!-- Barra de búsqueda -->
         <div style="max-width: 300px;">
-            <?php include __DIR__ . '/../Componentes/HTML/BarraBusqueda.html'; ?>
+             
         </div>
     </div>
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: -10px;">
+        <!-- Barra de búsqueda -->
+        <div style="max-width: 300px;">
+            <?php include __DIR__ . '/../Componentes/HTML/BarraBusqueda.html'; ?>
+        </div>
 
-    <!-- Botón para abrir modal agregar -->
-    <button class="btn-agregar" onclick="abrirModal()">+ Agregar Caja</button>
-
+        <!-- Botón grande para abrir modal -->
+        <button class="btn-agregar" onclick="abrirModal()">+ Agregar Caja</button>
+    </div>
     <!-- Modal Agregar -->
     <div id="modalCaja" class="modal">
       <div class="modal-contenido">

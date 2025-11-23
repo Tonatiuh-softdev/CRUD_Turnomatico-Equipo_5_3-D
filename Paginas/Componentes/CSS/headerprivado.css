@@ -1,0 +1,24 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(10px, 3vw, 20px) clamp(20px, 5vw, 50px);
+  background-color: #eceae7ff;
+  color: #666666;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+header .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  font-weight: bold;
+}
+
+header .logo img {
+  width: clamp(50px, 8vw, 70px);
+  height: auto;
+}

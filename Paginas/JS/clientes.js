@@ -1,13 +1,26 @@
 // Elementos del DOM
 const modalCliente = document.getElementById("modalCliente");
 
-// Abrir y cerrar modal
-function abrirModalCliente(){ 
-    modalCliente.style.display = "flex"; 
+function abrirEditarModal(id, nombre, status) {
+    // Rellenar campos del modal
+    document.getElementById("editar_id").value = id;
+    document.getElementById("editar_nombre").value = nombre;
+    document.getElementById("editar_status").value = status;
+
+    // Mostrar modal
+    document.getElementById("editarClienteModal").style.display = "flex";
 }
 
-function cerrarModalCliente(){ 
-    modalCliente.style.display = "none"; 
+function cerrarEditarModal() {
+    document.getElementById("editarClienteModal").style.display = "none";
+}
+
+// Cerrar modal al hacer clic fuera del contenido
+window.onclick = function(e) {
+    let modal = document.getElementById("editarClienteModal");
+    if (e.target === modal) {
+        modal.style.display = "none";
+    }
 }
 
 // Cerrar modal al hacer clic fuera del contenido

@@ -1,0 +1,7 @@
+<header>
+  <link rel="stylesheet" href="/Paginas/Componentes/CSS/headerprivado.css">
+  <div class="logo">
+    <img src="/img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
+    <span>ClickMatic</span>
+  </div>
+</header>

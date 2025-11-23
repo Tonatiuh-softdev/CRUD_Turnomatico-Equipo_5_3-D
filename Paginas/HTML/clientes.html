@@ -29,21 +29,34 @@ loadNavbar();
             <?php include __DIR__ . '/../Componentes/HTML/BarraBusqueda.html'; ?>
         </div>
 
-        <!-- Botón grande para abrir modal -->
-        <button class="btn-agregar" onclick="abrirModalCliente()">+ Agregar Cliente</button>
+        <!-- Botón grande para abrir registro -->
+         <a href="/Paginas/PHP/registro.php" class="btn-agregar">+ Agregar Cliente</a>
     </div>
 
-    <!-- Modal agregar cliente -->
-    <div id="modalCliente" class="modal">
-        <div class="modal-contenido">
-            <h3>Agregar Cliente</h3>
-            <form method="POST">
-                <input type="text" name="nombreCliente" placeholder="Nombre del cliente" required>
-                <button type="submit">Agregar</button>
-            </form>
-            <button class="cerrar" onclick="cerrarModalCliente()">Cerrar</button>
-        </div>
-    </div>
+   <!-- Modal Editar Cliente -->
+<div id="editarClienteModal" class="modal">
+  <div class="modal-contenido">
+    <h3>Editar Cliente</h3>
+    <form id="formEditarCliente" method="POST">
+
+      <input type="hidden" name="editar_id" id="editar_id">
+
+      <label for="editar_nombre">Nombre</label>
+      <input type="text" name="editar_nombre" id="editar_nombre" required>
+
+      <label for="editar_status">Status</label>
+      <select name="editar_status" id="editar_status" required>
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+      </select>
+
+      <button type="submit" class="btn-guardar">Guardar cambios</button>
+    </form>
+
+    <button class="cerrar" onclick="cerrarEditarModal()">Cerrar</button>
+  </div>
+</div>
+
 
     <!-- Tabla clientes -->
     <table>
@@ -52,58 +65,71 @@ loadNavbar();
                 <th data-translate="">ID</th>
                 <th data-translate="Nombre">Nombre</th>
                 <th data-translate="Correo">Correo</th>
+                <th data-translate="Status">Status</th>
                 <th data-translate="Configurar">Configurar</th>
                 <th data-translate="Eliminar">Eliminar</th>
             </tr>
         </thead>
         <tbody>
         <?php
-            if (!empty($clientes)) {
-                foreach($clientes as $row) {
-                    echo "<tr>
-        <td data-label='ID'>{$row['id']}</td>
-        <td data-label='Nombre'>{$row['nombre']}</td>
-        <td data-label='Correo'>{$row['email']}</td>
+    if (!empty($clientes)) {
+        foreach($clientes as $row) {
+            echo "<tr>
+<td data-label='ID'>{$row['id']}</td>
+<td data-label='Nombre'>{$row['nombre']}</td>
+<td data-label='Correo'>{$row['email']}</td>
 
-        <td data-label='Status'>
-            <form method='POST'>
-                <input type='hidden' name='cambiar_status_id' value='{$row['id']}'>
-                <input type='hidden' name='nuevo_status' value='{$row['status']}'>
-                
-                <button 
-                    type='submit' 
-                    class='btn-status " . 
-                        ($row['status'] == 'Activo' ? 'status-activo' : 'status-inactivo') . 
-                    "'>
-                    {$row['status']}
-                </button>
-            </form>
-        </td>
+                <!-- Botón de cambiar status -->
 
-        <td data-label='Eliminar'>
-            <form method='POST' style='display:inline'>
-                <input type='hidden' name='eliminar_id' value='{$row['id']}'>
-                <button class='btn-eliminar' type='submit' name='eliminar' value='1'>
-                    <span class='btn-eliminar__icon'>
-                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' 
-                            viewBox='0 0 24 24' fill='none' stroke='currentColor'>
-                            <path d='M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6'></path>
-                        </svg>
-                    </span>
-                </button>
-            </form>
-        </td>
-    </tr>";
-                }
-            } else {
-                echo "<tr><td colspan='5'>No hay clientes registrados</td></tr>";
-            }
-        ?>
-        </tbody>
-    </table>
+<td data-label='Status'>
+    <form method='POST'>
+        <input type='hidden' name='cambiar_status_id' value='{$row['id']}'>
+        <input type='hidden' name='nuevo_status' value='{$row['status']}'>
+        <button type='submit' class='btn-status " . ($row['status'] == 'Activo' ? 'status-activo' : 'status-inactivo') . "'>
+            {$row['status']}
+        </button>
+    </form>
+</td>
+                <!-- Botón de editar -->
+<td>
+    <button class='btn-editar'
+        onclick='abrirEditarModal(
+            \"{$row['id']}\",
+            \"{$row['nombre']}\",
+            \"{$row['status']}\"
+        )'>
+        <span class=\"btn-editar__icon\">
+            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\">
+                <path d=\"M12 20h9\" />
+                <path d=\"M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z\" />
+            </svg>
+        </span>
+    </button>
+
+</td>
+
+                <!-- Botón de eliminar -->
+<td data-label='Eliminar'>
+    <form method='POST' style='display:inline'>
+        <input type='hidden' name='eliminar_id' value='{$row['id']}'>
+        <button class='btn-eliminar' type='submit' name='eliminar' value='1'>
+            <span class='btn-eliminar__icon'>
+                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' 
+                    viewBox='0 0 24 24' fill='none' stroke='currentColor'>
+                    <path d='M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6'></path>
+                </svg>
+            </span>
+        </button>
+    </form>
+</td>
+</tr>";
+        } // ← Cerrar foreach
+    } else {
+        echo "<tr><td colspan='5'>No hay clientes registrados</td></tr>";
+    }
+?>
 </main>
 </div>
-
 <script src="../JS/clientes.js"></script>
 </body>
 </html>
