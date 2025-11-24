@@ -47,12 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar_id'])) {
 // 🔹 Editar caja (verificar que pertenece a la tienda actual)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editar_id'])) {
     $id = intval($_POST['editar_id']);
-    $numero = intval($_POST['editar_numero']);
+    $numero = trim($_POST['editar_numero']);
     $estado = trim($_POST['editar_estado']);
     $servicio = !empty($_POST['editar_servicio']) ? intval($_POST['editar_servicio']) : null;
 
     $stmt = $conn->prepare("UPDATE Caja SET Numero_Caja=?, Estado=?, ID_Servicio=? WHERE ID_Caja=? AND ID_Tienda=?");
-    $stmt->bind_param("isiii", $numero, $estado, $servicio, $id, $id_tienda);
+    $stmt->bind_param("ssiii", $numero, $estado, $servicio, $id, $id_tienda);
     $stmt->execute();
     $stmt->close();
     header("Location: " . $_SERVER['PHP_SELF']);
