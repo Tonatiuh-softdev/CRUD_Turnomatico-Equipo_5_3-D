@@ -19,13 +19,18 @@
     <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px; margin: 20px 0;">
         <!-- Barra de búsqueda -->
         <div style="max-width: 300px;">
-            <?php include __DIR__ . '/../Componentes/HTML/BarraBusqueda.html'; ?>
+             
         </div>
     </div>
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: -10px;">
+        <!-- Barra de búsqueda -->
+        <div style="max-width: 300px;">
+            <?php include __DIR__ . '/../Componentes/HTML/BarraBusqueda.html'; ?>
+        </div>
 
-    <!-- Botón para abrir modal agregar -->
-    <button class="btn-agregar" onclick="abrirModal()">+ Agregar Caja</button>
-
+        <!-- Botón grande para abrir modal -->
+        <button class="btn-agregar" onclick="abrirModal()">+ Agregar Caja</button>
+    </div>
     <!-- Modal Agregar -->
     <div id="modalCaja" class="modal">
       <div class="modal-contenido">
@@ -59,7 +64,7 @@
       <input type="hidden" name="editar_id" id="editar_id">
 
       <label for="editar_numero">Número de caja</label>
-      <input type="number" name="editar_numero" id="editar_numero" required>
+      <input type="text" name="editar_numero" id="editar_numero" required>
 
       <div class="grupo-opciones">
         <div class="campo">
@@ -96,8 +101,7 @@
     <table id="tablaCajas">
         <thead>
             <tr>
-                <th data-translate="">ID</th>
-                <th data-translate="Numero">Numero</th>
+                <th data-translate="Codigo">Codigo</th>
                 <th data-translate="Estado">Estado</th>
                 <th data-translate="Servicio">Servicio</th>
                 <th data-translate="Editar">Editar</th>
@@ -107,7 +111,6 @@
         <tbody>
             <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
-                <td data-label="ID"><?= $row['ID_Caja'] ?></td>
                 <td data-label="Número"><?= $row['Numero_Caja'] ?></td>
                 <td data-label="Estado" data-estado="<?= $row['Estado'] ?>"><?= $row['Estado'] ?></td>
                 <td data-label="Servicio"><?= htmlspecialchars($row['ServicioNombre'] ?? 'Sin asignar') ?></td>

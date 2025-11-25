@@ -28,19 +28,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar_id'])) {
     exit;
 }
 
-// 🔹 Agregar cliente desde el modal
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombreCliente'])) {
-    $nombre = trim($_POST['nombreCliente']);
-    if (!empty($nombre)) {
-        $password = password_hash("123456", PASSWORD_DEFAULT);
-        $email = strtolower(str_replace(" ","",$nombre)) . "@example.com";
-        $stmt = $conn->prepare("INSERT INTO usuarios (nombre, email, password, rol, status, ID_Tienda) VALUES (?, ?, ?, 'cliente', 'Activo', ?)");
-        $stmt->bind_param("sssi", $nombre, $email, $password, $id_tienda);
-        $stmt->execute();
-        $stmt->close();
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit;
-    }
+// 🔹 Editar cliente (nombre + status)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editar_id'])) {
+
+    $id = intval($_POST['editar_id']);
+    $nombre = trim($_POST['editar_nombre']);
+    $status = trim($_POST['editar_status']);
+
+    $stmt = $conn->prepare("UPDATE usuarios 
+                            SET nombre=?, status=? 
+                            WHERE id=? AND rol='cliente' AND ID_Tienda=?");
+
+    $stmt->bind_param("ssii", $nombre, $status, $id, $id_tienda);
+    $stmt->execute();
+    $stmt->close();
+
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
 }
 
 // 🔹 Obtener clientes de la tienda actual

@@ -26,25 +26,38 @@
 
 
     <!-- 🟢 Modal editar -->
-    <div id="modalEditar" class="modal">
-        <div class="modal-contenido">
-            <h3>Editar Empleado</h3>
-            <form id="formEditarEmpleado">
-                <input type="hidden" id="editId">
-                <input type="text" id="editNombre" placeholder="Nombre" required>
-                <input type="email" id="editCorreo" placeholder="Correo" required>
-                <button type="submit">Guardar Cambios</button>
-            </form>
-            <button class="cerrar" onclick="cerrarModalEditar()">Cerrar</button>
-        </div>
+<div id="modalEditar" class="modal">
+    <div class="modal-contenido">
+        <h3>Editar Empleado</h3>
+
+        <form id="formEditarEmpleado" method="POST">
+
+            <input type="hidden" id="editId">
+
+            <input type="text" id="editNombre" placeholder="Nombre" required>
+
+            <label for="editRol">Rol</label>
+            <select id="editRol" required>
+                <option value="empleado">Empleado</option>
+                <option value="admin">Admin</option>
+            </select>
+
+            <button type="submit">Guardar Cambios</button>
+        </form>
+
+        <button class="cerrar" onclick="cerrarModalEditar()">Cerrar</button>
     </div>
+</div>
+
 
     <!-- Tabla empleados -->
     <table>
         <thead>
             <tr>
-                <th>ID</th>
+                
                 <th data-translate="Nombre">Nombre</th>
+                <th data-translate="Correo">Correo</th>
+                <th data-translate="Rol">Rol</th>
                 <th data-translate="Editar">Editar</th>
                 <th data-translate="Eliminar">Eliminar</th>
             </tr>

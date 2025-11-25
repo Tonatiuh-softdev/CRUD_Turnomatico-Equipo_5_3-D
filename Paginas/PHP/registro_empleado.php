@@ -50,11 +50,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
   <header>
+  <link rel="stylesheet" href="/Paginas/Componentes/CSS/headerprivado.css">
   <div class="logo">
-    <img src="/img/img.Logo_blanco-Photoroom.png" alt="Logo">
-    <span>Panel Administrativo</span>
-  </div>
-  <div class="user">
+    <img src="/img/Captura de pantalla 2025-09-11 115134.png" width="70"/>
+    
   </div>
 </header>
 

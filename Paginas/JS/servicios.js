@@ -46,7 +46,7 @@ async function cargarServicios() {
         const tr = document.createElement("tr");
 
         tr.innerHTML = `
-        <td data-label="ID">${s.ID_Servicio}</td>
+       
         <td data-label="Servicio">${s.Nombre}</td>
 
         <td data-label="Descripción">${s.Descripcion}</td>

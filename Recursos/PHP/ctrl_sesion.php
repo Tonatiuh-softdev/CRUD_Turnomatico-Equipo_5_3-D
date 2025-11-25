@@ -6,7 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 // Verificar que el usuario tiene una tienda asignada
 if (!isset($_SESSION["id_tienda"])) {
     header("Location: ../../Paginas/PHP/login.php");
-
+    exit;
 }
 
 $id_tienda = $_SESSION["id_tienda"];

@@ -3,7 +3,7 @@
  
 
     /* Layout general */
-    .container { display: flex; height: calc(100vh - 50px); }
+    .container { display: flex; height: calc(90vh - 40px); }
 
     /* Main */
     main {

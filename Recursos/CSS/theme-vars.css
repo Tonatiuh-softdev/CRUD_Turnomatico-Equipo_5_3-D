@@ -12,6 +12,7 @@
   --negro1: #000000;
   --negro2: #000000;
   --negro3: #000000;
+  --gris1: #666666;
   --azul1: #92aecbff;
   --azul2: #bfd4eaff;
   --azul3: #e1ebf6;
@@ -32,7 +33,7 @@
 
 
 html, body{ background: var(--bg); color: var(--text); transition: background .2s, color .2s; }
-header{ background: var(--header-bg); color: var(--text); }
+header{ background: var(--header-bg); color: var(--gris1); }
 .card, .container, main{ background: var(--panel-bg); color: var(--text); }
 a, button, .btn-regresar, .btn-cerrar{ color: var(--text); }
 input, textarea, select{ background: transparent; color: var(--text); }
