@@ -39,6 +39,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // 🔹 Usar la tienda del usuario, no la de sesión
                     $id_tienda_usuario = $user["ID_Tienda"];
 
+                    // 🔹 Obtener el primer servicio de la tienda para asignar al turno
+                    $sql_servicio = "SELECT ID_Servicio FROM Servicio WHERE ID_Tienda = ? LIMIT 1";
+                    $stmt_servicio = $conn->prepare($sql_servicio);
+                    $stmt_servicio->bind_param("i", $id_tienda_usuario);
+                    $stmt_servicio->execute();
+                    $res_servicio = $stmt_servicio->get_result();
+                    $id_servicio = null;
+                    if ($res_servicio->num_rows > 0) {
+                        $servicio_row = $res_servicio->fetch_assoc();
+                        $id_servicio = $servicio_row['ID_Servicio'];
+                    }
+                    $stmt_servicio->close();
+
                     // 🔹 Generar turno automático tipo CLIENTE (B-###)
                     $tipo = "CLIENTE";
                     
@@ -54,10 +67,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     $codigoTurno = "B" . str_pad($total, 3, "0", STR_PAD_LEFT);
 
-                    // Insertar turno en la base de datos
-                    $sql_turno = "INSERT INTO turnos (codigo_turno, tipo, nombre_cliente, estado, ID_Tienda) VALUES (?, ?, ?, 'EN_ESPERA', ?)";
-                    $stmt_turno = $conn->prepare($sql_turno);
-                    $stmt_turno->bind_param("sssi", $codigoTurno, $tipo, $user["nombre"], $id_tienda_usuario);
+                    // Insertar turno en la base de datos con ID_Servicio
+                    if ($id_servicio) {
+                        $sql_turno = "INSERT INTO turnos (codigo_turno, tipo, nombre_cliente, estado, ID_Tienda, ID_Servicio) VALUES (?, ?, ?, 'EN_ESPERA', ?, ?)";
+                        $stmt_turno = $conn->prepare($sql_turno);
+                        $stmt_turno->bind_param("sssii", $codigoTurno, $tipo, $user["nombre"], $id_tienda_usuario, $id_servicio);
+                    } else {
+                        $sql_turno = "INSERT INTO turnos (codigo_turno, tipo, nombre_cliente, estado, ID_Tienda) VALUES (?, ?, ?, 'EN_ESPERA', ?)";
+                        $stmt_turno = $conn->prepare($sql_turno);
+                        $stmt_turno->bind_param("sssi", $codigoTurno, $tipo, $user["nombre"], $id_tienda_usuario);
+                    }
                     $stmt_turno->execute();
                     $stmt_turno->close();
 

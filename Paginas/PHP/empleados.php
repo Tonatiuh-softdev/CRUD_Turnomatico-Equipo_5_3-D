@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editar_id'])) {
     $nombre = trim($_POST['editar_nombre']);
     $email = trim($_POST['editar_email']);
     $rol = trim($_POST['editar_rol']);   // Empleado o Admin
-    $status = trim($_POST['editar_status']);
+    $status = $_POST['editar_status'] ?? 'Activo';
 
     $stmt = $conn->prepare("
         UPDATE usuarios 

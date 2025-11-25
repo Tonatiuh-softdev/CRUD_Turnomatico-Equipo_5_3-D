@@ -26,6 +26,18 @@ while ($row = $res_tiendas->fetch_assoc()) {
     $tiendas[] = $row;
 }
 
+// 🔹 Obtener servicios de la tienda actual
+$servicios = [];
+$sql_servicios = "SELECT ID_Servicio, nombre FROM Servicio WHERE ID_Tienda = ? ORDER BY nombre ASC";
+$stmt_servicios = $conn->prepare($sql_servicios);
+$stmt_servicios->bind_param("i", $id_tienda);
+$stmt_servicios->execute();
+$res_servicios = $stmt_servicios->get_result();
+while ($row = $res_servicios->fetch_assoc()) {
+    $servicios[] = $row;
+}
+$stmt_servicios->close();
+
 // 🔹 Obtener turnos en espera
 $sql_turnos = "SELECT codigo_turno, tipo, estado, nombre_cliente FROM turnos WHERE estado = 'EN_ESPERA' AND ID_Tienda = ? ORDER BY id ASC";
 $stmt_turnos = $conn->prepare($sql_turnos);

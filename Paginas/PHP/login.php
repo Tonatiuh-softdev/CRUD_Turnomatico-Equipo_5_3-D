@@ -2,6 +2,11 @@
     require '../../Recursos/PHP/redirecciones.php';
     $conn = loadConexion(); // ✅ Crea la conexión
 
+    date_default_timezone_set("America/Mexico_City");
+    $hora = date("h:i a");
+    setlocale(LC_TIME, "es_MX.UTF-8"); 
+    $fecha = (new DateTime())->format("d \ \e F \ \e Y");
+    
     // Iniciar sesión sin verificación de rol
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
