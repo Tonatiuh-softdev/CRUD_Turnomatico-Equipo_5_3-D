@@ -36,10 +36,18 @@
 
             <input type="text" id="editNombre" placeholder="Nombre" required>
 
+            <input type="email" id="editEmail" placeholder="Email" required>
+
             <label for="editRol">Rol</label>
             <select id="editRol" required>
-                <option value="empleado">Empleado</option>
-                <option value="admin">Admin</option>
+                <option value="Empleado">Empleado</option>
+                <option value="Admin">Admin</option>
+            </select>
+
+            <label for="editStatus">Estado</label>
+            <select id="editStatus" required>
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
             </select>
 
             <button type="submit">Guardar Cambios</button>

@@ -16,20 +16,25 @@ if (!isset($_SESSION["rol"]) || !in_array($_SESSION["rol"], ['empleado', 'admin'
 
 // 🔹 Obtener ID_Tienda de la sesión
 $id_tienda = $_SESSION["id_tienda"];
+$error_mensaje = "";
 
 // 🔹 Crear caja
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['numeroCaja'])) {
-    $numero = intval($_POST['numeroCaja']);
+    $numero = trim($_POST['numeroCaja']);
     $estado = trim($_POST['estadoCaja']);
     $servicio = !empty($_POST['idServicio']) ? intval($_POST['idServicio']) : null;
 
-    if ($numero > 0) {
+    if ($numero > 0 && $servicio) {
         $stmt = $conn->prepare("INSERT INTO Caja (Numero_Caja, Estado, ID_Servicio, ID_Tienda) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("isii", $numero, $estado, $servicio, $id_tienda);
+        $stmt->bind_param("ssii", $numero, $estado, $servicio, $id_tienda);
         $stmt->execute();
         $stmt->close();
         header("Location: " . $_SERVER['PHP_SELF']);
         exit;
+    } else if ($numero <= 0) {
+        $error_mensaje = "⚠️ El número de caja debe ser mayor a 0";
+    } else {
+        $error_mensaje = "⚠️ Debes seleccionar un servicio para la caja";
     }
 }
 
@@ -51,12 +56,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editar_id'])) {
     $estado = trim($_POST['editar_estado']);
     $servicio = !empty($_POST['editar_servicio']) ? intval($_POST['editar_servicio']) : null;
 
-    $stmt = $conn->prepare("UPDATE Caja SET Numero_Caja=?, Estado=?, ID_Servicio=? WHERE ID_Caja=? AND ID_Tienda=?");
-    $stmt->bind_param("ssiii", $numero, $estado, $servicio, $id, $id_tienda);
-    $stmt->execute();
-    $stmt->close();
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
+    if ($servicio) {
+        $stmt = $conn->prepare("UPDATE Caja SET Numero_Caja=?, Estado=?, ID_Servicio=? WHERE ID_Caja=? AND ID_Tienda=?");
+        $stmt->bind_param("ssiii", $numero, $estado, $servicio, $id, $id_tienda);
+        $stmt->execute();
+        $stmt->close();
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit;
+    } else {
+        $error_mensaje = "⚠️ Debes seleccionar un servicio para la caja";
+    }
 }
 
 // Cargar navbar
