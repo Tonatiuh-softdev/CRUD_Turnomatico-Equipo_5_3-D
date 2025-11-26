@@ -5,6 +5,64 @@
         background: #f5f5f5;
     }
 
+    /* Selector de caja - Diseño mejorado */
+    .caja-selector-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 20px 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        margin-bottom: 20px;
+        border-radius: 15px;
+    }
+
+    .caja-selector-form {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        padding: 15px 30px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .caja-label {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        white-space: nowrap;
+    }
+
+    .caja-select {
+        padding: 10px 15px;
+        font-size: 15px;
+        border: 2px solid #667eea;
+        border-radius: 8px;
+        background: #fff;
+        color: #333;
+        cursor: pointer;
+        min-width: 200px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .caja-select:hover {
+        border-color: #764ba2;
+        box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+    }
+
+    .caja-select:focus {
+        outline: none;
+        border-color: #764ba2;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    .caja-select option {
+        padding: 10px;
+        background: #fff;
+        color: #333;
+    }
+
   
 
     /* Layout principal */

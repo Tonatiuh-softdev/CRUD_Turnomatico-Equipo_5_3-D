@@ -102,6 +102,7 @@ if ($id_servicio) {
 // 🔹 Obtener turno actual (solo del servicio seleccionado)
 $turno_actual = null;
 if ($id_servicio) {
+    // Primero buscar ATENDIENDO
     $sql_turno = "SELECT codigo_turno, tipo, estado, nombre_cliente FROM turnos WHERE estado = 'ATENDIENDO' AND ID_Tienda = ? AND ID_Servicio = ? ORDER BY id DESC LIMIT 1";
     $stmt_turno = $conn->prepare($sql_turno);
     $stmt_turno->bind_param("ii", $id_tienda, $id_servicio);
@@ -110,15 +111,15 @@ if ($id_servicio) {
     $turno_actual = $res_turno->fetch_assoc();
     $stmt_turno->close();
 
-    // Si no hay turno en atención, mostrar el último generado
+    // Si no hay turno en atención, mostrar el siguiente EN_ESPERA (no PAUSADO ni ATENDIDO)
     if (!$turno_actual) {
-        $sql_last = "SELECT codigo_turno, tipo, estado, nombre_cliente FROM turnos WHERE ID_Tienda = ? AND ID_Servicio = ? ORDER BY id DESC LIMIT 1";
-        $stmt_last = $conn->prepare($sql_last);
-        $stmt_last->bind_param("ii", $id_tienda, $id_servicio);
-        $stmt_last->execute();
-        $res_last = $stmt_last->get_result();
-        $turno_actual = $res_last->fetch_assoc();
-        $stmt_last->close();
+        $sql_next = "SELECT codigo_turno, tipo, estado, nombre_cliente FROM turnos WHERE (estado = 'EN_ESPERA' OR estado = 'PAUSADO') AND ID_Tienda = ? AND ID_Servicio = ? ORDER BY id ASC LIMIT 1";
+        $stmt_next = $conn->prepare($sql_next);
+        $stmt_next->bind_param("ii", $id_tienda, $id_servicio);
+        $stmt_next->execute();
+        $res_next = $stmt_next->get_result();
+        $turno_actual = $res_next->fetch_assoc();
+        $stmt_next->close();
     }
 }
 
