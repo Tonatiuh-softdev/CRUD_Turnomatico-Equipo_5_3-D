@@ -1,45 +1,76 @@
 // Cargar empleados al abrir la página
 document.addEventListener('DOMContentLoaded', function() {
     cargarEmpleados();
+    inicializarBusqueda();
 });
+
+// Variable para almacenar todos los empleados
+let todosLosEmpleados = [];
 
 // Cargar empleados desde la base de datos
 function cargarEmpleados() {
     fetch('../PHP/SupAdmEmp.php?action=obtenerEmpleados')
         .then(response => response.json())
         .then(data => {
-            const tabla = document.getElementById('tablaEmpleados');
-            tabla.innerHTML = '';
-            
-            if (data && data.length > 0) {
-                data.forEach(empleado => {
-                    const fila = document.createElement('tr');
-                    fila.innerHTML = `
-                        <td>${empleado.id}</td>
-                        <td>${empleado.nombre}</td>
-                        <td>${empleado.descripcion || 'N/A'}</td>
-                        <td>
-                            <button class="btn-editar" onclick="editarEmpleado(${empleado.id}, '${empleado.nombre}', '${empleado.descripcion}')" title="Editar">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-7-4l8.5-8.5a2.121 2.121 0 013 3L14 10.5M16 3l3 3"></path>
-                                </svg>
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn-eliminar" onclick="eliminarEmpleado(${empleado.id})" title="Eliminar">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                </svg>
-                            </button>
-                        </td>
-                    `;
-                    tabla.appendChild(fila);
-                });
-            } else {
-                tabla.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">No hay empleados registrados</td></tr>';
-            }
+            todosLosEmpleados = data || [];
+            mostrarEmpleados(todosLosEmpleados);
         })
         .catch(error => console.error('Error:', error));
+}
+
+// Mostrar empleados en la tabla
+function mostrarEmpleados(empleados) {
+    const tabla = document.getElementById('tablaEmpleados');
+    tabla.innerHTML = '';
+    
+    if (empleados && empleados.length > 0) {
+        empleados.forEach(empleado => {
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td>${empleado.id}</td>
+                <td>${empleado.nombre}</td>
+                <td>${empleado.descripcion || 'N/A'}</td>
+                <td>
+                    <button class="btn-editar" onclick="editarEmpleado(${empleado.id}, '${empleado.nombre}', '${empleado.descripcion}')" title="Editar">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-7-4l8.5-8.5a2.121 2.121 0 013 3L14 10.5M16 3l3 3"></path>
+                        </svg>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn-eliminar" onclick="eliminarEmpleado(${empleado.id})" title="Eliminar">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                    </button>
+                </td>
+            `;
+            tabla.appendChild(fila);
+        });
+    } else {
+        tabla.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">No hay empleados registrados</td></tr>';
+    }
+}
+
+// Inicializar búsqueda
+function inicializarBusqueda() {
+    const inputBusqueda = document.querySelector('.input');
+    if (!inputBusqueda) return;
+    
+    inputBusqueda.addEventListener('input', function(e) {
+        const termino = e.target.value.toLowerCase().trim();
+        
+        if (termino === '') {
+            mostrarEmpleados(todosLosEmpleados);
+        } else {
+            const resultados = todosLosEmpleados.filter(empleado => 
+                empleado.id.toString().includes(termino) ||
+                empleado.nombre.toLowerCase().includes(termino) ||
+                (empleado.descripcion && empleado.descripcion.toLowerCase().includes(termino))
+            );
+            mostrarEmpleados(resultados);
+        }
+    });
 }
 
 // Abrir modal para agregar empleado

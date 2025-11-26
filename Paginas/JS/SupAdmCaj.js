@@ -1,45 +1,76 @@
 // Cargar cajas al abrir la página
 document.addEventListener('DOMContentLoaded', function() {
     cargarCajas();
+    inicializarBusqueda();
 });
+
+// Variable para almacenar todas las cajas
+let todasLasCajas = [];
 
 // Cargar cajas desde la base de datos
 function cargarCajas() {
     fetch('../PHP/SupAdmCaj.php?action=obtenerCajas')
         .then(response => response.json())
         .then(data => {
-            const tabla = document.getElementById('tablaCajas');
-            tabla.innerHTML = '';
-            
-            if (data && data.length > 0) {
-                data.forEach(caja => {
-                    const fila = document.createElement('tr');
-                    fila.innerHTML = `
-                        <td>${caja.id}</td>
-                        <td>${caja.nombre}</td>
-                        <td>${caja.descripcion || 'N/A'}</td>
-                        <td>
-                            <button class="btn-editar" onclick="editarCaja(${caja.id}, '${caja.nombre}', '${caja.descripcion}')" title="Editar">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-7-4l8.5-8.5a2.121 2.121 0 013 3L14 10.5M16 3l3 3"></path>
-                                </svg>
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn-eliminar" onclick="eliminarCaja(${caja.id})" title="Eliminar">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                </svg>
-                            </button>
-                        </td>
-                    `;
-                    tabla.appendChild(fila);
-                });
-            } else {
-                tabla.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">No hay cajas registradas</td></tr>';
-            }
+            todasLasCajas = data || [];
+            mostrarCajas(todasLasCajas);
         })
         .catch(error => console.error('Error:', error));
+}
+
+// Mostrar cajas en la tabla
+function mostrarCajas(cajas) {
+    const tabla = document.getElementById('tablaCajas');
+    tabla.innerHTML = '';
+    
+    if (cajas && cajas.length > 0) {
+        cajas.forEach(caja => {
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td>${caja.id}</td>
+                <td>${caja.nombre}</td>
+                <td>${caja.descripcion || 'N/A'}</td>
+                <td>
+                    <button class="btn-editar" onclick="editarCaja(${caja.id}, '${caja.nombre}', '${caja.descripcion}')" title="Editar">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-7-4l8.5-8.5a2.121 2.121 0 013 3L14 10.5M16 3l3 3"></path>
+                        </svg>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn-eliminar" onclick="eliminarCaja(${caja.id})" title="Eliminar">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                    </button>
+                </td>
+            `;
+            tabla.appendChild(fila);
+        });
+    } else {
+        tabla.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">No hay cajas registradas</td></tr>';
+    }
+}
+
+// Inicializar búsqueda
+function inicializarBusqueda() {
+    const inputBusqueda = document.querySelector('.input');
+    if (!inputBusqueda) return;
+    
+    inputBusqueda.addEventListener('input', function(e) {
+        const termino = e.target.value.toLowerCase().trim();
+        
+        if (termino === '') {
+            mostrarCajas(todasLasCajas);
+        } else {
+            const resultados = todasLasCajas.filter(caja => 
+                caja.id.toString().includes(termino) ||
+                caja.nombre.toLowerCase().includes(termino) ||
+                (caja.descripcion && caja.descripcion.toLowerCase().includes(termino))
+            );
+            mostrarCajas(resultados);
+        }
+    });
 }
 
 // Abrir modal para agregar caja
