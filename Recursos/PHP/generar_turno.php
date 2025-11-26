@@ -20,6 +20,12 @@ $tipo = isset($_GET["tipo"]) ? strtoupper($_GET["tipo"]) : "VISITANTE";
 $id_servicio = isset($_GET["id_servicio"]) ? intval($_GET["id_servicio"]) : null;
 $nombreCliente = ($tipo === "CLIENTE" && isset($_SESSION["usuario"])) ? $_SESSION["usuario"] : null;
 
+// 🔹 Validar que se proporcionó un servicio
+if (!$id_servicio) {
+    echo json_encode(['error' => 'Debe seleccionar un servicio']);
+    exit;
+}
+
 // Obtener el número total actual para generar el código usando prepared statement
 $sql_count = "SELECT COUNT(*) AS total FROM turnos WHERE ID_Tienda = ?";
 $stmt_count = $conn->prepare($sql_count);
@@ -32,17 +38,10 @@ $stmt_count->close();
 
 $codigoTurno = ($tipo === "CLIENTE" ? "A" : "B") . str_pad($total, 3, "0", STR_PAD_LEFT);
 
-// Insertar turno en la base de datos con ID_Servicio
-if ($id_servicio) {
-    $query = "INSERT INTO turnos (codigo_turno, tipo, nombre_cliente, estado, ID_Tienda, ID_Servicio) VALUES (?, ?, ?, 'EN_ESPERA', ?, ?)";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("sssii", $codigoTurno, $tipo, $nombreCliente, $id_tienda, $id_servicio);
-} else {
-    $query = "INSERT INTO turnos (codigo_turno, tipo, nombre_cliente, estado, ID_Tienda) VALUES (?, ?, ?, 'EN_ESPERA', ?)";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("sssi", $codigoTurno, $tipo, $nombreCliente, $id_tienda);
-}
-
+// Insertar turno en la base de datos con ID_Servicio (ahora es obligatorio)
+$query = "INSERT INTO turnos (codigo_turno, tipo, nombre_cliente, estado, ID_Tienda, ID_Servicio) VALUES (?, ?, ?, 'EN_ESPERA', ?, ?)";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("sssii", $codigoTurno, $tipo, $nombreCliente, $id_tienda, $id_servicio);
 $stmt->execute();
 $stmt->close();
 
