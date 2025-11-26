@@ -77,119 +77,32 @@ const cerrar = document.querySelector('.cerrar');
 cerrar.addEventListener('click', cerrarModal);
 overlay.addEventListener('click', cerrarModal);
 
-// Variable global para el tipo de turno
-let tipoTurnoSeleccionado = null;
-
-// 🔹 Si el cliente ya está logueado, mostrar selector de servicio al cargar
 const clienteLogueado = <?php echo $clienteLogueado ? 'true' : 'false'; ?>;
 const nombreCliente = "<?php echo htmlspecialchars($nombreCliente ?? ''); ?>";
 
 document.addEventListener('DOMContentLoaded', function() {
-    if (clienteLogueado) {
-        console.log("Cliente logueado, mostrando selector de servicio");
-        mostrarSelectorServicio('cliente');
+    // Verificar si hay un turno en la URL (después de generar)
+    const urlParams = new URLSearchParams(window.location.search);
+    const turno = urlParams.get('turno');
+    
+    if (turno) {
+        // Mostrar el turno generado
+        document.getElementById("turnoModal").textContent = turno;
+        document.getElementById("nombreModal").textContent = clienteLogueado ? nombreCliente : "Visitante";
+        overlay.classList.add('active');
+        modal.classList.add('active');
+        
+        // Limpiar la URL
+        window.history.replaceState({}, document.title, window.location.pathname);
     }
 });
 
-// Obtener servicios de la tienda
-async function obtenerServicios() {
-    try {
-        const response = await fetch("../../Recursos/PHP/obtener_servicios.php");
-        return await response.json();
-    } catch (error) {
-        console.error("Error al obtener servicios:", error);
-        return [];
-    }
-}
-
-// Mostrar modal para seleccionar servicio
-async function mostrarSelectorServicio(tipo) {
-    tipoTurnoSeleccionado = tipo.toUpperCase();
-    
-    const servicios = await obtenerServicios();
-    
-    if (servicios.length === 0) {
-        alert("No hay servicios disponibles en esta tienda");
-        return;
-    }
-    
-    // Crear modal de selección de servicios
-    const selectorModal = document.createElement('div');
-    selectorModal.className = 'overlay active';
-    selectorModal.innerHTML = `
-        <div class="modal active">
-            <div class="turno-modal">
-                <button class="cerrar" onclick="this.closest('.overlay').remove()">✖</button>
-                <img src="../../img/img.Logo_blanco-Photoroom.png" alt="Logo" class="imagen">
-                <div class="texto">ClickMatic</div>
-                <div style="text-align: center; margin: 20px 0; font-size: 18px; color: #333;">
-                    Selecciona un servicio
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 10px; padding: 0 20px;">
-                    ${servicios.map(servicio => `
-                        <button style="padding: 12px 20px; background: #7d6df6; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: background 0.3s;" 
-                                onmouseover="this.style.background='#6a5ae8'" 
-                                onmouseout="this.style.background='#7d6df6'"
-                                onclick="generarTurnoConServicio(${servicio.ID_Servicio}, '${tipoTurnoSeleccionado}')">
-                            ${servicio.nombre}
-                        </button>
-                    `).join('')}
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(selectorModal);
-    
-    // Cerrar al hacer clic en el fondo
-    selectorModal.addEventListener('click', (e) => {
-        if (e.target === selectorModal) {
-            selectorModal.remove();
-        }
-    });
-}
-
-// Generar turno con servicio seleccionado
-async function generarTurnoConServicio(idServicio, tipo) {
-    try {
-        const response = await fetch(`../../Recursos/PHP/generar_turno.php?tipo=${tipo.toLowerCase()}&id_servicio=${idServicio}`);
-        const turno = await response.text();
-        
-        if (turno.includes('error') || turno.includes('Fatal')) {
-            alert("Error al generar turno: " + turno);
-            console.error(turno);
-            return;
-        }
-        
-        document.getElementById("turnoModal").textContent = turno;
-        document.getElementById("nombreModal").textContent = tipo === "CLIENTE" ? nombreCliente : "Visitante";
-        
-        // Cerrar modal de selección
-        document.querySelectorAll('.overlay.active').forEach(el => {
-            if (el !== overlay) el.remove();
-        });
-        
-        overlay.classList.add('active');
-        modal.classList.add('active');
-
-        // Si es cliente, destruir sesión
-        if (tipo === "CLIENTE") {
-            await fetch("./logout_cliente.php");
-        }
-    } catch (error) {
-        console.error("Error al generar turno:", error);
-        alert("Error al generar turno");
-    }
-}
-
-// Generar turno visitante (ahora con selector de servicio)
 function abrirModalVisitante() {
-    mostrarSelectorServicio('visitante');
+    window.location.href = "seleccionar_servicio_visitante.php";
 }
 
-// Generar turno cliente logueado (ahora con selector de servicio)
 function abrirModalCliente() {
-    mostrarSelectorServicio('cliente');
+    window.location.href = "seleccionar_servicio.php";
 }
 
 function cerrarModal() {

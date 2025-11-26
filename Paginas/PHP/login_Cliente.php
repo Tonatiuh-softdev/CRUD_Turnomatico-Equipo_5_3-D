@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require '../../Recursos/PHP/redirecciones.php';
 $conn = loadConexion(); // ✅ Crea la conexión
 
@@ -32,8 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["rol"] = "cliente";
                 $_SESSION["id_tienda"] = $user["ID_Tienda"];
 
-                // 🔹 Redirigir a pantallaTomarTurno para que elija servicio
-                header("Location: pantallaTomarTurno.php");
+                // 🔹 Redirigir a seleccionar servicio
+                header("Location: seleccionar_servicio.php");
                 exit;
             } else {
                 $mensaje = "⚠️ Contraseña incorrecta.";
