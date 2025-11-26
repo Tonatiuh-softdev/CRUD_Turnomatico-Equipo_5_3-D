@@ -98,7 +98,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function abrirModalVisitante() {
-    window.location.href = "seleccionar_servicio_visitante.php";
+    // 🔹 Limpiar sesión del cliente antes de ir a visitante
+    fetch("logout_cliente.php").then(() => {
+        window.location.href = "seleccionar_servicio_visitante.php";
+    });
 }
 
 function abrirModalCliente() {
