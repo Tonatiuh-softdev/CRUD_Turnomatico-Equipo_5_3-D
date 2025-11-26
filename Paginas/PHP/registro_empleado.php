@@ -1,5 +1,6 @@
 <?php
 require '../../Recursos/PHP/redirecciones.php';
+require 'enviar_correo.php'; // ← IMPORTANTE
 $conn = loadConexion();
 session_start();
 
@@ -21,13 +22,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->num_rows > 0) {
             $mensaje = "⚠️ Este correo ya está registrado.";
         } else {
+
+            // ============================
+            // GENERAR TOKEN DE VERIFICACIÓN
+            // ============================
+            $token = bin2hex(random_bytes(32));
+
+            $link_verificacion = "http://localhost/system.Turnomatico26/NEXORA/Paginas/PHP/verificar_empleado.php?token=$token";
+
+            // Guardar empleado con token
             $password_hash = password_hash($password, PASSWORD_BCRYPT);
-            $sql_insert = "INSERT INTO usuarios (nombre, email, password, rol) VALUES (?, ?, ?, 'empleado')";
+
+            $sql_insert = "INSERT INTO usuarios (nombre, email, password, rol, token_verificacion, verificado)
+                           VALUES (?, ?, ?, 'empleado', ?, 0)";
+
             $stmt_insert = $conn->prepare($sql_insert);
-            $stmt_insert->bind_param("sss", $nombre, $email, $password_hash);
+            $stmt_insert->bind_param("ssss", $nombre, $email, $password_hash, $token);
 
             if ($stmt_insert->execute()) {
-                $mensaje = "✅ Registro exitoso. Ya puedes iniciar sesión.";
+                
+                // ============================
+                // ENVIAR CORREO DE VERIFICACIÓN
+                // ============================
+                enviarCorreoVerificacion($email, $nombre, $link_verificacion);
+
+                $mensaje = "✅ Registro exitoso. Se envió un correo de confirmación.";
             } else {
                 $mensaje = "❌ Error al registrar. Intenta nuevamente.";
             }
@@ -39,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
