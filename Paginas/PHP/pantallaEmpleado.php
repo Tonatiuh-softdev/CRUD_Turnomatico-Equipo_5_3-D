@@ -16,7 +16,7 @@ $id_caja = isset($_POST['id_caja_select']) ? intval($_POST['id_caja_select']) : 
 
 // 🔹 Obtener todas las cajas de la tienda
 $cajas = [];
-$sql_cajas = "SELECT ID_Caja, numero_caja, ID_Servicio FROM Caja WHERE ID_Tienda = ? ORDER BY numero_caja ASC";
+$sql_cajas = "SELECT ID_Caja, numero_caja, ID_Servicio FROM caja WHERE ID_Tienda = ? ORDER BY numero_caja ASC";
 $stmt_cajas = $conn->prepare($sql_cajas);
 $stmt_cajas->bind_param("i", $id_tienda);
 $stmt_cajas->execute();

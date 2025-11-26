@@ -28,7 +28,7 @@ while ($row = $res_tiendas->fetch_assoc()) {
 
 // 🔹 Obtener servicios de la tienda actual
 $servicios = [];
-$sql_servicios = "SELECT ID_Servicio, nombre FROM Servicio WHERE ID_Tienda = ? ORDER BY nombre ASC";
+$sql_servicios = "SELECT ID_Servicio, nombre FROM servicio WHERE ID_Tienda = ? ORDER BY nombre ASC";
 $stmt_servicios = $conn->prepare($sql_servicios);
 $stmt_servicios->bind_param("i", $id_tienda);
 $stmt_servicios->execute();

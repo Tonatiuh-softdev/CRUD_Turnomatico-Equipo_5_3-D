@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $id_tienda_usuario = $user["ID_Tienda"];
 
                     // 🔹 Obtener el primer servicio de la tienda para asignar al turno
-                    $sql_servicio = "SELECT ID_Servicio FROM Servicio WHERE ID_Tienda = ? LIMIT 1";
+                    $sql_servicio = "SELECT ID_Servicio FROM servicio WHERE ID_Tienda = ? LIMIT 1";
                     $stmt_servicio = $conn->prepare($sql_servicio);
                     $stmt_servicio->bind_param("i", $id_tienda_usuario);
                     $stmt_servicio->execute();
@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $stmt_turno = $conn->prepare($sql_turno);
                         $stmt_turno->bind_param("sssi", $codigoTurno, $tipo, $user["nombre"], $id_tienda_usuario);
                     }
-                    $stmt_turno->execute();
+                    $stmt_turno->execute(); 
                     $stmt_turno->close();
 
                     // Guardar el código del turno en la sesión
