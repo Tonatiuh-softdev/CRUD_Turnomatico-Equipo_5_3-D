@@ -74,9 +74,38 @@ async function crearGrafica(periodo = 'año') {
     const etiquetas = ['CLIENTE', 'VISITANTE'];
     const valores = [parseInt(cliente.total), parseInt(visitante.total)];
 
-    // Actualizar textos informativos
-    document.getElementById('infoCliente').textContent = `${cliente.total} turnos`;
-    document.getElementById('infoVisitante').textContent = `${visitante.total} turnos`;
+    // Actualizar KPIs
+    const totalTurnos = valores[0] + valores[1];
+    const elemTotalTurnos = document.getElementById('totalTurnos');
+    const elemClientes = document.getElementById('kpiClientes');
+    const elemVisitantes = document.getElementById('kpiVisitantes');
+    
+    if (elemTotalTurnos) elemTotalTurnos.textContent = totalTurnos;
+    if (elemClientes) elemClientes.textContent = valores[0];
+    if (elemVisitantes) elemVisitantes.textContent = valores[1];
+
+    // Generar leyenda HTML
+    const leyendaContainer = document.getElementById('serviciosLeyenda');
+    if (leyendaContainer) {
+        leyendaContainer.innerHTML = '';
+        
+        const paletasColores = {
+            año: ['#7d6df6', '#ff7070'],
+            mes: ['#6dc8f6', '#ff9b9b'],
+            dia: ['#ffd766', '#ff8a8a']
+        };
+        const colores = paletasColores[periodo] || paletasColores['año'];
+
+        etiquetas.forEach((label, index) => {
+            const item = document.createElement('div');
+            item.className = 'info-item';
+            item.innerHTML = `
+                <span style="background-color: ${colores[index]};"></span>
+                <strong>${label}</strong> ${valores[index]} turnos
+            `;
+            leyendaContainer.appendChild(item);
+        });
+    }
 
     // Si no hay datos, mostrar mensaje y no crear gráfica
     if (valores[0] === 0 && valores[1] === 0) {
@@ -89,7 +118,12 @@ async function crearGrafica(periodo = 'año') {
     }
 
     // Elegir paleta según el periodo
-    const colores = paletas[periodo] || paletas['año'];
+    const paletasColores = {
+        año: ['#7d6df6', '#ff7070'],
+        mes: ['#6dc8f6', '#ff9b9b'],
+        dia: ['#ffd766', '#ff8a8a']
+    };
+    const colores = paletasColores[periodo] || paletasColores['año'];
 
     if (grafica) grafica.destroy();
 
@@ -136,3 +170,4 @@ function actualizarGrafica(periodo) {
 document.addEventListener('DOMContentLoaded', () => {
     crearGrafica();
 });
+
