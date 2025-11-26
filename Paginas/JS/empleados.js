@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function(){
     if (dataContainer && dataContainer.dataset.empleados) {
         empleados = JSON.parse(dataContainer.dataset.empleados);
     }
-    
+
     mostrarEmpleados();
 });
 
@@ -19,8 +19,10 @@ document.addEventListener('DOMContentLoaded', function(){
 -------------------------------------------------- */
 function mostrarEmpleados() {
     tabla.innerHTML = "";
+
     empleados.forEach(emp => {
         const fila = document.createElement("tr");
+
         fila.innerHTML = `
             <td>${emp.nombre}</td>
             <td>${emp.email}</td>
@@ -40,6 +42,7 @@ function mostrarEmpleados() {
                 </form>
             </td>
         `;
+
         tabla.appendChild(fila);
     });
 }

@@ -9,17 +9,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'])) {
     $conn = conexion();
     $action = $_GET['action'];
 
-    if ($action == 'obtenerTiendas') {
-        $query = "SELECT ID_Tienda as id, Nombre as nombre, '' as descripcion FROM tienda ORDER BY ID_Tienda DESC";
+    if ($action == 'obtenerServicios') {
+        $query = "SELECT ID_Servicio as id, Nombre as nombre, Descripcion as descripcion FROM servicio ORDER BY ID_Servicio DESC";
         $result = $conn->query($query);
-        $tiendas = [];
+        $servicios = [];
         
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $tiendas[] = $row;
+                $servicios[] = $row;
             }
         }
-        echo json_encode($tiendas);
+        echo json_encode($servicios);
         exit;
     }
 }
@@ -31,39 +31,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])) {
     $action = $_GET['action'];
     $data = json_decode(file_get_contents('php://input'), true);
 
-    if ($action == 'agregarTienda') {
+    if ($action == 'agregarServicio') {
         $nombre = $conn->real_escape_string($data['nombre']);
+        $descripcion = $conn->real_escape_string($data['descripcion']);
         
-        $query = "INSERT INTO tienda (Nombre) VALUES ('$nombre')";
+        $query = "INSERT INTO servicio (Nombre, Descripcion) VALUES ('$nombre', '$descripcion')";
         
         if ($conn->query($query)) {
-            echo json_encode(['success' => true, 'message' => 'Tienda agregada exitosamente']);
+            echo json_encode(['success' => true, 'message' => 'Servicio agregado exitosamente']);
         } else {
             echo json_encode(['success' => false, 'error' => $conn->error]);
         }
         exit;
     }
 
-    if ($action == 'editarTienda') {
+    if ($action == 'editarServicio') {
         $id = (int)$data['id'];
         $nombre = $conn->real_escape_string($data['nombre']);
+        $descripcion = $conn->real_escape_string($data['descripcion']);
         
-        $query = "UPDATE tienda SET Nombre='$nombre' WHERE ID_Tienda=$id";
+        $query = "UPDATE servicio SET Nombre='$nombre', Descripcion='$descripcion' WHERE ID_Servicio=$id";
         
         if ($conn->query($query)) {
-            echo json_encode(['success' => true, 'message' => 'Tienda actualizada exitosamente']);
+            echo json_encode(['success' => true, 'message' => 'Servicio actualizado exitosamente']);
         } else {
             echo json_encode(['success' => false, 'error' => $conn->error]);
         }
         exit;
     }
 
-    if ($action == 'eliminarTienda') {
+    if ($action == 'eliminarServicio') {
         $id = (int)$data['id'];
-        $query = "DELETE FROM tienda WHERE ID_Tienda=$id";
+        $query = "DELETE FROM servicio WHERE ID_Servicio=$id";
         
         if ($conn->query($query)) {
-            echo json_encode(['success' => true, 'message' => 'Tienda eliminada exitosamente']);
+            echo json_encode(['success' => true, 'message' => 'Servicio eliminado exitosamente']);
         } else {
             echo json_encode(['success' => false, 'error' => $conn->error]);
         }
@@ -81,30 +83,30 @@ loadHeader();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXORA - Panel SuperAdmin</title>
-<link rel="stylesheet" href="../CSS/PanelSuperAdmin.css">
+<title>NEXORA - Panel SuperAdmin Servicios</title>
+<link rel="stylesheet" href="../CSS/SupAdmServ.css">
 </head>
 <body>
 <div class="container">
    <?php renderNavbarSuperAdmin(); ?>
    <main>
-       <div class="tiendas-section">
-           <h2 data-translate="Administrar Tiendas">Administrar Tiendas</h2>
+       <div class="servicios-section">
+           <h2 data-translate="Administrar Servicios">Administrar Servicios</h2>
 
            <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: -10px;">
                <div style="max-width: 300px;">
                    <?php include __DIR__ . '/../Componentes/HTML/BarraBusqueda.html'; ?>
                </div>
-               <button class="btn-agregar" onclick="abrirModal()">+ Agregar Tienda</button>
+               <button class="btn-agregar" onclick="abrirModal()">+ Agregar Servicio</button>
            </div>
 
            <!-- Modal agregar -->
-           <div id="modalTienda" class="modal">
+           <div id="modalServicio" class="modal">
                <div class="modal-contenido">
-                   <h3 data-translate="Agregar tienda">Agregar Tienda</h3>
+                   <h3 data-translate="Agregar servicio">Agregar Servicio</h3>
                    <form id="formModal">
-                       <input type="text" id="nombreModal" placeholder="Nombre de la tienda" required>
-                       <textarea id="descripcionModal" placeholder="Descripción de la tienda"></textarea>
+                       <input type="text" id="nombreModal" placeholder="Nombre del servicio" required>
+                       <textarea id="descripcionModal" placeholder="Descripción del servicio"></textarea>
                        <button type="submit" data-translate="Agregar Datos">Agregar Datos</button>
                    </form>
                    <button class="cerrar" onclick="cerrarModal()">Cerrar</button>
@@ -114,33 +116,33 @@ loadHeader();
            <!-- Modal editar -->
            <div id="modalEditar" class="modal">
                <div class="modal-contenido">
-                   <h3 data-translate="Editar tienda">Editar Tienda</h3>
+                   <h3 data-translate="Editar servicio">Editar Servicio</h3>
                    <form id="formEditar">
                        <input type="hidden" id="idEditar">
-                       <input type="text" id="nombreEditar" placeholder="Nombre de la tienda" required>
-                       <textarea id="descripcionEditar" placeholder="Descripción de la tienda"></textarea>
+                       <input type="text" id="nombreEditar" placeholder="Nombre del servicio" required>
+                       <textarea id="descripcionEditar" placeholder="Descripción del servicio"></textarea>
                        <button type="submit" data-translate="Guardar Cambios">Guardar Cambios</button>
                    </form>
                    <button class="cerrar" onclick="cerrarModalEditar()">Cerrar</button>
                </div>
            </div>
 
-           <!-- Tabla tiendas -->
+           <!-- Tabla servicios -->
            <table>
                <thead>
                    <tr>
                        <th>ID</th>
-                       <th data-translate="Tienda">Tienda</th>
+                       <th data-translate="Servicio">Servicio</th>
                        <th data-translate="Descripción">Descripción</th>
                        <th data-translate="Editar">Editar</th>
                        <th data-translate="Eliminar">Eliminar</th>
                    </tr>
                </thead>
-               <tbody id="tablaTiendas"></tbody>
+               <tbody id="tablaServicios"></tbody>
            </table>
        </div>
    </main>
 </div>
-<script src="../JS/PanelSuperAdmin.js"></script>
+<script src="../JS/SupAdmServ.js"></script>
 </body>
 </html>

@@ -19,25 +19,10 @@
         <div style="max-width: 300px;">
             <?php include __DIR__ . '/../Componentes/HTML/BarraBusqueda.html'; ?>
         </div>
+    </div>
 
         <a href="/Paginas/PHP/registro_empleado.php" class="btn-agregar">+ Agregar Empleado</a>
 
-    </div>
-
-
-    <!-- 🟢 Modal editar -->
-    <div id="modalEditar" class="modal">
-        <div class="modal-contenido">
-            <h3>Editar Empleado</h3>
-            <form id="formEditarEmpleado">
-                <input type="hidden" id="editId">
-                <input type="text" id="editNombre" placeholder="Nombre" required>
-                <input type="email" id="editCorreo" placeholder="Correo" required>
-                <button type="submit">Guardar Cambios</button>
-            </form>
-            <button class="cerrar" onclick="cerrarModalEditar()">Cerrar</button>
-        </div>
-    </div>
 
     <!-- Tabla empleados -->
     <table>
@@ -45,7 +30,6 @@
             <tr>
                 <th>ID</th>
                 <th data-translate="Nombre">Nombre</th>
-                <th data-translate="Editar">Editar</th>
                 <th data-translate="Eliminar">Eliminar</th>
             </tr>
         </thead>

@@ -1,39 +1,32 @@
-// Cargar tiendas al abrir la página
+// Cargar empleados al abrir la página
 document.addEventListener('DOMContentLoaded', function() {
-    cargarTiendas();
+    cargarEmpleados();
 });
 
-// Cargar tiendas desde la base de datos
-function cargarTiendas() {
-    fetch('../PHP/PanelSuperAdmin.php?action=obtenerTiendas')
-        .then(response => {
-            console.log('Response status:', response.status);
-            return response.text();
-        })
-        .then(text => {
-            console.log('Response text:', text);
-            const data = JSON.parse(text);
-            console.log('Parsed data:', data);
-            
-            const tabla = document.getElementById('tablaTiendas');
+// Cargar empleados desde la base de datos
+function cargarEmpleados() {
+    fetch('../PHP/SupAdmEmp.php?action=obtenerEmpleados')
+        .then(response => response.json())
+        .then(data => {
+            const tabla = document.getElementById('tablaEmpleados');
             tabla.innerHTML = '';
             
             if (data && data.length > 0) {
-                data.forEach(tienda => {
+                data.forEach(empleado => {
                     const fila = document.createElement('tr');
                     fila.innerHTML = `
-                        <td>${tienda.id}</td>
-                        <td>${tienda.nombre}</td>
-                        <td>${tienda.descripcion || 'N/A'}</td>
+                        <td>${empleado.id}</td>
+                        <td>${empleado.nombre}</td>
+                        <td>${empleado.descripcion || 'N/A'}</td>
                         <td>
-                            <button class="btn-editar" onclick="editarTienda(${tienda.id}, '${tienda.nombre}', '${tienda.descripcion}')" title="Editar">
+                            <button class="btn-editar" onclick="editarEmpleado(${empleado.id}, '${empleado.nombre}', '${empleado.descripcion}')" title="Editar">
                                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-7-4l8.5-8.5a2.121 2.121 0 013 3L14 10.5M16 3l3 3"></path>
                                 </svg>
                             </button>
                         </td>
                         <td>
-                            <button class="btn-eliminar" onclick="eliminarTienda(${tienda.id})" title="Eliminar">
+                            <button class="btn-eliminar" onclick="eliminarEmpleado(${empleado.id})" title="Eliminar">
                                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                 </svg>
@@ -43,24 +36,20 @@ function cargarTiendas() {
                     tabla.appendChild(fila);
                 });
             } else {
-                tabla.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">No hay tiendas registradas</td></tr>';
+                tabla.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">No hay empleados registrados</td></tr>';
             }
         })
-        .catch(error => {
-            console.error('Error completo:', error);
-            const tabla = document.getElementById('tablaTiendas');
-            tabla.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px; color: red;">Error al cargar datos</td></tr>';
-        });
+        .catch(error => console.error('Error:', error));
 }
 
-// Abrir modal para agregar tienda
+// Abrir modal para agregar empleado
 function abrirModal() {
-    document.getElementById('modalTienda').style.display = 'block';
+    document.getElementById('modalEmpleado').style.display = 'block';
 }
 
 // Cerrar modal de agregar
 function cerrarModal() {
-    document.getElementById('modalTienda').style.display = 'none';
+    document.getElementById('modalEmpleado').style.display = 'none';
 }
 
 // Cerrar modal de editar
@@ -68,22 +57,22 @@ function cerrarModalEditar() {
     document.getElementById('modalEditar').style.display = 'none';
 }
 
-// Abrir modal para editar tienda
-function editarTienda(id, nombre, descripcion) {
+// Abrir modal para editar empleado
+function editarEmpleado(id, nombre, descripcion) {
     document.getElementById('idEditar').value = id;
     document.getElementById('nombreEditar').value = nombre;
     document.getElementById('descripcionEditar').value = descripcion;
     document.getElementById('modalEditar').style.display = 'block';
 }
 
-// Agregar nueva tienda
+// Agregar nuevo empleado
 document.getElementById('formModal')?.addEventListener('submit', function(e) {
     e.preventDefault();
     
     const nombre = document.getElementById('nombreModal').value;
     const descripcion = document.getElementById('descripcionModal').value;
     
-    fetch('../PHP/PanelSuperAdmin.php?action=agregarTienda', {
+    fetch('../PHP/SupAdmEmp.php?action=agregarEmpleado', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -97,12 +86,12 @@ document.getElementById('formModal')?.addEventListener('submit', function(e) {
     .then(data => {
         cerrarModal();
         document.getElementById('formModal').reset();
-        cargarTiendas();
+        cargarEmpleados();
     })
     .catch(error => console.error('Error:', error));
 });
 
-// Guardar cambios de tienda editada
+// Guardar cambios de empleado editado
 document.getElementById('formEditar')?.addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -110,7 +99,7 @@ document.getElementById('formEditar')?.addEventListener('submit', function(e) {
     const nombre = document.getElementById('nombreEditar').value;
     const descripcion = document.getElementById('descripcionEditar').value;
     
-    fetch('../PHP/PanelSuperAdmin.php?action=editarTienda', {
+    fetch('../PHP/SupAdmEmp.php?action=editarEmpleado', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -124,15 +113,15 @@ document.getElementById('formEditar')?.addEventListener('submit', function(e) {
     .then(response => response.json())
     .then(data => {
         cerrarModalEditar();
-        cargarTiendas();
+        cargarEmpleados();
     })
     .catch(error => console.error('Error:', error));
 });
 
-// Eliminar tienda
-function eliminarTienda(id) {
-    if (confirm('¿Estás seguro de que quieres eliminar esta tienda?')) {
-        fetch('../PHP/PanelSuperAdmin.php?action=eliminarTienda', {
+// Eliminar empleado
+function eliminarEmpleado(id) {
+    if (confirm('¿Estás seguro de que quieres eliminar este empleado?')) {
+        fetch('../PHP/SupAdmEmp.php?action=eliminarEmpleado', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -143,7 +132,7 @@ function eliminarTienda(id) {
         })
         .then(response => response.json())
         .then(data => {
-            cargarTiendas();
+            cargarEmpleados();
         })
         .catch(error => console.error('Error:', error));
     }
@@ -151,11 +140,11 @@ function eliminarTienda(id) {
 
 // Cerrar modales al hacer clic fuera de ellos
 window.onclick = function(event) {
-    const modalTienda = document.getElementById('modalTienda');
+    const modalEmpleado = document.getElementById('modalEmpleado');
     const modalEditar = document.getElementById('modalEditar');
     
-    if (event.target == modalTienda) {
-        modalTienda.style.display = 'none';
+    if (event.target == modalEmpleado) {
+        modalEmpleado.style.display = 'none';
     }
     if (event.target == modalEditar) {
         modalEditar.style.display = 'none';
