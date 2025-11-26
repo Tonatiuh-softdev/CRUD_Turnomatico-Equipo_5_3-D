@@ -13,11 +13,11 @@
 loadHeader();
 ?>
 <main>
-    <!-- 🔹 Selector de cajas -->
-    <div class="caja-selector">
-        <form method="POST" style="display: flex; gap: 10px; align-items: center;">
-            <label for="id_caja_select">Seleccionar Caja:</label>
-            <select id="id_caja_select" name="id_caja_select" onchange="this.form.submit()">
+    <!-- 🔹 Selector de cajas con estilo bonito -->
+    <div class="caja-selector-container">
+        <form method="POST" class="caja-selector-form">
+            <label for="id_caja_select" class="caja-selector-label">Seleccionar Caja:</label>
+            <select id="id_caja_select" name="id_caja_select" class="caja-selector-select" onchange="this.form.submit()">
                 <?php foreach ($cajas as $caja): ?>
                     <option value="<?= $caja['ID_Caja'] ?>" <?= ($caja['ID_Caja'] == $id_caja) ? 'selected' : '' ?>>
                         Caja <?= htmlspecialchars($caja['numero_caja']) ?>

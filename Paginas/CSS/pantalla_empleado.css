@@ -1,10 +1,71 @@
     
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f5f5f5;
-    }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+}
 
+/* 🔹 Selector de cajas con diseño bonito */
+.caja-selector-container {
+    width: 100%;
+    background: linear-gradient(135deg, #6f99be 0%, #8db3d1 100%);
+    padding: 20px;
+ 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+}
+
+.caja-selector-form {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.caja-selector-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.caja-selector-select {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #2b3d57;
+    background: #fff;
+    border: 2px solid #a8bfd5;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%232b3d57" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+    padding-right: 40px;
+}
+
+.caja-selector-select:hover {
+    border-color: #6f99be;
+    box-shadow: 0 4px 12px rgba(111, 153, 190, 0.3);
+}
+
+.caja-selector-select:focus {
+    outline: none;
+    border-color: #5a7fa5;
+    box-shadow: 0 0 0 4px rgba(111, 153, 190, 0.2);
+}
+
+.caja-selector-select option {
+    padding: 10px;
+    background: #fff;
+    color: #2b3d57;
+}
   
 
     /* Layout principal */
@@ -73,12 +134,14 @@
     transition: 0.3s;
     display: inline-flex;
     align-items: center;   /* Centra verticalmente */
-    gap: 8px;      
+    gap: 8px;
+    background: #a8bfd5;
 }        
 
 .btn:hover {
+    background: #8fa6c4;
     transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 15px rgba(168, 191, 213, 0.3);
 }
 
 /* Botón lista de espera con iconos */
