@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../CSS/informacion.css">
-    <link rel="stylesheet" href="../Componentes/CSS/footer.css">
+    <link rel="stylesheet" href="/Paginas/CSS/informacion.css">
+    <link rel="stylesheet" href="/Paginas/Componentes/CSS/footer.css">
 </head>
 <body>
     <header>
         <div class="logo">
-            <a href="/Paginas/PHP/informacion.php">
+            <a href="../../index.php">
                 <img src="/img/img.Logo_blanco-Photoroom.png" alt="" width="70">
             </a>
         </div>
@@ -113,7 +113,7 @@
        
     </div>
     </main>
-    <?php include __DIR__ . '/../Componentes/HTML/footer.html'; ?>
+    <?php include __DIR__ . '/Paginas/Componentes/HTML/footer.html'; ?>
     <script src="/Paginas/JS/carrusel.js"></script>
 
 </body>

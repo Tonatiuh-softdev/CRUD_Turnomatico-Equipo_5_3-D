@@ -11,7 +11,7 @@
         display: flex;
         justify-content: center;
         padding: 20px 0;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #a8bfd5;
         margin-bottom: 20px;
         border-radius: 15px;
     }
@@ -36,7 +36,7 @@
     .caja-select {
         padding: 10px 15px;
         font-size: 15px;
-        border: 2px solid #667eea;
+        border: 2px solid #a8bfd5;
         border-radius: 8px;
         background: #fff;
         color: #333;
@@ -47,14 +47,14 @@
     }
 
     .caja-select:hover {
-        border-color: #764ba2;
-        box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+        border-color: #6f99be;
+        box-shadow: 0 3px 10px rgba(168, 191, 213, 0.3);
     }
 
     .caja-select:focus {
         outline: none;
-        border-color: #764ba2;
-        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        border-color: #6f99be;
+        box-shadow: 0 0 0 4px rgba(168, 191, 213, 0.1);
     }
 
     .caja-select option {
