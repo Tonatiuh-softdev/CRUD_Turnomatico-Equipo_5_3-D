@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                            VALUES (?, ?, ?, 'empleado', ?, 0)";
 
             $stmt_insert = $conn->prepare($sql_insert);
-            $stmt_insert->bind_param("ssss", $nombre, $email, $password_hash, $token);
+            $stmt_insert->bind_param("sssss", $nombre, $email, $password_hash, $token);
 
             if ($stmt_insert->execute()) {
                 

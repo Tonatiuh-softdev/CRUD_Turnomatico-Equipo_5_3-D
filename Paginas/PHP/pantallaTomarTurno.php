@@ -3,7 +3,6 @@ require '../../Recursos/PHP/redirecciones.php';
 $conn = loadConexion(); // ✅ Crea la conexión
 loadLogIn();
 
-
 $clienteLogueado = false;
 $nombreCliente = "";
 
@@ -11,6 +10,196 @@ if (isset($_SESSION["usuario"]) && $_SESSION["rol"] === "cliente") {
     $clienteLogueado = true;
     $nombreCliente = $_SESSION["usuario"];
 }
-
-require __DIR__ . '/../HTML/pantallaTomarTurno.html';   
 ?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tomar turno</title>
+<link rel="stylesheet" href="../CSS/pantallaTomarTurno.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="../../Recursos/JS/tranducciones.js"></script>
+<link rel="stylesheet" href="../../Recursos/CSS/theme-vars.css">
+<script src="../../Recursos/JS/theme-init.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="/img/img.Logo_blanco-Photoroom.png" width="70"/>
+    <span>ClickMatic</span>
+  </div>
+</header>
+
+<main>
+  <div class="contenedor">
+    <div class="texto">TOMA TU TURNO</div>
+    <div class="circulo rojo"></div>
+    <div class="circulo azul"></div>
+    <div class="circulo verde"></div>
+  </div>
+
+  <div class="botones-container">
+    <!-- Botón CLIENTE -->
+    <?php if ($clienteLogueado): ?>
+        <button class="boton" onclick="abrirModalCliente()">CLIENTE</button>
+    <?php else: ?>
+        <button class="boton" onclick="window.location.href='/Paginas/PHP/login_Cliente.php'">CLIENTE</button>
+    <?php endif; ?>
+
+    <!-- Botón VISITANTE -->
+    <button class="boton" onclick="abrirModalVisitante()">VISITANTE</button>
+  </div>
+</main>
+
+<!-- Modal -->
+<div class="overlay" id="modal">
+  <div class="modal">
+    <div class="turno-modal">
+      <button class="cerrar">✖</button>
+      <img src="../../img/img.Logo_blanco-Photoroom.png" alt="Logo" class="imagen">
+      <div class="texto">ClickMatic</div>
+      <div class="rectangulo">Turno</div>
+      <div class="rectangulo1" id="turnoModal">...</div>
+      <div class="rectangulo4" id="nombreModal">...</div>
+      <div class="texto1">TOMA TURNO |</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const overlay = document.querySelector('.overlay');
+const modal = document.querySelector('.modal');
+const cerrar = document.querySelector('.cerrar');
+
+cerrar.addEventListener('click', cerrarModal);
+overlay.addEventListener('click', cerrarModal);
+
+// Variable global para el tipo de turno
+let tipoTurnoSeleccionado = null;
+
+// 🔹 Si el cliente ya está logueado, mostrar selector de servicio al cargar
+const clienteLogueado = <?php echo $clienteLogueado ? 'true' : 'false'; ?>;
+const nombreCliente = "<?php echo htmlspecialchars($nombreCliente ?? ''); ?>";
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (clienteLogueado) {
+        console.log("Cliente logueado, mostrando selector de servicio");
+        mostrarSelectorServicio('cliente');
+    }
+});
+
+// Obtener servicios de la tienda
+async function obtenerServicios() {
+    try {
+        const response = await fetch("../../Recursos/PHP/obtener_servicios.php");
+        return await response.json();
+    } catch (error) {
+        console.error("Error al obtener servicios:", error);
+        return [];
+    }
+}
+
+// Mostrar modal para seleccionar servicio
+async function mostrarSelectorServicio(tipo) {
+    tipoTurnoSeleccionado = tipo.toUpperCase();
+    
+    const servicios = await obtenerServicios();
+    
+    if (servicios.length === 0) {
+        alert("No hay servicios disponibles en esta tienda");
+        return;
+    }
+    
+    // Crear modal de selección de servicios
+    const selectorModal = document.createElement('div');
+    selectorModal.className = 'overlay active';
+    selectorModal.innerHTML = `
+        <div class="modal active">
+            <div class="turno-modal">
+                <button class="cerrar" onclick="this.closest('.overlay').remove()">✖</button>
+                <img src="../../img/img.Logo_blanco-Photoroom.png" alt="Logo" class="imagen">
+                <div class="texto">ClickMatic</div>
+                <div style="text-align: center; margin: 20px 0; font-size: 18px; color: #333;">
+                    Selecciona un servicio
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px; padding: 0 20px;">
+                    ${servicios.map(servicio => `
+                        <button style="padding: 12px 20px; background: #7d6df6; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: background 0.3s;" 
+                                onmouseover="this.style.background='#6a5ae8'" 
+                                onmouseout="this.style.background='#7d6df6'"
+                                onclick="generarTurnoConServicio(${servicio.ID_Servicio}, '${tipoTurnoSeleccionado}')">
+                            ${servicio.nombre}
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(selectorModal);
+    
+    // Cerrar al hacer clic en el fondo
+    selectorModal.addEventListener('click', (e) => {
+        if (e.target === selectorModal) {
+            selectorModal.remove();
+        }
+    });
+}
+
+// Generar turno con servicio seleccionado
+async function generarTurnoConServicio(idServicio, tipo) {
+    try {
+        const response = await fetch(`../../Recursos/PHP/generar_turno.php?tipo=${tipo.toLowerCase()}&id_servicio=${idServicio}`);
+        const turno = await response.text();
+        
+        if (turno.includes('error') || turno.includes('Fatal')) {
+            alert("Error al generar turno: " + turno);
+            console.error(turno);
+            return;
+        }
+        
+        document.getElementById("turnoModal").textContent = turno;
+        document.getElementById("nombreModal").textContent = tipo === "CLIENTE" ? nombreCliente : "Visitante";
+        
+        // Cerrar modal de selección
+        document.querySelectorAll('.overlay.active').forEach(el => {
+            if (el !== overlay) el.remove();
+        });
+        
+        overlay.classList.add('active');
+        modal.classList.add('active');
+
+        // Si es cliente, destruir sesión
+        if (tipo === "CLIENTE") {
+            await fetch("./logout_cliente.php");
+        }
+    } catch (error) {
+        console.error("Error al generar turno:", error);
+        alert("Error al generar turno");
+    }
+}
+
+// Generar turno visitante (ahora con selector de servicio)
+function abrirModalVisitante() {
+    mostrarSelectorServicio('visitante');
+}
+
+// Generar turno cliente logueado (ahora con selector de servicio)
+function abrirModalCliente() {
+    mostrarSelectorServicio('cliente');
+}
+
+function cerrarModal() {
+    modal.classList.add('closing');
+    overlay.classList.remove('active');
+    setTimeout(() => {
+        modal.classList.remove('active', 'closing');
+    }, 600);
+}
+</script>
+
+</body>
+</html>

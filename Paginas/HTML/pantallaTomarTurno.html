@@ -82,6 +82,14 @@ overlay.addEventListener('click', cerrarModal);
 // Variable global para el tipo de turno
 let tipoTurnoSeleccionado = null;
 
+// 🔹 Si el cliente ya está logueado, mostrar selector de servicio al cargar
+document.addEventListener('DOMContentLoaded', function() {
+    const clienteLogueado = <?php echo $clienteLogueado ? 'true' : 'false'; ?>;
+    if (clienteLogueado) {
+        mostrarSelectorServicio('cliente');
+    }
+});
+
 // Obtener servicios de la tienda
 async function obtenerServicios() {
     try {

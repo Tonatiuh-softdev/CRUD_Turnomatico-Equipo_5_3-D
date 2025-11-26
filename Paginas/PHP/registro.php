@@ -40,11 +40,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $sql = "INSERT INTO usuarios (nombre, email, password, rol, ID_Tienda, verificado, token_verificacion) 
                     VALUES (?, ?, ?, 'cliente', ?, 0, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssssi", $nombre, $email, $hashed_password, $id_tienda, $token);
+            $stmt->bind_param("sssis", $nombre, $email, $hashed_password, $id_tienda, $token);
 
             if ($stmt->execute()) {
                 // Enviar correo con enlace de verificación
-                $link_verificacion = "http://localhost/pantallas/PHP/verificar_cuenta.php?token=$token";
+                $baseURL = "https://nexora.com.mx/Paginas/PHP/verificar_cuenta.php";
+                $link_verificacion = $baseURL . "?token=" . $token;
+
 
                 if (enviarCorreoVerificacion($email, $nombre, $link_verificacion)) {
                     $mensaje = "✅ Registro pendiente. Se envió un correo de confirmación al cliente.";
