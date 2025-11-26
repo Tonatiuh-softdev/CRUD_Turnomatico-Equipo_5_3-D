@@ -66,37 +66,24 @@
         background: #3f5675;
     }
 
-   /* Botón Agregar */
-.btn-agregar {
-    display: inline-block;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    cursor: pointer;
-}
+    /* Botón grande */
+    .btn-agregar {
+        display: block;
+        margin: 20px auto;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        border-radius: 30px;
+        background: #2b3d57;
+        color: #fff;
+        cursor: pointer;
+        transition: 0.3s;
+    }
 
-.btn-agregar {
-    display: block;
-    margin: 25px auto;
-    padding: 14px 40px;
-    font-size: 18px;
-    font-weight: bold;
-    font-weight: 600;
-    border: none;
-    border-radius: 40px;
-    background: linear-gradient(135deg, #2b3d57, #3f5675);
-    color: #fff;
-    cursor: pointer;
-    transition: all 0.4s ease;
-    box-shadow: 0 6px 15px rgba(43, 61, 87, 0.4);
-    letter-spacing: 0.5px;
-}
-.btn-agregar:hover {
-    background: #45a049;
-}
+    .btn-agregar:hover {
+        background: #3f5675;
+    }
 
     /* Fondo degradado del modal */
     .modal {
