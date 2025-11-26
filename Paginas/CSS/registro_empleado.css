@@ -99,12 +99,18 @@ form {
   align-items: center;
 }
 
+/* ===== CAMPOS INPUT (Nombre y Email) ===== */
+.input-field {
+  width: 90%;
+}
+
 .input-field input {
-  width: 80%;
-  padding: 15px;
+  width: 92%;
+  height: 60px;
+  padding: 0 20px;
   border: none;
-  border-radius: 25px;
-  font-size: 20px;
+  border-radius: 35px;
+  font-size: 22px;
   background: #d9d9d9;
   color: #333;
   transition: all 0.3s ease;
@@ -116,13 +122,51 @@ form {
   outline: none;
 }
 
-/* ===== BOTÓN REGISTRO ===== */
-.registro-button {
-  width: 80%;
+/* ===== CAMPO DE CONTRASEÑA ===== */
+.password-field {
+  position: relative;
+  width: 90%;
+}
+
+.password-field input {
+  width: 88%;
   height: 60px;
-  background: #c6d7ef;
-  color: #838283;
+  padding: 0 55px 0 20px;
   border: none;
+  border-radius: 35px;
+  font-size: 22px;
+  background: #d9d9d9;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.password-field input:focus {
+  background-color: #e2ebf5;
+  box-shadow: 0 0 8px rgba(150,150,150,0.5);
+  outline: none;
+}
+
+.password-field .toggle-eye {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: #555;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.password-field .toggle-eye:hover {
+  color: #333;
+}
+
+/* ===== BOTONES ===== */
+button,
+.registro-button,
+.register-button {
+  width: 90%;
+  height: 60px;
   border-radius: 35px;
   font-size: 22px;
   font-weight: bold;
@@ -130,19 +174,17 @@ form {
   transition: all 0.3s ease;
 }
 
+/* ===== BOTÓN REGISTRO ===== */
+.registro-button {
+  background: #c6d7ef;
+  color: #838283;
+  border: none;
+}
+
 .registro-button:hover {
   background: #b5c8e0;
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-}
-
-/* ===== MENSAJE ===== */
-.mensaje {
-  text-align: center;
-  font-size: 18px;
-  color: #555;
-  margin-top: 15px;
-  font-weight: bold;
 }
 
 /* ===== VOLVER AL PANEL ===== */
@@ -155,21 +197,26 @@ form {
 
 .register-button {
   display: inline-block;
-  margin-top: 10px;
-  padding: 10px 25px;
   background-color: #c6d7ef;
   color: #555;
-  border-radius: 25px;
   text-decoration: none;
-  font-size: 18px;
-  transition: all 0.3s ease;
-  font-weight: bold;
+  line-height: 60px; /* centra el texto */
+  text-align: center;
 }
 
 .register-button:hover {
   background-color: #aebfda;
-  transform: scale(1.05);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+/* ===== MENSAJE ===== */
+.mensaje {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  margin-top: 15px;
+  font-weight: bold;
 }
 
 /* ===== ANIMACIÓN ===== */
@@ -193,3 +240,4 @@ form {
     margin-top: 30px;
   }
 }
+

@@ -70,16 +70,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-  <header>
+<header>
   <div class="logo">
     <img src="/img/img.Logo_blanco-Photoroom.png" alt="Logo">
     <span>Panel Administrativo</span>
   </div>
-  <div class="user">
-  </div>
+  <div class="user"></div>
 </header>
 
 <div class="container">
+
   <!-- Panel Izquierdo -->
   <div class="left-panel">
     <div class="left-text">
@@ -91,17 +91,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <!-- Panel Derecho -->
   <div class="right-panel">
     <h2>Registro</h2>
+
     <form method="POST">
+
       <div class="input-field">
         <input type="text" name="nombre" placeholder="Nombre completo" required>
       </div>
+
       <div class="input-field">
         <input type="email" name="email" placeholder="Correo electrónico" required>
       </div>
-       <div class="input-field password-field">
-    <input type="password" id="password" name="password" placeholder="Password" required>
-    <i class="fa-solid fa-eye-slash toggle-eye" id="togglePassword"></i>
-</div>
+
+      <!-- CAMPO DE CONTRASEÑA CORREGIDO PARA TENER MISMO TAMAÑO -->
+      <div class="input-field password-field" style="width: 90%;">
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <i class="fa-solid fa-eye-slash toggle-eye" id="togglePassword"></i>
+      </div>
+
       <button type="submit" class="registro-button">Registrar empleado</button>
     </form>
 
@@ -111,6 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <p>¿Ya registraste a todos?</p>
       <a href="/Paginas/PHP/empleados.php" class="register-button">← Volver al panel</a>
     </div>
+
   </div>
 </div>
 
@@ -126,5 +133,7 @@ toggle.addEventListener('click', () => {
     toggle.classList.toggle("fa-eye-slash");
 });
 </script>
+
 </body>
 </html>
+
